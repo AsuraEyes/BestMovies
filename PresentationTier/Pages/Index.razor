@@ -1,9 +1,228 @@
-﻿@page "/"
+@page "/"
 
-<PageTitle>Index</PageTitle>
+<div class="control-container" style="width: 450px;">
+    <SfCarousel AnimationEffect="CarouselAnimationEffect.Fade" ShowIndicators="false"
+                CssClass="partial-carousel ec" AutoPlay=true PartialVisible=true>
+        @foreach (CarouselDataModel data in CarouselData)
+        {
+            <CarouselItem>
+                <figure class="img-container">
+                    <img style="height:250px;width:100%;"src="images/carousel/@(data.ImageName)"/>
+                    <figcaption class="img-caption">@data.Title</figcaption>
+                </figure>
+            </CarouselItem>
+        }
+    </SfCarousel>
+</div>
 
-<h1>Hello, world!</h1>
 
-Welcome to your new app.
+@*<RadzenTemplateForm Data="@order" Submit="@((Order args) => { Submit(args); })">
+ <div class="row">
+<div class="col-md-6">
+ <RadzenFieldset Text="Trending">
+  <div class="row"></div>
+ </RadzenFieldset>
+</div> 
+     </div>
+       </RadzenTemplateForm>*@
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+<h3>New Releases</h3>
+<div class="container-fluid">
+    <div class="card-container">
+        @if (CardDatas.Count == 0)
+        {
+            <div class="e-error">
+                <div class="e-error-content">No results found. Please try a different search.</div>
+            </div>
+        }
+        else
+        {
+            <div class="scrolling-wrapper row flex-row flex-nowrap mt-4 pb-4">
+                @foreach (CardDataModel card in CardDatas)
+                {
+                    <div class="col sm" style="padding: 15px; overflow-y: auto">
+                        <div>
+                            <SfCard>
+                                <CardImage Image="@card.ImageUrl"/>
+                                <CardContent Content="@card.Title"/>
+                                <CardFooter>
+                                    <CardFooterContent>
+                                        <SfButton CssClass="e-btn e-outline e-primary" @onclick="@(e => NavigateToUrlAsync(@card.NavUrl))">Read More</SfButton>
+                                    </CardFooterContent>
+                                </CardFooter>
+                            </SfCard>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    .partial-carousel-section .carousel-sample {
+        margin: 0 auto 2em;
+        max-width: 650px;
+        height: 300px;
+    }
+    .partial-carousel .e-carousel-items .e-carousel-item .img-container {
+        margin: 0 10px;
+        width: 100%;
+        height: 100%;
+    }
+    .partial-carousel .e-carousel-items .e-carousel-item .img-caption {
+        bottom: 4em;
+        color: #fff;
+        font-size: 12pt;
+        position: relative;
+        padding: 0.3em 1em;
+        text-align: center;
+        width: 100%;
+    }
+    @@media screen and (max-width: 480px) {
+        .partial-carousel-section .carousel-sample {
+            height: 110px;
+        }
+        .partial-carousel .e-carousel-items .e-carousel-item .img-caption {
+            position: absolute;
+            top: 0;
+            font-size: 12px;
+            text-align: left;
+        }
+    }
+</style>
+
+<style>
+    .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin: -10px;
+    }
+    
+    .card {
+        width: calc(33.33% - 20px);
+        margin: 10px;
+    }
+</style>
+
+
+@code {
+    
+    protected override void OnInitialized()
+    {
+        _cardDatas = GetCardDatas();
+        base.OnInitialized();
+    }
+
+    public class CarouselDataModel {
+        public int ID { get; set; }
+        public string Title { get; set; }
+        public string ImageName { get; set; }
+        public string Content { get; set; }
+    }
+    List<CarouselDataModel> CarouselData = new()
+    {
+        new CarouselDataModel {
+            ID = 1,
+            Title = "San Francisco",
+            ImageName = "san-francisco.png",
+            Content = "San Francisco, officially the City and County of San Francisco, is a cultural, commercial, and financial center in the U.S. state of California. Located in Northern California, San Francisco is the 17th most populous city proper in the United States, and the fourth most populous in California.",
+        },
+        new CarouselDataModel {
+            ID = 2,
+            Title = "London",
+            ImageName = "london.png",
+            Content = "London, the capital of England and the United Kingdom, is a 21st-century city with history stretching back to Roman times. At its centre stand the imposing Houses of Parliament, the iconic ‘Big Ben’ clock tower and Westminster Abbey, site of British monarch coronations.",
+        },
+        new CarouselDataModel {
+            ID = 3,
+            Title = "Tokyo",
+            ImageName = "tokyo.png",
+            Content = "Tokyo, Japan’s busy capital, mixes the ultramodern and the traditional, from neon-lit skyscrapers to historic temples. The opulent Meiji Shinto Shrine is known for its towering gate and surrounding woods. The Imperial Palace sits amid large public gardens.",
+        },
+         new CarouselDataModel {
+            ID = 4,
+            Title = "Moscow",
+            ImageName = "moscow.png",             
+            Content = "Moscow, on the Moskva River in western Russia, is the nation’s cosmopolitan capital. In its historic core is the Kremlin, a complex that’s home to the president and tsarist treasures in the Armoury. Outside its walls is Red Square, Russia`s symbolic center.",
+
+        }
+    };
+    
+    [Inject] public NavigationManager NavigationManager { get; set; }
+    [Inject] public IJSRuntime JsRuntime { get; set; }
+    
+    public class CardDataModel
+    {
+        public string ImageUrl { get; set; }
+        public string Title { get; set; }
+        public string SubTitle { get; set; }
+        public string Content { get; set; }
+        public string NavUrl { get; set; }
+        public string Tag { get; set; }
+    }
+    public List<CardDataModel> GetCardDatas()
+    {
+        var assetpath = "images/carousel/";
+        List<CardDataModel> CardData = new List<CardDataModel>();
+        CardData.Add(new CardDataModel { ImageUrl = assetpath + "london.png", Title = "ASP.NET MVC", SubTitle = "Nick Harrison", Content = "ASP.NET Model View Controller design pattern to keep the data, views, and logic clearly separated in apps.", NavUrl = "https://www.syncfusion.com/ebooks/ASPNET_MVC_Succinctly", Tag = "Server-side" });
+        CardData.Add(new CardDataModel { ImageUrl = assetpath + "london.png", Title = "Node.js", SubTitle = "Emanuele DelBono", Content = "Node.js is a wildly popular platform for writing web applications that has revolutionized web development in many ways.", NavUrl = "https://www.syncfusion.com/ebooks/nodejs", Tag = "Client-side" });
+        CardData.Add(new CardDataModel { ImageUrl = assetpath + "london.png", Title = "React.js", SubTitle = "Dmitri Nesteruk", Content = "React is a JavaScript library that has revolutionized how developers design and think about views in web applications.", NavUrl = "https://www.syncfusion.com/ebooks/reactjs_succinctly", Tag = "Client-side" });
+        CardData.Add(new CardDataModel { ImageUrl = assetpath + "london.png", Title = "TypeScript", SubTitle = "Steve Fenton", Content = "Microsoft TypeScript extends many familiar features of .NET programming to JavaScript.", NavUrl = "https://www.syncfusion.com/ebooks/typescript", Tag = "Client-side" });
+        CardData.Add(new CardDataModel { ImageUrl = assetpath + "london.png", Title = "PHP", SubTitle = "Jose Roberto Olivas Mendoza", Content = "Known for its straightforward simplicity, PHP is an open source, general-purpose scripting language oriented for web development.", NavUrl = "https://www.syncfusion.com/ebooks/php_succinctly", Tag = "Server-side" });
+        CardData.Add(new CardDataModel { ImageUrl = assetpath + "london.png", Title = "CSS3", SubTitle = "Peter Shaw", Content = "In CSS3 Succinctly, author Peter Shaw provides an overview of the latest features available for custom cascading style sheets.", NavUrl = "https://www.syncfusion.com/ebooks/css3", Tag = "Front-end" });
+        CardData.Add(new CardDataModel { ImageUrl = assetpath + "london.png", Title = "ASP.NET Core", SubTitle = "Simone Chiaretta and Ugo Lattanzi", Content = "In ASP.NET Core Succinctly, seasoned authors Simone Chiaretta and Ugo Lattanzi update you on all the advances provided by Microsoft’s landmark framework.", NavUrl = "https://www.syncfusion.com/ebooks/asp_net_core_succinctly", Tag = "Server-side" });
+        CardData.Add(new CardDataModel { ImageUrl = assetpath + "london.png", Title = "Aurelia", SubTitle = "Matthew Duffield", Content = "Aurelia is a relatively new, open-source JavaScript library/framework that simplifies the creation of web-based applications.", NavUrl = "https://www.syncfusion.com/ebooks/aurelia_succinctly", Tag = "Client-side" });
+        CardData.Add(new CardDataModel { ImageUrl = assetpath + "london.png", Title = "ECMAScript 6", SubTitle = "Matthew Duffield", Content = "ECMAScript 6 (ES6), also known as ECMAScript 2015, brings new functionality and features to the table that developers have been wanting for a long time.", NavUrl = "https://www.syncfusion.com/ebooks/ecmascript_6_succinctly", Tag = "Client-side" });
+        CardData.Add(new CardDataModel { ImageUrl = assetpath + "london.png", Title = "JavaScript", SubTitle = "Cody Lindley", Content = "JavaScript Succinctly was written to give readers an accurate, concise examination of JavaScript objects and their supporting nuances.", NavUrl = "https://www.syncfusion.com/ebooks/javascript", Tag = "Client-side" });
+        CardData.Add(new CardDataModel { ImageUrl = assetpath + "london.png", Title = "Knockout.js", SubTitle = "Ryan Hodson", Content = "Knockout.js Succinctly is intended for professional web developers who need to build dynamic, scalable user interfaces with minimal code.", NavUrl = "https://www.syncfusion.com/ebooks/knockoutjs", Tag = "Client-side" });
+        CardData.Add(new CardDataModel { ImageUrl = assetpath + "london.png", Title = "Angular 2", SubTitle = "Joseph D.Booth", Content = "Angular 2 is a massively popular JavaScript framework built to take advantage of component development in web apps.", NavUrl = "https://www.syncfusion.com/ebooks/angular2_succinctly", Tag = "Client-side" });
+        return CardData;
+    }
+    private List<CardDataModel> _cardDatas;
+    public List<CardDataModel> CardDatas
+    {
+        get {  return _cardDatas; }
+        set { _cardDatas = value; }
+    } 
+    
+    public async Task NavigateToUrlAsync(string url)
+    {
+        await JsRuntime.InvokeAsync<object>("open", url, "_blank");
+    }
+
+    public class Order {
+        public DateTime OrderDate {
+            get;
+            set;
+        }
+        public DateTime ShipDate {
+            get;
+            set;
+        }
+    }
+    public class CreditCard {
+        public int CardId {
+            get;
+            set;
+        }
+        public string CardNr {
+            get;
+            set;
+        }
+    }
+    public class Country {
+        public int Id {
+            get;
+            set;
+        }
+        public string Name {
+            get;
+            set;
+        }
+    }
+    
+    Order order = new Order();
+
+}

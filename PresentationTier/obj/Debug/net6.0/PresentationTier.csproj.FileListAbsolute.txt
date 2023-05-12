@@ -1,48 +1,59 @@
-C:\Users\simon\SEP6\PresentationTier\bin\Debug\net6.0\appsettings.Development.json
-C:\Users\simon\SEP6\PresentationTier\bin\Debug\net6.0\appsettings.json
-C:\Users\simon\SEP6\PresentationTier\bin\Debug\net6.0\PresentationTier.staticwebassets.runtime.json
-C:\Users\simon\SEP6\PresentationTier\bin\Debug\net6.0\PresentationTier.exe
-C:\Users\simon\SEP6\PresentationTier\bin\Debug\net6.0\PresentationTier.deps.json
-C:\Users\simon\SEP6\PresentationTier\bin\Debug\net6.0\PresentationTier.runtimeconfig.json
-C:\Users\simon\SEP6\PresentationTier\bin\Debug\net6.0\PresentationTier.dll
-C:\Users\simon\SEP6\PresentationTier\bin\Debug\net6.0\PresentationTier.pdb
-C:\Users\simon\SEP6\PresentationTier\obj\Debug\net6.0\PresentationTier.csproj.AssemblyReference.cache
-C:\Users\simon\SEP6\PresentationTier\obj\Debug\net6.0\PresentationTier.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\simon\SEP6\PresentationTier\obj\Debug\net6.0\PresentationTier.AssemblyInfoInputs.cache
-C:\Users\simon\SEP6\PresentationTier\obj\Debug\net6.0\PresentationTier.AssemblyInfo.cs
-C:\Users\simon\SEP6\PresentationTier\obj\Debug\net6.0\PresentationTier.csproj.CoreCompileInputs.cache
-C:\Users\simon\SEP6\PresentationTier\obj\Debug\net6.0\PresentationTier.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\simon\SEP6\PresentationTier\obj\Debug\net6.0\PresentationTier.RazorAssemblyInfo.cache
-C:\Users\simon\SEP6\PresentationTier\obj\Debug\net6.0\PresentationTier.RazorAssemblyInfo.cs
-C:\Users\simon\SEP6\PresentationTier\obj\Debug\net6.0\staticwebassets.build.json
-C:\Users\simon\SEP6\PresentationTier\obj\Debug\net6.0\staticwebassets.development.json
-C:\Users\simon\SEP6\PresentationTier\obj\Debug\net6.0\scopedcss\Shared\MainLayout.razor.rz.scp.css
-C:\Users\simon\SEP6\PresentationTier\obj\Debug\net6.0\scopedcss\Shared\NavMenu.razor.rz.scp.css
-C:\Users\simon\SEP6\PresentationTier\obj\Debug\net6.0\scopedcss\bundle\PresentationTier.styles.css
-C:\Users\simon\SEP6\PresentationTier\obj\Debug\net6.0\scopedcss\projectbundle\PresentationTier.bundle.scp.css
-C:\Users\simon\SEP6\PresentationTier\obj\Debug\net6.0\PresentationTier.dll
-C:\Users\simon\SEP6\PresentationTier\obj\Debug\net6.0\refint\PresentationTier.dll
-C:\Users\simon\SEP6\PresentationTier\obj\Debug\net6.0\PresentationTier.pdb
-C:\Users\simon\SEP6\PresentationTier\obj\Debug\net6.0\PresentationTier.genruntimeconfig.cache
-C:\Users\simon\SEP6\PresentationTier\obj\Debug\net6.0\ref\PresentationTier.dll
-C:\Users\simon\SEP6\PresentationTier\bin\Debug\net6.0\Microsoft.AspNetCore.Authorization.dll
-C:\Users\simon\SEP6\PresentationTier\bin\Debug\net6.0\Microsoft.AspNetCore.Components.dll
-C:\Users\simon\SEP6\PresentationTier\bin\Debug\net6.0\Microsoft.AspNetCore.Components.Forms.dll
-C:\Users\simon\SEP6\PresentationTier\bin\Debug\net6.0\Microsoft.AspNetCore.Components.Web.dll
-C:\Users\simon\SEP6\PresentationTier\bin\Debug\net6.0\Microsoft.AspNetCore.Metadata.dll
-C:\Users\simon\SEP6\PresentationTier\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
-C:\Users\simon\SEP6\PresentationTier\bin\Debug\net6.0\Microsoft.JSInterop.dll
-C:\Users\simon\SEP6\PresentationTier\bin\Debug\net6.0\Syncfusion.Blazor.Buttons.dll
-C:\Users\simon\SEP6\PresentationTier\bin\Debug\net6.0\Syncfusion.Blazor.Core.dll
-C:\Users\simon\SEP6\PresentationTier\bin\Debug\net6.0\Syncfusion.Blazor.Data.dll
-C:\Users\simon\SEP6\PresentationTier\bin\Debug\net6.0\Syncfusion.Blazor.DropDowns.dll
-C:\Users\simon\SEP6\PresentationTier\bin\Debug\net6.0\Syncfusion.Blazor.Inputs.dll
-C:\Users\simon\SEP6\PresentationTier\bin\Debug\net6.0\Syncfusion.Blazor.Notifications.dll
-C:\Users\simon\SEP6\PresentationTier\bin\Debug\net6.0\Syncfusion.Blazor.Popups.dll
-C:\Users\simon\SEP6\PresentationTier\bin\Debug\net6.0\Syncfusion.Blazor.Spinner.dll
-C:\Users\simon\SEP6\PresentationTier\bin\Debug\net6.0\Syncfusion.Blazor.SplitButtons.dll
-C:\Users\simon\SEP6\PresentationTier\bin\Debug\net6.0\Syncfusion.Licensing.dll
-C:\Users\simon\SEP6\PresentationTier\bin\Debug\net6.0\System.IO.Pipelines.dll
-C:\Users\simon\SEP6\PresentationTier\obj\Debug\net6.0\PresentationTier.csproj.CopyComplete
-C:\Users\simon\SEP6\PresentationTier\bin\Debug\net6.0\Radzen.Blazor.dll
-C:\Users\simon\SEP6\PresentationTier\bin\Debug\net6.0\System.Linq.Dynamic.Core.dll
+/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/bin/Debug/net6.0/appsettings.Development.json
+/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/bin/Debug/net6.0/appsettings.json
+/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/bin/Debug/net6.0/PresentationTier.staticwebassets.runtime.json
+/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/bin/Debug/net6.0/PresentationTier
+/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/bin/Debug/net6.0/PresentationTier.deps.json
+/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/bin/Debug/net6.0/PresentationTier.runtimeconfig.json
+/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/bin/Debug/net6.0/PresentationTier.dll
+/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/bin/Debug/net6.0/PresentationTier.pdb
+/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/bin/Debug/net6.0/Microsoft.AspNetCore.Authorization.dll
+/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/bin/Debug/net6.0/Microsoft.AspNetCore.Components.dll
+/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/bin/Debug/net6.0/Microsoft.AspNetCore.Components.Forms.dll
+/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/bin/Debug/net6.0/Microsoft.AspNetCore.Components.Web.dll
+/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/bin/Debug/net6.0/Microsoft.AspNetCore.Metadata.dll
+/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/bin/Debug/net6.0/Microsoft.Extensions.Logging.Abstractions.dll
+/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/bin/Debug/net6.0/Microsoft.JSInterop.dll
+/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/bin/Debug/net6.0/Newtonsoft.Json.dll
+/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/bin/Debug/net6.0/Syncfusion.Blazor.dll
+/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/bin/Debug/net6.0/Syncfusion.ExcelExport.Net.dll
+/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/bin/Debug/net6.0/Syncfusion.Licensing.dll
+/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/bin/Debug/net6.0/Syncfusion.PdfExport.Net.dll
+/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/bin/Debug/net6.0/System.IO.Pipelines.dll
+/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/obj/Debug/net6.0/PresentationTier.csproj.AssemblyReference.cache
+/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/obj/Debug/net6.0/PresentationTier.GeneratedMSBuildEditorConfig.editorconfig
+/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/obj/Debug/net6.0/PresentationTier.AssemblyInfoInputs.cache
+/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/obj/Debug/net6.0/PresentationTier.AssemblyInfo.cs
+/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/obj/Debug/net6.0/PresentationTier.csproj.CoreCompileInputs.cache
+/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/obj/Debug/net6.0/PresentationTier.MvcApplicationPartsAssemblyInfo.cache
+/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/obj/Debug/net6.0/PresentationTier.RazorAssemblyInfo.cache
+/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/obj/Debug/net6.0/PresentationTier.RazorAssemblyInfo.cs
+/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/obj/Debug/net6.0/staticwebassets/msbuild.PresentationTier.Microsoft.AspNetCore.StaticWebAssets.props
+/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/obj/Debug/net6.0/staticwebassets/msbuild.build.PresentationTier.props
+/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/obj/Debug/net6.0/staticwebassets/msbuild.buildMultiTargeting.PresentationTier.props
+/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/obj/Debug/net6.0/staticwebassets/msbuild.buildTransitive.PresentationTier.props
+/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/obj/Debug/net6.0/staticwebassets.pack.json
+/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/obj/Debug/net6.0/staticwebassets.build.json
+/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/obj/Debug/net6.0/staticwebassets.development.json
+/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/obj/Debug/net6.0/scopedcss/Shared/MainLayout.razor.rz.scp.css
+/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/obj/Debug/net6.0/scopedcss/Shared/NavMenu.razor.rz.scp.css
+/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/obj/Debug/net6.0/scopedcss/bundle/PresentationTier.styles.css
+/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/obj/Debug/net6.0/scopedcss/projectbundle/PresentationTier.bundle.scp.css
+/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/obj/Debug/net6.0/PresentationTier.csproj.CopyComplete
+/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/obj/Debug/net6.0/PresentationTier.dll
+/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/obj/Debug/net6.0/refint/PresentationTier.dll
+/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/obj/Debug/net6.0/PresentationTier.pdb
+/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/obj/Debug/net6.0/PresentationTier.genruntimeconfig.cache
+/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/obj/Debug/net6.0/ref/PresentationTier.dll
+//Mac/Home/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/obj/Debug/net6.0/PresentationTier.csproj.AssemblyReference.cache
+//Mac/Home/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/obj/Debug/net6.0/PresentationTier.GeneratedMSBuildEditorConfig.editorconfig
+//Mac/Home/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/obj/Debug/net6.0/PresentationTier.AssemblyInfoInputs.cache
+//Mac/Home/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/obj/Debug/net6.0/PresentationTier.AssemblyInfo.cs
+//Mac/Home/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/obj/Debug/net6.0/PresentationTier.csproj.CoreCompileInputs.cache
+//Mac/Home/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/obj/Debug/net6.0/PresentationTier.MvcApplicationPartsAssemblyInfo.cache
+//Mac/Home/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/obj/Debug/net6.0/PresentationTier.RazorAssemblyInfo.cache
+//Mac/Home/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/obj/Debug/net6.0/PresentationTier.RazorAssemblyInfo.cs
+//Mac/Home/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/obj/Debug/net6.0/PresentationTier.dll
+//Mac/Home/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/obj/Debug/net6.0/refint/PresentationTier.dll
+//Mac/Home/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/obj/Debug/net6.0/PresentationTier.pdb
+/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/bin/Debug/net6.0/Radzen.Blazor.dll
+/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/bin/Debug/net6.0/System.Linq.Dynamic.Core.dll
