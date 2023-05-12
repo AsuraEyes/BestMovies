@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using PresentationTier.Data;
+using PresentationTier.Data.Media;
+using Radzen;
 using Syncfusion.Blazor;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,7 +11,20 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
+
+//Syncfusion
 builder.Services.AddSyncfusionBlazor();
+
+//Radzen
+builder.Services.AddScoped<DialogService>();
+builder.Services.AddScoped<NotificationService>();
+builder.Services.AddScoped<TooltipService>();
+builder.Services.AddScoped<ContextMenuService>();
+
+//Services
+builder.Services.AddScoped<IMediaService, MediaService>();
+builder.Services.AddScoped<IMovieService, MovieService>();
+builder.Services.AddScoped<ITVService, TVService>();
 
 var app = builder.Build();
 
