@@ -1,0 +1,75 @@
+@page "/Post"
+@using PresentationTier.Models
+@using Syncfusion.Blazor
+
+<style>
+    .profile-pic {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+        padding-bottom: 10px;
+    }
+
+    .editor {
+        background-color: #F9FAFB;
+        padding: 40px;
+        border-radius: 5px;
+        box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.1);
+    }
+
+    .editor h1 {
+        font-size: 36px;
+        margin-bottom: 30px;
+    }
+
+    .editor input,
+    .editor textarea {
+        background-color: #F1F3F5;
+        border: none;
+        border-radius: 5px;
+        padding: 15px;
+        margin-bottom: 20px;
+        font-size: 18px;
+        color: #4B5563;
+    }
+
+    .editor button {
+        background-color: #4F46E5;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        padding: 15px;
+        font-size: 18px;
+        transition: all 0.2s ease-in-out;
+    }
+
+    .editor button:hover {
+        background-color: #4338CA;
+        cursor: pointer;
+    }
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="editor">
+                <h1>Create a Post</h1>
+                <div class="profile-info" style="display: flex; align-items: center;">
+                    <img src="@currentUser.ProfilePictureUrl" alt="Profile Picture" class="profile-pic">
+                    <div class="form-label" style="margin-left: 10px;">@currentUser.Username</div>
+                </div>
+                <input placeholder="Title" class="form-control" style="width:100%; height:50px; font-weight: bold;">
+                <textarea placeholder="Write your post" rows="10" style="width:100%; font-size: 18px;"></textarea>
+                <button class="btn btn-primary float-right">Post</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private User currentUser = new User {
+        Username = "Abdul",
+        ProfilePictureUrl = "https://cdn.nba.com/headshots/nba/latest/1040x760/76003.png"
+    };
+}
