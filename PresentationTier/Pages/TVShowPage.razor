@@ -1,0 +1,81 @@
+@page "/tv/{Id:int}"
+
+@using PresentationTier.Models
+@using PresentationTier.Data.Media
+
+@inject NavigationManager NavigationManager
+
+@inject ITVService TVService
+
+<PageTitle>@tv.Name</PageTitle>
+<RadzenRow Style="width: 1720px">
+    <RadzenStack Orientation="Radzen.Orientation.Vertical" Style="width: 100%; max-height: 600px">
+        <RadzenImage Path="@backdrop" Style="height: 100%; opacity: 50%"/>
+        <RadzenStack Orientation="Radzen.Orientation.Horizontal" Style="position: relative; bottom: 600px; margin-left: 160px; margin-right: 160px">
+            <RadzenImage Path="@image" Style="width: 300px; height: 450px"/>
+            <RadzenStack Gap="15" Style="width: 100%; margin-right: 40px">
+                <RadzenText TextStyle="TextStyle.DisplayH3" Text="@tv.Name" Style="margin-bottom: 0"/>
+                @if (!String.IsNullOrEmpty(tv.Tagline))
+                {
+                    <RadzenText Text="@tv.Tagline" Style="font-style: italic"/>
+                }
+                <RadzenRow Gap="10">
+                    <RadzenButton ButtonStyle="ButtonStyle.Dark" class="rz-border-radius-10" Icon="list"/>
+                    @if (string.IsNullOrEmpty(tv.Tagline))
+                    {
+                        <RadzenButton ButtonStyle="ButtonStyle.Dark" class="rz-border-radius-10" Icon="star" Style="color: #fefb00"/>
+                    }
+                    else
+                    {
+                        <RadzenButton ButtonStyle="ButtonStyle.Dark" class="rz-border-radius-10" Icon="star"/> 
+                    }
+                    @if (string.IsNullOrEmpty(tv.Tagline))
+                    {
+                        <RadzenButton ButtonStyle="ButtonStyle.Dark" class="rz-border-radius-10" Icon="bookmark" Style="color: #53d5fd"/>
+                    }
+                    else
+                    {
+                        <RadzenButton ButtonStyle="ButtonStyle.Dark" class="rz-border-radius-10" Icon="bookmark"/>
+                    }
+                    <RadzenButton Variant="Variant.Text" ButtonStyle="ButtonStyle.Light" Icon="play_arrow" Style="max-height: 36px" Text="Trailer"/>
+                </RadzenRow>
+                <RadzenStack Gap="0">
+                    <RadzenText Text="Overview" TextStyle="TextStyle.DisplayH6" Style="margin-bottom: 0; margin-top: 8px"/>
+                    <RadzenText Style="padding-top: 10px" Text="@tv.Overview"/>
+                </RadzenStack>
+                <RadzenRow>
+                    <RadzenText Text="Director" TextStyle="TextStyle.DisplayH6"/>
+                    <RadzenText></RadzenText>
+                </RadzenRow>
+                <RadzenRow>
+                    <RadzenText Text="Writers" TextStyle="TextStyle.DisplayH6"/>
+                    <RadzenText></RadzenText>
+                </RadzenRow>
+                <RadzenRow>
+                    @foreach (var genre in genres)
+                    {
+                        <RadzenBadge Text="@genre.Name" Variant="Variant.Outlined" BadgeStyle="BadgeStyle.Dark" IsPill="true"/>
+                    }
+                </RadzenRow>
+            </RadzenStack>
+        </RadzenStack>
+    </RadzenStack>
+</RadzenRow>
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private TV tv = new();
+    private Genre[] genres = {};
+    private string image = "https://image.tmdb.org/t/p/original";
+    private string backdrop = "https://image.tmdb.org/t/p/original";
+
+    protected override async Task OnInitializedAsync()
+    {
+        tv = await TVService.GetTVAsync(Id);
+        genres = tv.Genres;
+        image += tv.Poster;
+        backdrop += tv.Backdrop;
+    }
+}
