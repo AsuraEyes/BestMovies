@@ -1,0 +1,99 @@
+@page "/movie/{Id:int}"
+@using PresentationTier.Models
+@using PresentationTier.Data.Media
+
+@inject NavigationManager NavigationManager
+
+@inject DialogService DialogService
+@inject IMovieService MovieService
+
+<PageTitle>@movie.Title</PageTitle>
+<RadzenRow Style="width: 1720px">
+    <RadzenStack Orientation="Radzen.Orientation.Vertical" Style="width: 100%; max-height: 600px">
+        <RadzenImage Path="@backdrop" Style="height: 100%; opacity: 50%"/>
+        <RadzenStack Orientation="Radzen.Orientation.Horizontal" Style="position: relative; bottom: 600px; margin: 30px 160px;">
+            <RadzenImage Path="@image" Style="width: 300px; height: 450px"/>
+            <RadzenStack Gap="15" Style="width: 100%; margin-right: 40px">
+                <RadzenText TextStyle="TextStyle.DisplayH3" Text="@movie.Title" Style="margin-bottom: 0"/>
+                @if (!string.IsNullOrEmpty(movie.Tagline))
+                {
+                    <RadzenText Text="@movie.Tagline" Style="font-style: italic"/>
+                }
+                <RadzenRow Gap="10">
+                    <RadzenButton ButtonStyle="ButtonStyle.Dark" class="rz-border-radius-10" Icon="list"/>
+                    @if (string.IsNullOrEmpty(movie.Tagline))
+                    {
+                        <RadzenButton ButtonStyle="ButtonStyle.Dark" class="rz-border-radius-10" Icon="star" Style="color: #fefb00"/>
+                    }
+                    else
+                    {
+                        <RadzenButton ButtonStyle="ButtonStyle.Dark" class="rz-border-radius-10" Icon="star"/> 
+                    }
+                    @if (string.IsNullOrEmpty(movie.Tagline))
+                    {
+                        <RadzenButton ButtonStyle="ButtonStyle.Dark" class="rz-border-radius-10" Icon="bookmark" Style="color: #53d5fd"/>
+                    }
+                    else
+                    {
+                        <RadzenButton ButtonStyle="ButtonStyle.Dark" class="rz-border-radius-10" Icon="bookmark"/>
+                    }
+                    <RadzenButton Variant="Variant.Text" ButtonStyle="ButtonStyle.Dark" Icon="play_arrow" Style="max-height: 36px" Text="Trailer"/>
+                </RadzenRow>
+                <RadzenStack Gap="0">
+                    <RadzenText Text="Overview" TextStyle="TextStyle.DisplayH6" Style="margin-bottom: 0; margin-top: 8px"/>
+                    <RadzenText Style="padding-top: 10px" Text="@movie.Overview"/>
+                </RadzenStack>
+                <RadzenRow>
+                    <RadzenText Text="Director" TextStyle="TextStyle.DisplayH6"/>
+                    <RadzenText></RadzenText>
+                </RadzenRow>
+                <RadzenRow>
+                    <RadzenText Text="Writers" TextStyle="TextStyle.DisplayH6"/>
+                    <RadzenText></RadzenText>
+                </RadzenRow>
+                <RadzenRow>
+                    @foreach (var genre in genres)
+                    {
+                        <RadzenButton Text="@genre.Name" Variant="Variant.Outlined" ButtonStyle="ButtonStyle.Dark" Size="ButtonSize.Small" class="rz-border-radius-6"/>
+                    }
+                </RadzenRow>
+            </RadzenStack>
+        </RadzenStack>
+    </RadzenStack>
+    <RadzenRow Gap="0">
+            <RadzenText TextStyle="TextStyle.H5">Top Cast</RadzenText>
+            <RadzenStack Orientation="Radzen.Orientation.Horizontal" Gap="5" Style="overflow-y: auto">
+                @foreach (var item in people)
+                {
+                        <RadzenStack>
+                            <RadzenCard  Style="padding: 0; min-width: 150px; max-width: 150px; min-height: 225px; border-radius: 10px">
+                                <RadzenImage Path="@item.Picture" Style="max-width: 100%; min-height: 100%; border-radius: 10px"/>
+                            </RadzenCard>
+                            <RadzenText>@item.Name</RadzenText>
+                        </RadzenStack>
+                    }
+            </RadzenStack>
+        </RadzenRow>
+</RadzenRow>
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private Movie movie = new();
+    private Genre[] genres = {};
+    private Person[] people = {};
+    private string image = "https://image.tmdb.org/t/p/original";
+    private string backdrop = "https://image.tmdb.org/t/p/original";
+
+    protected override async Task OnInitializedAsync()
+    {
+        movie = await MovieService.GetMovieAsync(Id);
+        genres = movie.Genres;
+        image += movie.Poster;
+        backdrop += movie.Backdrop;
+        people = movie.Credits.Cast;
+    }
+
+}
+    
