@@ -1,3 +1,5 @@
+using System;
+
 namespace PresentationTier.Data
 {
     public class WeatherForecast
