@@ -7,5 +7,5 @@ public class Collection
     public int[] MovieId { set; get; }
     public int[] TVId { set; get; }
     public bool IsPublic { set; get; }
-    public string UserId { set; get; }
+    public string UserI { set; get; }
 }
