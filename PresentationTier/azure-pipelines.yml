@@ -11,7 +11,7 @@ stages:
     steps:
     - task: Docker@2
       inputs:
-        containerRegistry: 'BestMoviesServiceConnection'
+        containerRegistry: 'MovieApp'
         repository: 'bestmovies.azurecr.io'
         command: 'buildAndPush'
         Dockerfile: '$(Build.SourceDirectory)/PresentationTier/Dockerfile'
