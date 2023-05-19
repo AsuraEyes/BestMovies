@@ -16,5 +16,3 @@ stages:
         command: 'buildAndPush'
         Dockerfile: '$(Build.SourceDirectory)/PresentationTier/Dockerfile'
         tags: '$(Build.BuildId)'
-
-
