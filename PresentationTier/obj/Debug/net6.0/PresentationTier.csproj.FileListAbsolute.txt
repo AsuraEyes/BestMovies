@@ -57,3 +57,5 @@
 //Mac/Home/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/obj/Debug/net6.0/PresentationTier.pdb
 /Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/bin/Debug/net6.0/Radzen.Blazor.dll
 /Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/bin/Debug/net6.0/System.Linq.Dynamic.Core.dll
+/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/bin/Debug/net6.0/Blazored.Modal.dll
+/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/bin/Debug/net6.0/Microsoft.JSInterop.WebAssembly.dll

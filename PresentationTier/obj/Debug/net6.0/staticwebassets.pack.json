@@ -5,10 +5,6 @@
       "PackagePath": "staticwebassets/PresentationTier.bundle.scp.css"
     },
     {
-      "Id": "/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/wwwroot/.DS_Store",
-      "PackagePath": "staticwebassets/.DS_Store"
-    },
-    {
       "Id": "/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/wwwroot/css/bootstrap/bootstrap.min.css",
       "PackagePath": "staticwebassets/css/bootstrap/bootstrap.min.css"
     },

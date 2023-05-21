@@ -6,8 +6,7 @@ namespace PresentationTier.Data.Media;
 public class TVService : ITVService
 {
     private readonly HttpClient client;
-    private const string uri = "https://api.themoviedb.org/3/tv";
-    private const string api_key = "?api_key=46d08791a04c0cf6ce4c24953337ad13";
+    private const string uri = "https://localhost:7254/TV";
     
     public TVService()
     {
@@ -16,11 +15,12 @@ public class TVService : ITVService
 
     public async Task<TV> GetTVAsync(int id)
     {
-        var movieString = await client.GetStringAsync(uri + $"/{id}" + api_key);
+        var movieString = await client.GetStringAsync(uri + $"/{id}");
         var tv = JsonSerializer.Deserialize<TV>(movieString, new JsonSerializerOptions
         {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase
         });
+        Console.WriteLine("img: "+tv.Poster);
         return tv;
     }
 }

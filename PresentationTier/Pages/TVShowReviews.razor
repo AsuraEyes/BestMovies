@@ -11,7 +11,7 @@
 <RadzenStack Gap="30">
     <RadzenRow Style="height: 117px">
         <RadzenStack Orientation="Radzen.Orientation.Horizontal" Style="width: 100%">
-            <RadzenImage Path="@image" Style="max-height: 125px; padding-left: 5px; padding-top: 5px; padding-bottom: 5px"/>
+            <RadzenImage Path="@tv.Poster" Style="max-height: 125px; padding-left: 5px; padding-top: 5px; padding-bottom: 5px"/>
             <RadzenStack Gap="0" Style="width: 100%">
                 <RadzenText Style="margin-top: 15px" TextStyle="TextStyle.DisplayH4">
                     <RadzenLink Path="@NavigateToTVShow(Id)" Style="color: rgb(40,54,60)">@tv.Name</RadzenLink> (@tv.Premiere.Year)
@@ -59,12 +59,10 @@
 
     private User User = new(){Username = "John Doe", Joined = new DateTime(2022, 4, 12)};
     private TV tv = new();
-    private string image = "https://image.tmdb.org/t/p/original";
 
     protected override async Task OnInitializedAsync()
     {
         tv = await TVService.GetTVAsync(Id);
-        image += tv.Poster;
     }
 
     private List<Review> GetReviews()

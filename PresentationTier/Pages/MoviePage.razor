@@ -1,18 +1,21 @@
 @page "/movie/{Id:int}"
 @using PresentationTier.Models
 @using PresentationTier.Data.Media
+@using DialogOptions = Radzen.DialogOptions
+@using Orientation = Radzen.Orientation
 
 @inject NavigationManager NavigationManager
 
 @inject DialogService DialogService
+@inject IModalService modal 
 @inject IMovieService MovieService
 
 <PageTitle>@movie.Title</PageTitle>
 <RadzenRow Style="width: 1720px">
-    <RadzenStack Orientation="Radzen.Orientation.Vertical" Style="width: 100%; max-height: 600px">
-        <RadzenImage Path="@backdrop" Style="height: 100%; opacity: 50%"/>
-        <RadzenStack Orientation="Radzen.Orientation.Horizontal" Style="position: relative; bottom: 600px; margin: 30px 160px;">
-            <RadzenImage Path="@image" Style="width: 300px; height: 450px"/>
+    <RadzenStack Orientation="Orientation.Vertical" Style="width: 100%; max-height: 600px">
+        <RadzenImage Path="@movie.Backdrop" Style="height: 100%; opacity: 50%"/>
+        <RadzenStack Orientation="Orientation.Horizontal" Style="position: relative; bottom: 600px; margin: 30px 160px;">
+            <RadzenImage Path="@movie.Poster" Style="width: 300px; height: 450px; border-radius: 10px"/>
             <RadzenStack Gap="15" Style="width: 100%; margin-right: 40px">
                 <RadzenText TextStyle="TextStyle.DisplayH3" Text="@movie.Title" Style="margin-bottom: 0"/>
                 @if (!string.IsNullOrEmpty(movie.Tagline))
@@ -60,20 +63,37 @@
             </RadzenStack>
         </RadzenStack>
     </RadzenStack>
-    <RadzenRow Gap="0">
-            <RadzenText TextStyle="TextStyle.H5">Top Cast</RadzenText>
-            <RadzenStack Orientation="Radzen.Orientation.Horizontal" Gap="5" Style="overflow-y: auto">
-                @foreach (var item in people)
-                {
+    <RadzenStack Orientation="Orientation.Horizontal">
+        <RadzenRow Gap="0" Style="margin: 30px 160px; max-width: 1022px">
+            <RadzenStack Style="max-width: 100%">
+                <RadzenText TextStyle="TextStyle.H5">Top Cast</RadzenText>
+                <RadzenStack Orientation="Orientation.Horizontal" Gap="5" Style="overflow-y: auto">
+                    @foreach (var actor in cast)
+                    {
                         <RadzenStack>
-                            <RadzenCard  Style="padding: 0; min-width: 150px; max-width: 150px; min-height: 225px; border-radius: 10px">
-                                <RadzenImage Path="@item.Picture" Style="max-width: 100%; min-height: 100%; border-radius: 10px"/>
+                            <RadzenCard Style="padding: 0; min-width: 150px; max-width: 150px; min-height: 225px; border-radius: 10px">
+                                <RadzenImage Path="@actor.Picture" Style="max-width: 100%; min-height: 100%; border-radius: 10px"/>
                             </RadzenCard>
-                            <RadzenText>@item.Name</RadzenText>
+                            <RadzenStack Gap="0">
+                                <RadzenText Text="@actor.Name" Style="font-weight: bold"/>
+                                <RadzenText Text="@actor.Character"/>
+                            </RadzenStack>
                         </RadzenStack>
                     }
+                </RadzenStack>
+                <RadzenButton Variant="Variant.Text" ButtonStyle="ButtonStyle.Dark" Text="Full Cast & Crew" Style="text-align: left"/>
+                <hr>
             </RadzenStack>
         </RadzenRow>
+        <RadzenStack Style="margin: 30px; width: 260px">
+            <RadzenText Text="Text"/>
+            <RadzenText Text="Text"/>
+            <RadzenText Text="Text"/>
+            <RadzenText Text="Text"/>
+            <RadzenText Text="Text"/>
+            <RadzenText Text="Text"/>
+        </RadzenStack>
+    </RadzenStack>
 </RadzenRow>
 
 @code {
@@ -82,18 +102,13 @@
 
     private Movie movie = new();
     private Genre[] genres = {};
-    private Person[] people = {};
-    private string image = "https://image.tmdb.org/t/p/original";
-    private string backdrop = "https://image.tmdb.org/t/p/original";
+    private Person[] cast = {};
 
     protected override async Task OnInitializedAsync()
     {
         movie = await MovieService.GetMovieAsync(Id);
         genres = movie.Genres;
-        image += movie.Poster;
-        backdrop += movie.Backdrop;
-        people = movie.Credits.Cast;
+        cast = movie.Credits.Cast;
     }
-
 }
     

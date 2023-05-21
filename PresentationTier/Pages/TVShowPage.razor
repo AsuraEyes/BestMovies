@@ -10,9 +10,9 @@
 <PageTitle>@tv.Name</PageTitle>
 <RadzenRow Style="width: 1720px">
     <RadzenStack Orientation="Radzen.Orientation.Vertical" Style="width: 100%; max-height: 600px">
-        <RadzenImage Path="@backdrop" Style="height: 100%; opacity: 50%"/>
+        <RadzenImage Path="@tv.Backdrop" Style="height: 100%; opacity: 50%"/>
         <RadzenStack Orientation="Radzen.Orientation.Horizontal" Style="position: relative; bottom: 600px; margin-left: 160px; margin-right: 160px">
-            <RadzenImage Path="@image" Style="width: 300px; height: 450px"/>
+            <RadzenImage Path="@tv.Poster" Style="width: 300px; height: 450px; border-radius: 10px"/>
             <RadzenStack Gap="15" Style="width: 100%; margin-right: 40px">
                 <RadzenText TextStyle="TextStyle.DisplayH3" Text="@tv.Name" Style="margin-bottom: 0"/>
                 @if (!String.IsNullOrEmpty(tv.Tagline))
@@ -68,14 +68,10 @@
 
     private TV tv = new();
     private Genre[] genres = {};
-    private string image = "https://image.tmdb.org/t/p/original";
-    private string backdrop = "https://image.tmdb.org/t/p/original";
 
     protected override async Task OnInitializedAsync()
     {
         tv = await TVService.GetTVAsync(Id);
         genres = tv.Genres;
-        image += tv.Poster;
-        backdrop += tv.Backdrop;
     }
 }

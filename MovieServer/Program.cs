@@ -1,3 +1,6 @@
+using MovieServer.Data.Media;
+using MovieServer.MiddlePoints.Media;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +9,16 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+//Services
+builder.Services.AddScoped<IMediaService, MediaService>();
+builder.Services.AddScoped<IMovieService, MovieService>();
+builder.Services.AddScoped<ITVService, TVService>();
+
+//MiddlePoint
+builder.Services.AddScoped<IMediaMiddlePoint, MediaMiddlePoint>();
+builder.Services.AddScoped<IMovieMiddlePoint, MovieMiddlePoint>();
+builder.Services.AddScoped<ITVMiddlePoint, TVMiddlePoint>();
 
 var app = builder.Build();
 

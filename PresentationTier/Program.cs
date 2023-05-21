@@ -1,5 +1,4 @@
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
+using Blazored.Modal;
 using PresentationTier.Data;
 using PresentationTier.Data.Media;
 using Radzen;
@@ -12,10 +11,12 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
 
+builder.Services.AddBlazoredModal();
+
 //Syncfusion
 builder.Services.AddSyncfusionBlazor();
 
-//Radzen
+//Radzen Services
 builder.Services.AddScoped<DialogService>();
 builder.Services.AddScoped<NotificationService>();
 builder.Services.AddScoped<TooltipService>();

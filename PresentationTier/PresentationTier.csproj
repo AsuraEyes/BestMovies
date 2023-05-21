@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Blazored.Modal" Version="7.1.0" />
     <PackageReference Include="Radzen.Blazor" Version="4.10.1" />
     <PackageReference Include="Syncfusion.Blazor" Version="21.1.41" />
   </ItemGroup>

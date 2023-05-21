@@ -2,6 +2,27 @@
   "version": 3,
   "targets": {
     "net6.0": {
+      "Blazored.Modal/7.1.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Components": "6.0.3",
+          "Microsoft.AspNetCore.Components.Web": "6.0.3",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "6.0.0",
+          "Microsoft.JSInterop.WebAssembly": "6.0.3"
+        },
+        "compile": {
+          "lib/net6.0/Blazored.Modal.dll": {}
+        },
+        "runtime": {
+          "lib/net6.0/Blazored.Modal.dll": {}
+        },
+        "build": {
+          "buildTransitive/Blazored.Modal.props": {}
+        },
+        "buildMultiTargeting": {
+          "buildMultiTargeting/Blazored.Modal.props": {}
+        }
+      },
       "LibSassBuilder/2.0.1": {
         "type": "package",
         "build": {
@@ -199,6 +220,22 @@
           }
         }
       },
+      "Microsoft.JSInterop.WebAssembly/6.0.3": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.JSInterop": "6.0.3"
+        },
+        "compile": {
+          "lib/net6.0/Microsoft.JSInterop.WebAssembly.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Microsoft.JSInterop.WebAssembly.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Newtonsoft.Json/13.0.2": {
         "type": "package",
         "compile": {
@@ -392,6 +429,25 @@
     }
   },
   "libraries": {
+    "Blazored.Modal/7.1.0": {
+      "sha512": "ft5bX5barhyzpQc9jjU029ByrAQXgqSMItwhmEbr0pb7r+of8XH0E/OyS8K6O6Disq5R+p4wpt+W+NGg3/OTMA==",
+      "type": "package",
+      "path": "blazored.modal/7.1.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "blazored.modal.7.1.0.nupkg.sha512",
+        "blazored.modal.nuspec",
+        "build/Blazored.Modal.props",
+        "build/Microsoft.AspNetCore.StaticWebAssets.props",
+        "buildMultiTargeting/Blazored.Modal.props",
+        "buildTransitive/Blazored.Modal.props",
+        "icon.png",
+        "lib/net6.0/Blazored.Modal.dll",
+        "staticwebassets/Blazored.Modal.bundle.scp.css",
+        "staticwebassets/BlazoredModal.razor.js"
+      ]
+    },
     "LibSassBuilder/2.0.1": {
       "sha512": "f+7TWQtCirW94VdzKL9SaAfeSF96TeEqdtDztmTGbndrcUlZZlL6uJLZKQCXQgj1BB3OqX0584OCvqFHrkAusA==",
       "type": "package",
@@ -682,6 +738,21 @@
         "lib/net6.0/Microsoft.JSInterop.xml",
         "microsoft.jsinterop.6.0.5.nupkg.sha512",
         "microsoft.jsinterop.nuspec"
+      ]
+    },
+    "Microsoft.JSInterop.WebAssembly/6.0.3": {
+      "sha512": "4B7RdZ01eKShey9MllKrVjEJZN/Y1Hvku/qTwVKSwt/n+KgFmyYEkEMbSdKDWB7MbvCPZykCQbkKnKfLzML9sg==",
+      "type": "package",
+      "path": "microsoft.jsinterop.webassembly/6.0.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "THIRD-PARTY-NOTICES.txt",
+        "lib/net6.0/Microsoft.JSInterop.WebAssembly.dll",
+        "lib/net6.0/Microsoft.JSInterop.WebAssembly.xml",
+        "microsoft.jsinterop.webassembly.6.0.3.nupkg.sha512",
+        "microsoft.jsinterop.webassembly.nuspec"
       ]
     },
     "Newtonsoft.Json/13.0.2": {
@@ -1145,6 +1216,7 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "Blazored.Modal >= 7.1.0",
       "Radzen.Blazor >= 4.10.1",
       "Syncfusion.Blazor >= 21.1.41"
     ]
@@ -1155,11 +1227,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/PresentationTier.csproj",
+      "projectUniqueName": "/Users/sura/Documents/Documents - Timothy’s MacBook Pro/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/PresentationTier.csproj",
       "projectName": "PresentationTier",
-      "projectPath": "/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/PresentationTier.csproj",
+      "projectPath": "/Users/sura/Documents/Documents - Timothy’s MacBook Pro/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/PresentationTier.csproj",
       "packagesPath": "/Users/sura/.nuget/packages/",
-      "outputPath": "/Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/obj/",
+      "outputPath": "/Users/sura/Documents/Documents - Timothy’s MacBook Pro/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/sura/.nuget/NuGet/NuGet.Config"
@@ -1187,6 +1259,10 @@
       "net6.0": {
         "targetAlias": "net6.0",
         "dependencies": {
+          "Blazored.Modal": {
+            "target": "Package",
+            "version": "[7.1.0, )"
+          },
           "Radzen.Blazor": {
             "target": "Package",
             "version": "[4.10.1, )"
