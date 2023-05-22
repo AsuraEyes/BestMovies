@@ -16,3 +16,9 @@ stages:
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile.app'
         tags: '$(Build.BuildId)'
+
+-stage: DeployDev
+jobs: 
+- job: DeployDev
+  steps:
+
