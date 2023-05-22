@@ -9,10 +9,17 @@ stages:
   jobs: 
   - job: BuildPushImage
     steps:
+#    - task: Docker@2
+#      inputs:
+#        containerRegistry: 'MovieApp'
+#        repository: 'bestmoviesdb.azurecr.io'
+#        command: 'buildAndPush'
+#        Dockerfile: '**/Dockerfile.app'
+#        tags: '$(TAG)'
     - task: Docker@2
       inputs:
-        containerRegistry: 'MovieApp'
-        repository: 'bestmoviesdb.azurecr.io'
+        containerRegistry: 'MovieAppDocker'
+        repository: 'johniestdoe/bestmoviesdb.azurecr.io'
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile.app'
         tags: '$(TAG)'
