@@ -34,6 +34,6 @@ stages:
          azureSubscription: 'AzureRM'
          appType: 'webAppContainer'
          WebAppName: 'bestmoviesdb'
-         DockerNamespace: 'MovieAppDocker'
-         DockerRepository: 'johniestdoe/bestmoviesdb.azurecr.io'
+         DockerNamespace: 'johniestdoe'
+         DockerRepository: 'bestmoviesdb.azurecr.io'
          DockerImageTag: '$(TAG)'
