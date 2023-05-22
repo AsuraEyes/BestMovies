@@ -19,7 +19,7 @@ stages:
     - task: Docker@2
       inputs:
         containerRegistry: 'MovieAppDocker'
-        repository: 'johniestdoe/bestmoviesdb.azurecr.io'
+        repository: 'johniestdoe/bestmovies.azurecr.io'
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile.app'
         tags: '$(TAG)'
