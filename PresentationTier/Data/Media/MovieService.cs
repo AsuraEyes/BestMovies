@@ -20,12 +20,26 @@ public class MovieService : IMovieService
         {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase
         });
-        var cast = movie.Credits.Cast;
-        foreach (var person in cast)
-        {
-            var image = "https://image.tmdb.org/t/p/original" + person.Picture;
-            person.Picture = image;
-        }
         return movie;
+    }
+    
+    public async Task<Models.Media[]> GetRecommendedAsync(int id)
+    {
+        var mediaString = await client.GetStringAsync(uri+$"/{id}/Recommended");
+        var media = JsonSerializer.Deserialize<Models.Media[]>(mediaString, new JsonSerializerOptions
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        });
+        return media;
+    }
+    
+    public async Task<Models.Media[]> GetSimilarAsync(int id)
+    {
+        var mediaString = await client.GetStringAsync(uri+$"/{id}/Similar");
+        var media = JsonSerializer.Deserialize<Models.Media[]>(mediaString, new JsonSerializerOptions
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        });
+        return media;
     }
 }

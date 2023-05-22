@@ -13,10 +13,10 @@ public class MediaService : IMediaService
         client = new HttpClient();
     }
 
-    public async Task<MediaList> GetTrendingAsync()
+    public async Task<Models.Media[]> GetTrendingAsync()
     {
         var mediaString = await client.GetStringAsync(uri);
-        var media = JsonSerializer.Deserialize<MediaList>(mediaString, new JsonSerializerOptions
+        var media = JsonSerializer.Deserialize<Models.Media[]>(mediaString, new JsonSerializerOptions
         {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase
         });

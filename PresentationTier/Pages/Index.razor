@@ -28,7 +28,7 @@
     
         <RadzenRow>
             <div class="col-md-6">
-                <RadzenFieldset Text="Trending">
+                <RadzenFieldset Text="Trending Post">
                     <div class="row"></div>
                 </RadzenFieldset>
             </div>
@@ -64,13 +64,11 @@
 </RadzenStack>
 
 @code {
-    private MediaList mediaList = new ();
     private Media[] media = {};
 
     protected override async Task OnInitializedAsync()
     {
-        mediaList = await MediaService.GetTrendingAsync();
-        media = mediaList.ListOfMedia;
+        media = await MediaService.GetTrendingAsync();
     }
     
     private void NavigateToMovie(int id)
