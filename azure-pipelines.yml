@@ -30,4 +30,3 @@ stages:
          DockerNamespace: 'MovieApp'
          DockerRepository: 'bestmoviesdb.azurecr.io'
          DockerImageTag: '$(TAG)'
-
