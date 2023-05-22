@@ -15,11 +15,19 @@ stages:
         repository: 'bestmoviesdb.azurecr.io'
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile.app'
-        tags: '$(Build.BuildId)'
+        tags: '$(TAG)'
 
-- stage: DeployDev
+- stage: DeployApp
   jobs: 
-   - job: DeployDev
+   - job: DeployApp
      steps:
-     
+     - task: AzureRmWebAppDeployment@4
+       inputs:
+         ConnectionType: 'AzureRM'
+         azureSubscription: 'AzureRM'
+         appType: 'webAppContainer'
+         WebAppName: 'bestmoviesdb'
+         DockerNamespace: 'MovieApp'
+         DockerRepository: 'bestmoviesdb.azurecr.io'
+         DockerImageTag: '$(TAG)'
 
