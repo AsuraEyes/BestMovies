@@ -6,13 +6,14 @@ namespace MovieServer.MiddlePoints.Media;
 public class TVMiddlePoint : ITVMiddlePoint
 {
     private readonly ITVService tvService;
-    private TV tv = new();
+    private TV tv;
     private readonly string image = "https://image.tmdb.org/t/p/original";
     private string trailer = "https://www.youtube.com/watch?v=";
 
     public TVMiddlePoint(ITVService tvService)
     {
         this.tvService = tvService;
+        tv = new TV();
     }
     
     public async Task<TV> GetTVAsync(int id)

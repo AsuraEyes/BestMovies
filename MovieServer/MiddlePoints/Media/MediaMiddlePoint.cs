@@ -7,6 +7,7 @@ public class MediaMiddlePoint : IMediaMiddlePoint
 {
     private readonly IMediaService mediaService;
     private MediaList media;
+    private const string Image = "https://image.tmdb.org/t/p/original";
 
     public MediaMiddlePoint(IMediaService mediaService)
     {
@@ -15,16 +16,20 @@ public class MediaMiddlePoint : IMediaMiddlePoint
     }
 
 
-    public async Task<MediaList> GetTrendingAsync()
+    public async Task<Models.Media[]> GetTrendingAsync()
     {
         media = await mediaService.GetTrendingAsync();
+        
         foreach (var m in media.ListOfMedia)
         {
-            var image = "https://image.tmdb.org/t/p/original" + m.Poster;
-            var carousel = "https://image.tmdb.org/t/p/original" + m.Backdrop;
-            m.Poster = image;
-            m.Backdrop = carousel;
+            m.Poster = SetImage(m.Poster);
         }
-        return media;
+        
+        return media.ListOfMedia;
+    }
+    
+    private static string SetImage(string img)
+    {
+        return img.Insert(0, Image);
     }
 }

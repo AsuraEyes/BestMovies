@@ -6,24 +6,55 @@ namespace MovieServer.MiddlePoints.Media;
 public class MovieMiddlePoint : IMovieMiddlePoint
 {
     private readonly IMovieService movieService;
-    private Movie movie = new ();
-    private readonly string image = "https://image.tmdb.org/t/p/original";
-    private readonly string youtube = "https://www.youtube.com/watch?v=";
+    private Movie movie;
+    private MediaList media;
+    private const string Image = "https://image.tmdb.org/t/p/original";
+    private const string Youtube = "https://www.youtube.com/watch?v=";
+    private const string Vimeo = "https://vimeo.com/";
 
     public MovieMiddlePoint(IMovieService movieService)
     {
         this.movieService = movieService;
+        movie = new Movie();
+        media = new MediaList();
     }
     
     public async Task<Movie> GetMovieAsync(int id)
     {
         movie = await movieService.GetMovieAsync(id);
         movie.Trailer = SetTrailer();
-        movie.Poster = SetPoster();
-        movie.Backdrop = SetBackdrop();
+        movie.Poster = SetImage(movie.Poster);
+        movie.Backdrop = SetImage(movie.Backdrop);
+        //movie.Collection.Backdrop = SetImage(movie.Collection.Backdrop);
         movie.Credits.Cast = SetCast();
 
         return movie;
+    }
+
+    public async Task<Models.Media[]> GetRecommendedAsync(int id)
+    {
+        media = await movieService.GetRecommendedAsync(id);
+
+        foreach (var m in media.ListOfMedia)
+        {
+            var img = SetImage(m.Poster);
+            m.Poster = img;
+        }
+        
+        return media.ListOfMedia;
+    }
+    
+    public async Task<Models.Media[]> GetSimilarAsync(int id)
+    {
+        media = await movieService.GetSimilarAsync(id);
+
+        foreach (var m in media.ListOfMedia)
+        {
+            var img = SetImage(m.Poster);
+            m.Poster = img;
+        }
+        
+        return media.ListOfMedia;
     }
 
     private string SetTrailer()
@@ -34,7 +65,13 @@ public class MovieMiddlePoint : IMovieMiddlePoint
             {
                 if (video.Site.Equals("YouTube"))
                 {
-                    movie.Trailer = youtube + video.Key;
+                    movie.Trailer = Youtube + video.Key;
+                    break;
+                }
+
+                if (video.Site.Equals("Vimeo"))
+                {
+                    movie.Trailer = Vimeo + video.Key;
                     break;
                 }
             }
@@ -42,7 +79,12 @@ public class MovieMiddlePoint : IMovieMiddlePoint
             {
                 if (video.Site.Equals("YouTube"))
                 {
-                    movie.Trailer = youtube + video.Key;
+                    movie.Trailer = Youtube + video.Key;
+                }
+                else if (video.Site.Equals("Vimeo"))
+                {
+                    movie.Trailer = Vimeo + video.Key;
+                    break;
                 }
             }
         }
@@ -50,22 +92,18 @@ public class MovieMiddlePoint : IMovieMiddlePoint
         return movie.Trailer;
     }
 
-    private string SetPoster()
+    private static string SetImage(string img)
     {
-        return movie.Poster.Insert(0, image);
+        return Image + img;
     }
-    
-    private string SetBackdrop()
-    {
-        return movie.Backdrop.Insert(0, image);
-    }
-    
+
     private Person[] SetCast()
     {
         foreach (var person in movie.Credits.Cast)
         {
-           var img = image + person.Picture;
+            var img = Image + person.Picture;
             person.Picture = img;
+                
         }
 
         return movie.Credits.Cast;

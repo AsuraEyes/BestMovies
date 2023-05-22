@@ -18,7 +18,7 @@ public class MediaController : Controller
 
     [HttpGet]
     [Route("/Trending")]
-    public async Task<ActionResult<MediaList>> GetTrendingAsync()
+    public async Task<ActionResult<Models.Media[]>> GetTrendingAsync()
     {
         try
         {

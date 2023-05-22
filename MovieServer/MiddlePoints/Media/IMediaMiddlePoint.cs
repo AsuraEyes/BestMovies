@@ -4,5 +4,5 @@ namespace MovieServer.MiddlePoints.Media;
 
 public interface IMediaMiddlePoint
 {
-    Task<MediaList> GetTrendingAsync();
+    Task<Models.Media[]> GetTrendingAsync();
 }

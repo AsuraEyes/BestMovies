@@ -4,5 +4,5 @@ namespace PresentationTier.Data.Media;
 
 public interface IMediaService
 {
-    Task<MediaList> GetTrendingAsync();
+    Task<Models.Media[]> GetTrendingAsync();
 }
