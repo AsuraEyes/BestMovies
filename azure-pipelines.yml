@@ -14,5 +14,5 @@ stages:
         containerRegistry: 'MovieApp'
         repository: 'bestmoviesdb.azurecr.io'
         command: 'buildAndPush'
-        Dockerfile: '**/Dockerfile'
+        Dockerfile: '**/Dockerfile.app'
         tags: '$(Build.BuildId)'
