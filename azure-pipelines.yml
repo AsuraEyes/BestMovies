@@ -26,9 +26,9 @@ stages:
     - task: Docker@2
       inputs:
         containerRegistry: 'MovieAppDocker'
-        repository: 'johniestdoe/bestmovies.azurecr.io'
+        repository: 'johniestdoe/bestmoviesapi.azurecr.io'
         command: 'buildAndPush'
-        Dockerfile: '**/MovieServer/Dockerfile'
+        Dockerfile: '**/Dockerfile.api'
         tags: '$(TAG)'
 
 - stage: DeployApp
