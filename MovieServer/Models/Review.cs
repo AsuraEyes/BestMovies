@@ -31,4 +31,7 @@ public class Review
     public string UserId { get; set; }
     [BsonElement("media")]
     public int MediaId { get; set; }
+    [BsonElement("users")]
+    [BsonRepresentation(BsonType.ObjectId)]
+    public string[] LikedUsers { set; get; }
 }

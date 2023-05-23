@@ -79,34 +79,51 @@
                     }
                 </RadzenStack>
                 <RadzenButton Variant="Variant.Text" ButtonStyle="ButtonStyle.Dark" Text="Full Cast & Crew" Style="text-align: left"/>
-                <hr>
             </RadzenStack>
-            <RadzenText TextStyle="TextStyle.H5">Top Review</RadzenText>
-            <RadzenStack Style="width: 100%" Gap="10">
-                <RadzenCard Style="border-radius: 10px; min-width: 100%" class="rz-shadow-7">
-                    <RadzenStack Orientation="Orientation.Horizontal">
-                        <RadzenImage Path="https://bootdey.com/img/Content/avatar/avatar6.png" Style="width: 50px; border-radius: 50%"/>
-                        <RadzenStack Gap="0" Style="width: 100%">
-                            <RadzenRow Gap="5">
-                                <RadzenText TextStyle="TextStyle.DisplayH6">@review.Title</RadzenText>
-                                <RadzenButton Size="ButtonSize.Small" Text="@review.Rating.ToString()" Style="display: inline-block; position: relative; top: -5px" ButtonStyle="ButtonStyle.Dark" Icon="grade" />
-                            </RadzenRow>
-                            <RadzenRow Gap="5">
-                                <RadzenText TextStyle="TextStyle.Caption">
-                                    <RadzenLink Click="">Username</RadzenLink>
-                                </RadzenText>
-                                <RadzenText TextStyle="TextStyle.Caption">
-                                    @review.Created.ToString("dd MMMM yyyy")
-                                </RadzenText>
-                            </RadzenRow>
+            <RadzenStack Gap="5">
+                <hr/>
+                <RadzenText TextStyle="TextStyle.H5" Style="margin-bottom: 10px">Top Review</RadzenText>
+                <RadzenStack Style="width: 100%" Gap="10">
+                    <RadzenCard Style="border-radius: 10px; min-width: 100%" class="rz-shadow-7">
+                        <RadzenStack Orientation="Orientation.Horizontal">
+                            <RadzenImage Path="https://bootdey.com/img/Content/avatar/avatar6.png" Style="width: 50px; border-radius: 50%"/>
+                            <RadzenStack Gap="0" Style="width: 100%">
+                                <RadzenRow Gap="5">
+                                    <RadzenText TextStyle="TextStyle.DisplayH6">@review.Title</RadzenText>
+                                    <RadzenButton Size="ButtonSize.Small" Text="@review.Rating.ToString()" Style="display: inline-block; position: relative; top: -5px" ButtonStyle="ButtonStyle.Dark" Icon="grade" />
+                                </RadzenRow>
+                                <RadzenRow Gap="5">
+                                    <RadzenText TextStyle="TextStyle.Caption">
+                                        <RadzenLink Click="">Username</RadzenLink>
+                                    </RadzenText>
+                                    <RadzenText TextStyle="TextStyle.Caption">
+                                        @review.Created.ToString("dd MMMM yyyy")
+                                    </RadzenText>
+                                </RadzenRow>
+                            </RadzenStack>
+                        </RadzenStack>
+                        <RadzenText Style="padding-top: 10px">@review.Description</RadzenText>
+                    </RadzenCard>
+                    <RadzenButton Variant="Variant.Text" ButtonStyle="ButtonStyle.Dark" Text="Read All Reviews" Click="NavigateToReviews" Style="text-align: left"/>
+                </RadzenStack>
+            </RadzenStack>
+
+            @if (collection != null)
+            {
+                <RadzenStack Style="width: 100%">
+                    <hr/>
+                    <RadzenStack Style="height: 300px; width: 550px">
+                        <RadzenImage Path="@collection.Backdrop" Style="max-height: 300px; border-radius: 10px"/>
+                        <RadzenStack Style="position: relative; bottom: 40%; margin-left: 5%">
+                            <RadzenText Text="@collection.Name" TextStyle="TextStyle.H5" Style="color: #ffffff"/>
+                            <RadzenButton Variant="Variant.Outlined" Text="View the Collection" ButtonStyle="ButtonStyle.Light" Style="border-radius: 25px; width: 175px"/>
                         </RadzenStack>
                     </RadzenStack>
-                    <RadzenText Style="padding-top: 10px">@review.Description</RadzenText>
-                </RadzenCard>
-                <RadzenButton Variant="Variant.Text" ButtonStyle="ButtonStyle.Dark" Text="Read All Reviews" Click="() => NavigateToReviews()" Style="text-align: left"/>
-                <hr>
-            </RadzenStack>
+                </RadzenStack>
+            }
+
             <RadzenStack Style="max-width: 100%">
+                <hr/>
                 <RadzenText TextStyle="TextStyle.H5">You May Like</RadzenText>
                 @if (recommended.Length == 0)
                 {
@@ -159,6 +176,7 @@
     private Media[] recommended = {};
     private Media[] similar = {};
     private Review review = new() { Title = "Test Review", Rating = 3.5, Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." };
+    private Collection collection;
 
     protected override async Task OnInitializedAsync()
     {
@@ -167,6 +185,7 @@
         similar = await MovieService.GetSimilarAsync(Id);
         genres = movie.Genres;
         cast = movie.Credits.Cast;
+        collection = movie.Collection;
     }
 
     private void NavigateToReviews()
