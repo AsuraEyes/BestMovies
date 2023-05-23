@@ -6,7 +6,7 @@ namespace PresentationTier.Data.Media;
 public class MediaService : IMediaService
 {
     private readonly HttpClient client;
-    private const string uri = "https://bmtest.azurewebsites.net/Trending";
+    private const string uri = "https://bestmoviesapi.azurewebsites.net/Trending";
 
     public MediaService()
     {
