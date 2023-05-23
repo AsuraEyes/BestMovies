@@ -1,6 +1,5 @@
+using System;
 using System.Text.Json.Serialization;
-
-namespace PresentationTier.Models;
 
 public class TV : Media
 {

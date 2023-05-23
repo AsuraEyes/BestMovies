@@ -1,4 +1,3 @@
-namespace PresentationTier.Models;
 
 public class Genre
 {

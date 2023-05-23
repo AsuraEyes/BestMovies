@@ -1,97 +1,176 @@
 @page "/Posts"
 
+
 @using PresentationTier.Models
 @using System.Collections.Generic
 
+
+
+
 <style>
-    .profile-pic {
-           width: 50px;
-           height: 50px;
-           border-radius: 50%;
-           object-fit: cover;
-           padding-bottom: 10px;
-       }
-   
-       .editor {
-           background-color: #F9FAFB;
-           padding: 40px;
-           border-radius: 5px;
-           box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.1);
-       }
-   
-       .editor h1 {
-           font-size: 36px;
-           margin-bottom: 30px;
-       }
-   
-       .editor input,
-       .editor textarea {
-           background-color: #F1F3F5;
-           border: none;
-           border-radius: 5px;
-           padding: 15px;
-           margin-bottom: 20px;
-           font-size: 18px;
-           color: #4B5563;
-       }
-   
-       .editor button {
-           background-color: #4F46E5;
-           border: none;
-           border-radius: 5px;
-           color: white;
-           padding: 15px;
-           font-size: 18px;
-           transition: all 0.2s ease-in-out;
-       }
-   
-       .editor button:hover {
-           background-color: #4338CA;
-           cursor: pointer;
-       }
+ .profile-pic {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    padding-bottom: 10px;
+}
+
+.icon {
+    fill: gray;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.icon.active {
+    fill: green;
+}
+
+.editor {
+    background-color: white;
+    padding: 40px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.1);
+}
+
+.editor1 {
+    background-color: aliceblue;
+    padding: 40px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.1);
+}
+
+.editor h1 {
+    font-size: 36px;
+    margin-bottom: 30px;
+}
+
+.editor input,
+.editor textarea {
+    background-color: #F1F3F5;
+    border: none;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+    font-size: 18px;
+    color: #4B5563;
+}
+
+.editor button {
+    background-color: #4F46E5;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    padding: 15px;
+    font-size: 18px;
+    transition: all 0.2s ease-in-out;
+}
+
+.editor button:hover {
+    background-color: #4338CA;
+    cursor: pointer;
+}
+/* ... existing styles ... */
+
+
+  .grid-container {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-gap: 20px;
+  }
+
+  .right-column {
+    position: sticky;
+    top: 20px;
+    height: 1000px;
+    overflow-y: auto;
+  }
 </style>
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <h1>Posts</h1>
+<div class="grid-container">
+  <div class="left-column">
+    <div class="RadzenCard" style="border-radius: 10px; width: 770px">
+      <div class="editor" style="width: 758px; height: 343px">
+        <h1>Create a Post</h1>
+        <div class="profile-info" style="display: flex; align-items: center;">
+          <img src="@currentUser.ProfilePictureUrl" alt="Profile Picture" class="profile-pic">
+          <div class="form-label" style="margin-left: 10px;">@currentUser.Username</div>
         </div>
+        <textarea rows="1" style="width: 100%; font-size: 18px;"></textarea>
+        <button class="btn btn-primary float-right">Post</button>
+      </div>
     </div>
-
-    <div class="row mt-5">
-        @if (posts != null && posts.Count > 0)
-        {
-            @foreach (var post in posts)
-            {
-                <div>
-                    <h2>@post.Title</h2>
-                    <p>@post.Content</p>
-                    <p>Posted on: @post.PostedDate.ToShortDateString()</p>
-                    <p>Posted by: @post.PostedBy</p>
-                </div>
-            }
-        }
-        else
-        {
-            <p>No posts found.</p>
-        }
+    <div class="RadzenCard" style="width: 769px; height: 256px; margin-top:10px">
+     <RadzenCard Style="width: 755px; height: 262px">
+            <RadzenStack Orientation="Radzen.Orientation.Horizontal">
+              <RadzenImage Path="https://bootdey.com/img/Content/avatar/avatar6.png" Style="width: 50px; border-radius: 50%" />
+              <RadzenStack Gap="0">
+                <RadzenText TextStyle="TextStyle.DisplayH6">Test Post</RadzenText>
+                <RadzenText TextStyle="TextStyle.Caption">Test Poster</RadzenText>
+              </RadzenStack>
+            </RadzenStack>
+            <RadzenText Style="padding-top: 10px">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </RadzenText>
+            <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+              <img id="likeIcon" width="30" height="30"  src="/images/icons/thumbs-up-solid.svg" onclick="ToggleLike()" />
+              <img id="dislikeIcon" width="30" height="30" src="/images/icons/thumbs-down-solid.svg" onclick="dislikePost()" />
+              <img src="/images/icons/comment-solid.svg" width="30" height="30" />
+              <img src="/images/icons/share-nodes-solid.svg" width="30" height="30" />
+            </div>
+     </RadzenCard>
     </div>
+  </div>
+  <div class="right-column">
+    <div class="RadzenCard">
+      <div class="editor">
+        <RadzenStack Gap="25" JustifyContent="Radzen.JustifyContent.Normal" Orientation="Radzen.Orientation.Vertical">
+                <h1>#Trending</h1>
+          <RadzenCard>
+            <RadzenStack Orientation="Radzen.Orientation.Horizontal">
+              <RadzenImage Path="https://bootdey.com/img/Content/avatar/avatar6.png" Style="width: 50px; border-radius: 50%" />
+              <RadzenStack Gap="0">
+                <RadzenText TextStyle="TextStyle.DisplayH6">Test Post</RadzenText>
+                <RadzenText TextStyle="TextStyle.Caption">Test Poster</RadzenText>
+              </RadzenStack>
+            </RadzenStack>
+          </RadzenCard>
+        </RadzenStack>
+      </div>
+    </div>
+  </div>
 </div>
 
+
+
+
 @code {
-  private List<Post> posts;
+    private bool isLiked = false;
+    private bool isDisliked = false;
+
+    private void ToggleLike()
+    {
+        isLiked = !isLiked;
+    }
+
+    private void likePost()
+    {
+      isLiked = true;
+    }
+    private void ToggleDislike()
+    {
+        isDisliked = !isDisliked;
+    }
+    
+    private User currentUser = new User {
+        Username = "Abdul",
+        ProfilePictureUrl = "https://cdn.nba.com/headshots/nba/latest/1040x760/76003.png"
+    };
 
     protected override void OnInitialized()
     {
-        // Initialize posts with some dummy data
-        posts = new List<Post>
-        {
-            new Post { Title = "First post", Content = "This is my first post.", PostedDate = DateTime.Now.AddDays(-7), PostedBy = "John Doe" },
-            new Post { Title = "Second post", Content = "This is my second post.", PostedDate = DateTime.Now.AddDays(-3), PostedBy = "Jane Doe" },
-            new Post { Title = "Third post", Content = "This is my third post.", PostedDate = DateTime.Now.AddDays(-1), PostedBy = "Bob Smith" },
-            new Post { Title = "Third post", Content = "This is my third post.", PostedDate = DateTime.Now.AddDays(-1), PostedBy = "Bob Smith" },
-            new Post { Title = "Third post", Content = "This is my third post.", PostedDate = DateTime.Now.AddDays(-1), PostedBy = "Bob Smith" }
-        };
+  
     }
 
     private class Post

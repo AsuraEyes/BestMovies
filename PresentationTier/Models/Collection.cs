@@ -1,5 +1,3 @@
-namespace PresentationTier.Models;
-
 public class Collection
 {
     public string Id { set; get; }
