@@ -25,7 +25,7 @@ stages:
  #       tags: '$(TAG)'
     - task: Docker@2
       inputs:
-        containerRegistry: 'MovieAppDocker'
+        containerRegistry: 'MovieApp'
         repository: 'bestmoviesapi.azurecr.io'
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile.api'
