@@ -17,4 +17,5 @@ public class Review
     public int NumberOfLikes { set; get; }
     public User User { get; set; }
     public int MediaId { get; set; }
+    public string[] LikedUsers { set; get; }
 }

@@ -25,7 +25,10 @@ public class MovieMiddlePoint : IMovieMiddlePoint
         movie.Trailer = SetTrailer();
         movie.Poster = SetImage(movie.Poster);
         movie.Backdrop = SetImage(movie.Backdrop);
-        //movie.Collection.Backdrop = SetImage(movie.Collection.Backdrop);
+        if (movie.Collection != null)
+        {
+            movie.Collection.Backdrop = SetImage(movie.Collection.Backdrop);
+        }
         movie.Credits.Cast = SetCast();
 
         return movie;
