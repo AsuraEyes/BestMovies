@@ -6,7 +6,7 @@ namespace PresentationTier.Data.Media;
 public class MovieService : IMovieService
 {
     private readonly HttpClient client;
-    private const string uri = "https://localhost:7254/Movie";
+    private const string uri = "https://bestmoviesapi.azurewebsites.net/Movie";
 
     public MovieService()
     {
