@@ -24,20 +24,6 @@ stages:
         Dockerfile: '**/Dockerfile.api'
         tags: '$(TAG)'
 
-- stage: DeployApp
-  jobs: 
-   - job: DeployApp
-     steps:
-     - task: AzureRmWebAppDeployment@4
-       inputs:
-         ConnectionType: 'AzureRM'
-         azureSubscription: 'AzureRM'
-         appType: 'webAppContainer'
-         WebAppName: 'bestmoviesdb'
-         DockerNamespace: 'bestmoviesdb.azurecr.io'
-         DockerRepository: 'bestmoviesapp'
-         DockerImageTag: '$(TAG)'
-
 - stage: DeployApi
   jobs: 
    - job: DeployApi
@@ -50,4 +36,18 @@ stages:
          WebAppName: 'bestmoviesapi'
          DockerNamespace: 'bestmoviesdb.azurecr.io'
          DockerRepository: 'bestmoviesapi'
+         DockerImageTag: '$(TAG)'
+
+- stage: DeployApp
+  jobs: 
+   - job: DeployApp
+     steps:
+     - task: AzureRmWebAppDeployment@4
+       inputs:
+         ConnectionType: 'AzureRM'
+         azureSubscription: 'AzureRM'
+         appType: 'webAppContainer'
+         WebAppName: 'bestmoviesdb'
+         DockerNamespace: 'bestmoviesdb.azurecr.io'
+         DockerRepository: 'bestmoviesapp'
          DockerImageTag: '$(TAG)'
