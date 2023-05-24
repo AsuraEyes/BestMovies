@@ -1,4 +1,6 @@
 using Blazored.Modal;
+using Microsoft.AspNetCore.Components.Authorization;
+using PresentationTier.Authorization;
 using PresentationTier.Data;
 using PresentationTier.Data.Media;
 using Radzen;

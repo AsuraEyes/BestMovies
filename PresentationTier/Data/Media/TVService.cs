@@ -20,7 +20,6 @@ public class TVService : ITVService
         {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase
         });
-        Console.WriteLine("img: "+tv.Poster);
         return tv;
     }
 }

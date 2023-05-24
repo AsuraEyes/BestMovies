@@ -1,5 +1,4 @@
 using System.Text.Json.Serialization;
-using PresentationTier.Models;
 
 namespace MovieServer.Models;
 
