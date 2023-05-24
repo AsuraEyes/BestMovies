@@ -12,7 +12,42 @@ stages:
     - task: Docker@2
       inputs:
         containerRegistry: 'MovieApp'
-        repository: 'bestmoviesdb.azurecr.io'
+        repository: 'bestmoviesapp'
         command: 'buildAndPush'
-        Dockerfile: '**/App/Dockerfile'
-        tags: '$(Build.BuildId)'
+        Dockerfile: '**/Dockerfile.app'
+        tags: '$(TAG)'
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'MovieApp'
+        repository: 'bestmoviesapi'
+        command: 'buildAndPush'
+        Dockerfile: '**/Dockerfile.api'
+        tags: '$(TAG)'
+
+- stage: DeployApp
+  jobs: 
+   - job: DeployApp
+     steps:
+     - task: AzureRmWebAppDeployment@4
+       inputs:
+         ConnectionType: 'AzureRM'
+         azureSubscription: 'AzureRM'
+         appType: 'webAppContainer'
+         WebAppName: 'bestmoviesdb'
+         DockerNamespace: 'bestmoviesdb.azurecr.io'
+         DockerRepository: 'bestmoviesapp'
+         DockerImageTag: '$(TAG)'
+
+- stage: DeployApi
+  jobs: 
+   - job: DeployApi
+     steps:
+     - task: AzureRmWebAppDeployment@4
+       inputs:
+         ConnectionType: 'AzureRM'
+         azureSubscription: 'AzureRM'
+         appType: 'webAppContainer'
+         WebAppName: 'bestmoviesapi'
+         DockerNamespace: 'bestmoviesdb.azurecr.io'
+         DockerRepository: 'bestmoviesapi'
+         DockerImageTag: '$(TAG)'
