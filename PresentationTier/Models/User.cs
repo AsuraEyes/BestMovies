@@ -18,7 +18,7 @@ public class User
         ErrorMessage = "The Passwords do not match.\nPlease try again")]
     public string ConfirmPassword { get; set; }
     
-    public string Role{ get; set; }
+    public int Role{ get; set; }
     public string Name{ get; set; }
     public string CountryCallingCode { get; set; }
     public string Email{ get; set; }

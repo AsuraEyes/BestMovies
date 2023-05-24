@@ -57,9 +57,6 @@
 //Mac/Home/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/obj/Debug/net6.0/PresentationTier.pdb
 /Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/bin/Debug/net6.0/Radzen.Blazor.dll
 /Users/sura/Documents/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/bin/Debug/net6.0/System.Linq.Dynamic.Core.dll
-C:\Users\simon\SEP6\PresentationTier\obj\Debug\net6.0\PresentationTier.dll
-C:\Users\simon\SEP6\PresentationTier\obj\Debug\net6.0\refint\PresentationTier.dll
-C:\Users\simon\SEP6\PresentationTier\obj\Debug\net6.0\PresentationTier.pdb
 C:\Users\simon\SEP6\PresentationTier\bin\Debug\net6.0\appsettings.Development.json
 C:\Users\simon\SEP6\PresentationTier\bin\Debug\net6.0\appsettings.json
 C:\Users\simon\SEP6\PresentationTier\bin\Debug\net6.0\PresentationTier.staticwebassets.runtime.json
@@ -91,6 +88,11 @@ C:\Users\simon\SEP6\PresentationTier\obj\Debug\net6.0\PresentationTier.csproj.Co
 C:\Users\simon\SEP6\PresentationTier\obj\Debug\net6.0\PresentationTier.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\simon\SEP6\PresentationTier\obj\Debug\net6.0\PresentationTier.RazorAssemblyInfo.cache
 C:\Users\simon\SEP6\PresentationTier\obj\Debug\net6.0\PresentationTier.RazorAssemblyInfo.cs
+C:\Users\simon\SEP6\PresentationTier\obj\Debug\net6.0\staticwebassets\msbuild.PresentationTier.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\simon\SEP6\PresentationTier\obj\Debug\net6.0\staticwebassets\msbuild.build.PresentationTier.props
+C:\Users\simon\SEP6\PresentationTier\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.PresentationTier.props
+C:\Users\simon\SEP6\PresentationTier\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.PresentationTier.props
+C:\Users\simon\SEP6\PresentationTier\obj\Debug\net6.0\staticwebassets.pack.json
 C:\Users\simon\SEP6\PresentationTier\obj\Debug\net6.0\staticwebassets.build.json
 C:\Users\simon\SEP6\PresentationTier\obj\Debug\net6.0\staticwebassets.development.json
 C:\Users\simon\SEP6\PresentationTier\obj\Debug\net6.0\scopedcss\Shared\MainLayout.razor.rz.scp.css
@@ -98,10 +100,8 @@ C:\Users\simon\SEP6\PresentationTier\obj\Debug\net6.0\scopedcss\Shared\NavMenu.r
 C:\Users\simon\SEP6\PresentationTier\obj\Debug\net6.0\scopedcss\bundle\PresentationTier.styles.css
 C:\Users\simon\SEP6\PresentationTier\obj\Debug\net6.0\scopedcss\projectbundle\PresentationTier.bundle.scp.css
 C:\Users\simon\SEP6\PresentationTier\obj\Debug\net6.0\PresentationTier.csproj.CopyComplete
+C:\Users\simon\SEP6\PresentationTier\obj\Debug\net6.0\PresentationTier.dll
+C:\Users\simon\SEP6\PresentationTier\obj\Debug\net6.0\refint\PresentationTier.dll
+C:\Users\simon\SEP6\PresentationTier\obj\Debug\net6.0\PresentationTier.pdb
 C:\Users\simon\SEP6\PresentationTier\obj\Debug\net6.0\PresentationTier.genruntimeconfig.cache
 C:\Users\simon\SEP6\PresentationTier\obj\Debug\net6.0\ref\PresentationTier.dll
-C:\Users\simon\SEP6\PresentationTier\obj\Debug\net6.0\staticwebassets\msbuild.PresentationTier.Microsoft.AspNetCore.StaticWebAssets.props
-C:\Users\simon\SEP6\PresentationTier\obj\Debug\net6.0\staticwebassets\msbuild.build.PresentationTier.props
-C:\Users\simon\SEP6\PresentationTier\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.PresentationTier.props
-C:\Users\simon\SEP6\PresentationTier\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.PresentationTier.props
-C:\Users\simon\SEP6\PresentationTier\obj\Debug\net6.0\staticwebassets.pack.json

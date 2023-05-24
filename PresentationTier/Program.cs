@@ -1,5 +1,10 @@
+using LoginExample.Authentication;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using PresentationTier.Data;
 using PresentationTier.Data.Media;
 using Radzen;
@@ -25,6 +30,13 @@ builder.Services.AddScoped<ContextMenuService>();
 builder.Services.AddScoped<IMediaService, MediaService>();
 builder.Services.AddScoped<IMovieService, MovieService>();
 builder.Services.AddScoped<ITVService, TVService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("Reviewer", a => a.RequireAuthenticatedUser().RequireClaim("Level", "Reviewer"));
+    options.AddPolicy("Administrator", a => a.RequireAuthenticatedUser().RequireClaim("Level", "Administrator"));
+});
 
 var app = builder.Build();
 
