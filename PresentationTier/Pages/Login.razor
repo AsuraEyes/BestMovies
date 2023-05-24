@@ -1,11 +1,11 @@
 <h3>Login</h3>
 @namespace LoginComponent
+
 @inject NavigationManager navigationManager
 @inject AuthenticationStateProvider stateProvider
-@inject IJSRuntime jsRuntime
-@using PresentationTier.Models
+
 @using Microsoft.AspNetCore.Components
-@using LoginExample.Authentication
+@using PresentationTier.Authorization
 
 <AuthorizeView>
     <NotAuthorized>
@@ -18,7 +18,7 @@
             <input type="password" placeholder="password" @bind-value="password"/>
         </div>
         <div style="color:red">@errorMessage</div>
-        <button @onclick="PerformLogin">Other login</button>
+        <button @onclick="PerformLogin">Login</button>
     </NotAuthorized>
     <Authorized>
         <a  @onclick="PerformLogout">
@@ -32,10 +32,10 @@
     private string password;
     private string errorMessage;
 
-    public async Task PerformLogin() {
+    private async Task PerformLogin() {
         errorMessage = "";
         try {
-            ((CustomAuthenticationStateProvider) stateProvider).ValidateLogin(email, password);
+            await ((CustomAuthenticationStateProvider) stateProvider).ValidateLogin(email, password);
             email = "";
             password = "";
         } catch (Exception e) {
@@ -43,13 +43,13 @@
         }
     }
 
-    public async Task PerformLogout() {
+    private async Task PerformLogout() {
         errorMessage = "";
         email = "";
         password = "";
         try {
-            ((CustomAuthenticationStateProvider) stateProvider).Logout();
-    //NavigationManager.NavigateTo("/");
+            await ((CustomAuthenticationStateProvider) stateProvider).Logout();
+            navigationManager.NavigateTo("/");
         } catch (Exception e) { }
     }
                 

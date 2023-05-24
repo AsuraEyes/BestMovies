@@ -10,8 +10,8 @@ public class Collection
     public string Poster { get; set; }
     [JsonPropertyName("backdrop_path")]
     public string Backdrop { get; set; }
-    public int[] MovieId { set; get; }
-    public int[] TVId { set; get; }
+    [JsonPropertyName("media")]
+    public Media[] Media { set; get; }
     public bool IsPublic { set; get; }
     public string UserId { set; get; }
 }
