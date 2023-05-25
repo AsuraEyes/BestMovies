@@ -1,5 +1,6 @@
 namespace PresentationTier.Data
 {
+    using MovieServer.Models;
     using PresentationTier.Models;
     public interface IUserService
     {

@@ -1,5 +1,8 @@
 using Blazored.Modal;
 using Microsoft.AspNetCore.Components.Authorization;
+using MovieServer.Controllers;
+using MovieServer.MiddlePoints;
+using MovieServer.Repository;
 using PresentationTier.Authorization;
 using PresentationTier.Data;
 using PresentationTier.Data.Media;
@@ -24,11 +27,14 @@ builder.Services.AddScoped<NotificationService>();
 builder.Services.AddScoped<TooltipService>();
 builder.Services.AddScoped<ContextMenuService>();
 
+
 //Services
 builder.Services.AddScoped<IMediaService, MediaService>();
 builder.Services.AddScoped<IMovieService, MovieService>();
 builder.Services.AddScoped<ITVService, TVService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserMiddlePoint, UserMiddlePoint>();
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
 builder.Services.AddAuthorization(options =>
 {
