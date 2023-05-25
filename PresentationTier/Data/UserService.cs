@@ -1,4 +1,6 @@
+using System.Text;
 using System.Text.Json;
+using Microsoft.AspNetCore.Components;
 using PresentationTier.Models;
 
 namespace PresentationTier.Data;
@@ -24,4 +26,24 @@ public class UserService:IUserService
         Console.WriteLine("Test 2 Email: " + user.Email + "\nPassword: " + user.Password);
         return user;
     }
+
+    public async Task SaveAccount(User user)
+    {
+        var userJson = JsonSerializer.Serialize(user, new JsonSerializerOptions
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        });
+
+        var content = new StringContent(userJson, Encoding.UTF8, "application/json");
+        var response = await client.PostAsync(uri + "/users", content);
+
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new Exception("Failed to create user. Please try again.");
+        }
+
+    }
+
+
+
 }

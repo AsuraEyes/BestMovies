@@ -1,0 +1,101 @@
+@page "/CreateAccount"
+
+<h3>Create Account</h3>
+@page "/Register"
+@using PresentationTier.Models
+@using PresentationTier.Data
+@inject NavigationManager navigationManager
+@inject IUserService userService
+
+@inject NavigationManager _navigationManager
+
+<PageTitle>Create Account</PageTitle>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <EditForm Model="@user" OnValidSubmit="SaveAccount" class="form">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <InputText class="form-control" id="username" @bind-Value="user.Username" />
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="password">Password:</label>
+                        <InputText class="form-control" id="password" type="password" @bind-Value="user.Password" />
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="confirmPassword">Confirm Password:</label>
+                        <InputText class="form-control" id="confirmPassword" type="password" @bind-Value="user.ConfirmPassword" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="profilePicture">Upload Profile Picture:</label>
+                    <InputFile class="form-control" id="profilePicture" @bind-Value="user.Profile"></InputFile>
+                </div>
+
+                  <div class="form-group">
+                    <label for="backdropPicture">Upload Cover Image:</label>
+                    <InputFile class="form-control" id="backdropPicture" @bind-Value="user.Backdrop"></InputFile>
+                </div>
+
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <InputText class="form-control" id="name" @bind-Value="user.Name"></InputText>
+                </div>
+
+                <div class="form-group">
+                    <label for="dateOfBirth">Date of Birth:</label>
+                    <InputDate class="form-control" id="dateOfBirth" @bind-Value="user.DateOfBirth"></InputDate>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <InputText class="form-control" id="email" @bind-Value="user.Email"></InputText>
+                </div>
+
+                <div class="form-group">
+                    <label for="phoneNumber">Phone Number:</label>
+                    <InputNumber class="form-control" id="phoneNumber" @bind-Value="user.PhoneNumber"></InputNumber>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary mr-2">Create Account</button>
+                    <button type="button" class="btn btn-secondary">Cancel</button>
+                </div>
+            </EditForm>
+
+
+    </div>
+</div>
+</div>
+
+@code {
+    private User user = new User();
+
+    private async Task SaveAccount()
+    {
+        try
+        {
+            // Call the user service to save the user to the database
+            await userService.SaveAccount(user);
+
+            // Redirect to a success page or navigate to another route
+            navigationManager.NavigateTo("/");
+        }
+        catch (Exception ex)
+        {
+            // Handle any errors that occur during user creation
+            // You can display an error message or perform any other necessary actions
+            Console.WriteLine($"Error creating user: {ex.Message}");
+        }
+    }
+
+    private void Cancel()
+    {
+        // Redirect to the cancel page or navigate to another route
+        navigationManager.NavigateTo("/");
+    }
+}
