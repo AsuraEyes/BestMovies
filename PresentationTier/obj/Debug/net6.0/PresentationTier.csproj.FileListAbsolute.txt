@@ -95,6 +95,14 @@
 /Users/sura/Documents/Documents - Timothy’s MacBook Pro/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/obj/Debug/net6.0/PresentationTier.pdb
 /Users/sura/Documents/Documents - Timothy’s MacBook Pro/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/obj/Debug/net6.0/PresentationTier.genruntimeconfig.cache
 /Users/sura/Documents/Documents - Timothy’s MacBook Pro/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/obj/Debug/net6.0/ref/PresentationTier.dll
+C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\obj\Debug\net6.0\PresentationTier.csproj.AssemblyReference.cache
+C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\obj\Debug\net6.0\PresentationTier.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\obj\Debug\net6.0\PresentationTier.AssemblyInfoInputs.cache
+C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\obj\Debug\net6.0\PresentationTier.AssemblyInfo.cs
+C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\obj\Debug\net6.0\PresentationTier.csproj.CoreCompileInputs.cache
+C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\obj\Debug\net6.0\PresentationTier.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\obj\Debug\net6.0\PresentationTier.RazorAssemblyInfo.cache
+C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\obj\Debug\net6.0\PresentationTier.RazorAssemblyInfo.cs
 C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\bin\Debug\net6.0\appsettings.Development.json
 C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\bin\Debug\net6.0\appsettings.json
 C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\bin\Debug\net6.0\PresentationTier.staticwebassets.runtime.json
@@ -120,14 +128,6 @@ C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\bin\Debug\n
 C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\bin\Debug\net6.0\Syncfusion.PdfExport.Net.dll
 C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\bin\Debug\net6.0\System.IO.Pipelines.dll
 C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\bin\Debug\net6.0\System.Linq.Dynamic.Core.dll
-C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\obj\Debug\net6.0\PresentationTier.csproj.AssemblyReference.cache
-C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\obj\Debug\net6.0\PresentationTier.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\obj\Debug\net6.0\PresentationTier.AssemblyInfoInputs.cache
-C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\obj\Debug\net6.0\PresentationTier.AssemblyInfo.cs
-C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\obj\Debug\net6.0\PresentationTier.csproj.CoreCompileInputs.cache
-C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\obj\Debug\net6.0\PresentationTier.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\obj\Debug\net6.0\PresentationTier.RazorAssemblyInfo.cache
-C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\obj\Debug\net6.0\PresentationTier.RazorAssemblyInfo.cs
 C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\obj\Debug\net6.0\staticwebassets.build.json
 C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\obj\Debug\net6.0\staticwebassets.development.json
 C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\obj\Debug\net6.0\scopedcss\Shared\MainLayout.razor.rz.scp.css

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 using MovieServer.Models;
 
@@ -18,6 +19,7 @@ public class UserRepository : IUserRepository
         database = client.GetDatabase("best_movies");
         users = database.GetCollection<User>("users");
     }
+
 
     public async Task CreateUserAsync(User user)
     {

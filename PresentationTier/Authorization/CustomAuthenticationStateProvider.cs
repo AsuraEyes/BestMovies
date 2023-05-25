@@ -2,6 +2,7 @@ using System.Security.Claims;
 using System.Text.Json;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.JSInterop;
+using MovieServer.Models;
 using PresentationTier.Data;
 using PresentationTier.Models;
 

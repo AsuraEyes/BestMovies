@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MovieServer.MiddlePoints;
 using MovieServer.Models;
+using MovieServer.Repository;
 
 namespace MovieServer.Controllers;
 
@@ -8,11 +9,31 @@ namespace MovieServer.Controllers;
 [Route("[controller]")]
 public class UserController : Controller
 {
+    private readonly IUserRepository userRepository;
+    //private readonly IUserService userService;
     private readonly IUserMiddlePoint userMiddlePoint;
-
-    public UserController(IUserMiddlePoint userMiddlePoint)
+    public UserController(IUserRepository userRepository, IUserMiddlePoint userMiddlePoint)
     {
+        this.userRepository = userRepository;
         this.userMiddlePoint = userMiddlePoint;
+    }
+
+    [HttpPost]
+    [Route("/Register")]
+
+    public async Task<ActionResult> CreateUserAsync(User user)
+    {
+        try
+        {
+            await userRepository.CreateUserAsync(user);
+
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
     }
 
     [HttpPost]
@@ -20,7 +41,7 @@ public class UserController : Controller
     {
         try
         {
-            await userMiddlePoint.CreateUserAsync(user);
+            await userRepository.CreateUserAsync(user);
             return Ok();
         }
         catch (Exception e)

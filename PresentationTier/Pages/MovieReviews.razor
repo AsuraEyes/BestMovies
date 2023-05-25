@@ -55,7 +55,7 @@
     [Parameter]
     public int Id { get; set; }
 
-    private User User = new(){Username = "John Doe", Joined = new DateTime(2022, 4, 12)};
+    private UserModel User = new(){Username = "John Doe", Joined = new DateTime(2022, 4, 12)};
     private Movie movie = new();
 
     protected override async Task OnInitializedAsync()

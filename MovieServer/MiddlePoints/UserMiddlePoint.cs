@@ -18,21 +18,6 @@ public class UserMiddlePoint : IUserMiddlePoint
 
     public async Task CreateUserAsync(User user)
     {
-        user.Role = Role;
-        var watchList = new UserCollection
-        {
-            Name = "Watchlist",
-            Email = user.Email
-        };
-        
-        var favorites = new UserCollection
-        {
-            Name = "Favorites",
-            Email = user.Email
-        };
-
-        await collectionRepository.CreateCollectionAsync(watchList);
-        await collectionRepository.CreateCollectionAsync(favorites);
         await userRepository.CreateUserAsync(user);
     }
 

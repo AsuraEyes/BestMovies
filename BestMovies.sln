@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PresentationTier", "PresentationTier\PresentationTier.csproj", "{BCE7FBA5-6A5C-40AA-BA11-1250478FF89D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieServer", "MovieServer\MovieServer.csproj", "{9BF30713-11F6-4518-A6C8-7992396723A4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{09D2E694-0AE3-4570-8608-F26A24C473C1} = {09D2E694-0AE3-4570-8608-F26A24C473C1}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{09D2E694-0AE3-4570-8608-F26A24C473C1}"
 EndProject
