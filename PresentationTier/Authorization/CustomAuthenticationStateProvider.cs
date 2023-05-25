@@ -45,6 +45,7 @@ public class CustomAuthenticationStateProvider : AuthenticationStateProvider {
             var serialisedData = JsonSerializer.Serialize(user);
             jsRuntime.InvokeVoidAsync("sessionStorage.setItem", "currentUser", serialisedData);
             cachedUser = user;
+            
         } catch (Exception e) {
             throw e;
         }
