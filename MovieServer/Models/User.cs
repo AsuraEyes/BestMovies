@@ -23,10 +23,10 @@ public class User
     public int CountryCallingCode { get; set; }
     [BsonElement("phone_number")]
     public int PhoneNumber{ get; set; }
-    [BsonElement("profile")]
-    public string Profile { get; set; }
-    [BsonElement("backdrop")]
-    public string Backdrop { get; set; }
+    [BsonElement("profile_image")]
+    public byte[] ProfileImage { get; set; }
+    [BsonElement("backdrop_image")]
+    public byte[] BackdropImage { get; set; }
     [BsonElement("date_joined")]
     public DateTime Joined { get; set; }
     [BsonElement("date_of_birth")]

@@ -10,6 +10,7 @@ using PresentationTier.Data;
 using MovieServer.Models;
 using Newtonsoft.Json.Linq;
 using MovieServer.Controllers;
+using Microsoft.AspNetCore.Components.Forms;
 
 namespace PresentationTier.Data;
 
@@ -38,29 +39,32 @@ public class UserService:IUserService
         return user;
     }
 
-    public async Task SaveAccount(User user)
+    public async Task SaveAccount(User user, IBrowserFile profileImage, IBrowserFile backdropImage)
     {
-
+        // Set the role
         user.Role = "Reviewer";
-        var userJson = JsonSerializer.Serialize(user, new JsonSerializerOptions
+
+        // Convert profile image to byte array
+        using (var memoryStream = new MemoryStream())
         {
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-        });
-
-        var content = new StringContent(userJson, Encoding.UTF8, "application/json");
-        var response = await client.PostAsync(uri1, content);
-
-        if (!response.IsSuccessStatusCode)
-        {
-            var errorContent = await response.Content.ReadAsStringAsync();
-            var errorMessage = ExtractErrorMessage(errorContent);
-
-            // Log or print the complete error response content
-            Console.WriteLine($"Error Response Content: {errorContent}");
-
-            throw new Exception($"Failed to create user. Bad Request. Error: {errorMessage}");
+            await profileImage.OpenReadStream().CopyToAsync(memoryStream);
+            user.ProfileImage = memoryStream.ToArray();
         }
+
+        // Convert backdrop image to byte array
+        using (var memoryStream = new MemoryStream())
+        {
+            await backdropImage.OpenReadStream().CopyToAsync(memoryStream);
+            user.BackdropImage = memoryStream.ToArray();
+        }
+
+        await userRepository.CreateUserAsync(user);
+
+        // Save the user to the database or perform any other required operations
+        // Example: userRepository.SaveUser(user);
     }
+
+
 
     private string ExtractErrorMessage(string errorContent)
     {
