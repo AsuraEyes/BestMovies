@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Components;
 using MovieServer.DAO;
 using MovieServer.Data.Media;
 using MovieServer.MiddlePoints;
@@ -28,6 +29,7 @@ builder.Services.AddScoped<IMovieMiddlePoint, MovieMiddlePoint>();
 builder.Services.AddScoped<IReviewMiddlePoint, ReviewMiddlePoint>();
 builder.Services.AddScoped<ITVMiddlePoint, TVMiddlePoint>();
 builder.Services.AddScoped<IUserMiddlePoint, UserMiddlePoint>();
+
 
 var app = builder.Build();
 

@@ -60,9 +60,6 @@ public class UserService:IUserService
 
             throw new Exception($"Failed to create user. Bad Request. Error: {errorMessage}");
         }
-
-        // Save the user in MongoDB using the repository
-       // await userRepository.CreateUserAsync(user);
     }
 
     private string ExtractErrorMessage(string errorContent)
