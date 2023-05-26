@@ -63,3 +63,4 @@ C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\obj\Debug\n
 C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\obj\Debug\net7.0\PresentationTier.pdb
 C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\obj\Debug\net7.0\PresentationTier.genruntimeconfig.cache
 C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\obj\Debug\net7.0\ref\PresentationTier.dll
+C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\obj\Debug\net7.0\PresentationTier.MvcApplicationPartsAssemblyInfo.cs
