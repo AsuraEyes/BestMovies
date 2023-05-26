@@ -1,4 +1,3 @@
-
 <h3>Create Account</h3>
 @page "/Register"
 @using PresentationTier.Models
@@ -27,11 +26,12 @@
 
                 <div class="form-group">
                     <label for="backdropPicture">BackDrop:</label>
-                    <InputText class="form-control" id="backdropPicture" @bind-Value="user.Backdrop"></InputText>
+                    <InputFile class="form-control" id="backdropPicture" OnChange="HandleBackdropPictureSelection"></InputFile>
                 </div>
+
                 <div class="form-group">
-                    <label for="profilePicture">Profile:</label>
-                    <InputText class="form-control" id="profilePicture" @bind-Value="user.Profile"></InputText>
+                    <label for="profilePicture">Profile Picture:</label>
+                    <InputFile class="form-control" id="profilePicture" OnChange="HandleProfilePictureSelection"></InputFile>
                 </div>
 
                 <div class="form-group">
@@ -66,21 +66,21 @@
                 </div>
 
             </EditForm>
-
-
+        </div>
     </div>
-</div>
 </div>
 
 @code {
     private User user = new User();
+    private IBrowserFile backdropImage;
+    private IBrowserFile profileImage;
 
     private async Task SaveAccount()
     {
         try
         {
             // Call the user service to register the user
-            await userService.SaveAccount(user);
+            await userService.SaveAccount(user, profileImage, backdropImage);
         }
         catch (Exception ex)
         {
@@ -89,13 +89,19 @@
         }
     }
 
+    private async Task HandleBackdropPictureSelection(InputFileChangeEventArgs e)
+    {
+        backdropImage = e.File;
+    }
+
+    private async Task HandleProfilePictureSelection(InputFileChangeEventArgs e)
+    {
+        profileImage = e.File;
+    }
 
     private void Cancel()
     {
         // Redirect to the cancel page or navigate to another route
         navigationManager.NavigateTo("/");
     }
-
-  
-
 }
