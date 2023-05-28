@@ -11,6 +11,7 @@ using MovieServer.Models;
 using Newtonsoft.Json.Linq;
 using MovieServer.Controllers;
 using Microsoft.AspNetCore.Components.Forms;
+using MovieServer.MiddlePoints;
 
 namespace PresentationTier.Data;
 
@@ -19,12 +20,12 @@ public class UserService:IUserService
     private readonly HttpClient client;
     private const string uri = "https://bestmoviesapi.azurewebsites.net";
     private const string uri1 = "https://localhost:7254/Register";
-    private readonly IUserRepository userRepository;
+    private readonly IUserMiddlePoint userMiddlePoint;
 
-    public UserService(HttpClient httpClient, IUserRepository userRepository)
+    public UserService(HttpClient httpClient, IUserMiddlePoint userMiddlePoint)
     {
         client = httpClient;
-        this.userRepository = userRepository;
+        this.userMiddlePoint = userMiddlePoint;
     }
 
     public async Task<User> ValidateUser(string email, string password)
@@ -43,22 +44,22 @@ public class UserService:IUserService
     {
         // Set the role
         user.Role = "Reviewer";
-
-        // Convert profile image to byte array
+        //user.ProfileImage = profileImage;
+       // Convert profile image to byte array
         using (var memoryStream = new MemoryStream())
         {
             await profileImage.OpenReadStream().CopyToAsync(memoryStream);
             user.ProfileImage = memoryStream.ToArray();
         }
 
-        // Convert backdrop image to byte array
+        //// Convert backdrop image to byte array
         using (var memoryStream = new MemoryStream())
         {
             await backdropImage.OpenReadStream().CopyToAsync(memoryStream);
             user.BackdropImage = memoryStream.ToArray();
         }
 
-        await userRepository.CreateUserAsync(user);
+        await userMiddlePoint.CreateUserAsync(user);
 
         // Save the user to the database or perform any other required operations
         // Example: userRepository.SaveUser(user);

@@ -134,9 +134,17 @@
               "target": "Package",
               "version": "[7.1.0, )"
             },
+            "Magick.NET-Q16-AnyCPU": {
+              "target": "Package",
+              "version": "[13.1.2, )"
+            },
             "Radzen.Blazor": {
               "target": "Package",
               "version": "[4.10.1, )"
+            },
+            "SixLabors.ImageSharp": {
+              "target": "Package",
+              "version": "[3.0.1, )"
             },
             "Syncfusion.Blazor": {
               "target": "Package",
