@@ -7,5 +7,7 @@ namespace PresentationTier.Data
     {
         Task<UserModel> ValidateUser(string email, string password);
         Task SaveAccount(User user, IBrowserFile profileImage, IBrowserFile backdropImage);
+        Task EditUser(User user);
+        Task<User> GetLoggedInUser(string userEmail);
     }
 }

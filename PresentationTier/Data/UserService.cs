@@ -12,26 +12,32 @@ using Newtonsoft.Json.Linq;
 using MovieServer.Controllers;
 using Microsoft.AspNetCore.Components.Forms;
 using MovieServer.MiddlePoints;
+using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
 
 namespace PresentationTier.Data;
 
 public class UserService:IUserService
 {
     private readonly HttpClient client;
+    private readonly IHttpContextAccessor httpContextAccessor;
+
     private const string uri = "https://bestmoviesapi.azurewebsites.net";
     private const string uri1 = "https://localhost:7254/Register";
     private readonly IUserMiddlePoint userMiddlePoint;
 
-    public UserService(HttpClient httpClient, IUserMiddlePoint userMiddlePoint)
+
+    public UserService(HttpClient httpClient, IUserMiddlePoint userMiddlePoint, IHttpContextAccessor httpContextAccessor)
     {
         client = httpClient;
         this.userMiddlePoint = userMiddlePoint;
+        this.httpContextAccessor = httpContextAccessor;
     }
 
     public async Task<UserModel> ValidateUser(string email, string password)
     {
         Console.WriteLine("Test 1 Email: " + email + "\nPassword: " + password);
-        var userString = await client.GetStringAsync(uri1 + $"/Login?email={email}&password={password}");
+        var userString = await client.GetStringAsync(uri + $"/Login?email={email}&password={password}");
         var user = JsonSerializer.Deserialize<UserModel>(userString, new JsonSerializerOptions
         {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase
@@ -65,7 +71,33 @@ public class UserService:IUserService
         // Example: userRepository.SaveUser(user);
     }
 
+    public async Task EditUser(User user)
+    {
+        // Perform any necessary validation or business logic checks
 
+        try
+        {
+            // Update the user in the database using the repository
+            await userMiddlePoint.UpdateUserAsync(user);
+        }
+        catch (Exception ex)
+        {
+            // Handle any exceptions or errors that occur during the update process
+            Console.WriteLine($"Error updating user: {ex.Message}");
+            throw; // Optionally, you can handle the exception and return a specific error message or result
+        }
+    }
+
+    public async Task<User> GetLoggedInUser(string userEmail)
+    {
+        if (!string.IsNullOrEmpty(userEmail))
+        {
+            var user = await userMiddlePoint.GetUserAsync(userEmail);
+            return user;
+        }
+
+        return new User(); // Return a default User object or create a new instance
+    }
 
     private string ExtractErrorMessage(string errorContent)
     {

@@ -27,6 +27,8 @@ builder.Services.AddScoped<NotificationService>();
 builder.Services.AddScoped<TooltipService>();
 builder.Services.AddScoped<ContextMenuService>();
 
+// Add HttpContextAccessor
+builder.Services.AddHttpContextAccessor();
 
 //Services
 builder.Services.AddScoped<IMediaService, MediaService>();

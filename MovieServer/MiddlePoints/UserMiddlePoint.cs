@@ -20,6 +20,17 @@ public class UserMiddlePoint : IUserMiddlePoint
         await userRepository.CreateUserAsync(user);
     }
 
+    public async Task UpdateUserAsync(User user)
+    {
+        await userRepository.UpdateUserAsync(user);
+    }
+    public async Task<User> GetUserAsync(string email)
+    {
+        var user = await userRepository.GetUserAsync(email);
+        return user;
+    }
+
+
     public async Task<User> ValidateUserAsync(string email, string password)
     {
         Console.WriteLine("testtttt");
