@@ -2,6 +2,7 @@ using System.Security.Claims;
 using System.Text.Json;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.JSInterop;
+using MovieServer.Models;
 using PresentationTier.Data;
 using PresentationTier.Models;
 
@@ -12,6 +13,7 @@ public class CustomAuthenticationStateProvider : AuthenticationStateProvider {
     private readonly IUserService userService;
 
     private UserModel cachedUser;
+    public User CachedUser { get; private set; }
 
     public CustomAuthenticationStateProvider(IJSRuntime jsRuntime, IUserService userService) {
         this.jsRuntime = jsRuntime;
