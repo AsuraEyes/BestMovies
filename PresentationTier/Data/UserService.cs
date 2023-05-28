@@ -50,19 +50,26 @@ public class UserService:IUserService
     {
         // Set the role
         user.Role = "Reviewer";
-        //user.ProfileImage = profileImage;
-       // Convert profile image to byte array
-        using (var memoryStream = new MemoryStream())
+        user.Joined = DateTime.Now.Date;
+
+        if (profileImage != null)
         {
-            await profileImage.OpenReadStream().CopyToAsync(memoryStream);
-            user.ProfileImage = memoryStream.ToArray();
+            // Convert profile image to byte array
+            using (var memoryStream = new MemoryStream())
+            {
+                await profileImage.OpenReadStream().CopyToAsync(memoryStream);
+                user.ProfileImage = memoryStream.ToArray();
+            }
         }
 
-        //// Convert backdrop image to byte array
-        using (var memoryStream = new MemoryStream())
+        if (backdropImage != null)
         {
-            await backdropImage.OpenReadStream().CopyToAsync(memoryStream);
-            user.BackdropImage = memoryStream.ToArray();
+            // Convert backdrop image to byte array
+            using (var memoryStream = new MemoryStream())
+            {
+                await backdropImage.OpenReadStream().CopyToAsync(memoryStream);
+                user.BackdropImage = memoryStream.ToArray();
+            }
         }
 
         await userMiddlePoint.CreateUserAsync(user);
@@ -70,6 +77,7 @@ public class UserService:IUserService
         // Save the user to the database or perform any other required operations
         // Example: userRepository.SaveUser(user);
     }
+
 
     public async Task EditUser(User user)
     {

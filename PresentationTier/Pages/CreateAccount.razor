@@ -3,9 +3,10 @@
 @using PresentationTier.Models
 @using MovieServer.Models
 @using PresentationTier.Data
-@using PresentationTier.Utilities
+@using MovieServer.Data.Helpers
 @inject NavigationManager navigationManager
 @inject IUserService userService
+@inject NotificationService notificationService
 
 
 <PageTitle>Create Account</PageTitle>
@@ -50,12 +51,21 @@
                     <label for="email">Email:</label>
                     <InputText class="form-control" id="email" @bind-Value="user.Email"></InputText>
                 </div>
-
                 <div class="form-group">
-                    <label for="countryCode">Country Code Number:</label>
-                    <InputNumber class="form-control" id="countryCode" @bind-Value="user.CountryCallingCode"></InputNumber>
+                    <label for="country">Country:</label>
+                    <select id="country" class="form-control" @bind="@user.CountryCallingCode">
+                        <option value="">-- Select Country --</option>
+                        @foreach (var country in callingCodes.Keys)
+                        {
+                            <option value="@callingCodes[country]">@country</option>
+                        }
+                    </select>
                 </div>
 
+                <div class="form-group">
+                    <label for="callingCode">Calling Code:</label>
+                    <input id="callingCode" type="text" class="form-control" readonly value="@user.CountryCallingCode" />
+                </div>
                 <div class="form-group">
                     <label for="phoneNumber">Phone Number:</label>
                     <InputNumber class="form-control" id="phoneNumber" @bind-Value="user.PhoneNumber"></InputNumber>
@@ -67,14 +77,25 @@
                 </div>
 
             </EditForm>
+
         </div>
     </div>
 </div>
 
 @code {
-    private User user = new User();
-    private IBrowserFile backdropImage;
-    private IBrowserFile profileImage;
+    private User user = new User()
+        {
+            DateOfBirth = DateTime.Now.Date
+        };
+
+    private IBrowserFile? backdropImage;
+    private IBrowserFile? profileImage;
+
+    private string selectedCountry;
+    private Dictionary<string, string> callingCodes = CountryCallingCodes.CallingCodes;
+
+    // Create a computed property to get the calling code based on the selected country
+    private string SelectedCountryCallingCode => callingCodes.ContainsKey(selectedCountry) ? callingCodes[selectedCountry] : string.Empty;
 
 
 
@@ -85,25 +106,68 @@
 
     private async Task HandleProfilePictureSelection(InputFileChangeEventArgs e)
     {
-       profileImage = e.File;
+        profileImage = e.File;
     }
 
     private async Task SaveAccount()
     {
         try
         {
-            
-            // Call the user service to register the user
-            await userService.SaveAccount(user, profileImage, backdropImage);
+            if (string.IsNullOrWhiteSpace(user.Email) ||
+           string.IsNullOrWhiteSpace(user.Username) ||
+           string.IsNullOrWhiteSpace(user.Password) ||
+           string.IsNullOrWhiteSpace(user.PhoneNumber.ToString()) ||
+           string.IsNullOrEmpty(user.DateOfBirth.ToString()) ||
+           string.IsNullOrEmpty(user.CountryCallingCode.ToString()))
+            {
+                notificationService.Notify(NotificationSeverity.Error, "Error creating user", "Please fill in all required fields.");
+                return;
+            }
+            // Check if images are selected
+            if (backdropImage != null && profileImage != null)
+            {
+                // Call the user service with both images
+                await userService.SaveAccount(user, profileImage, backdropImage);
+            }
+            else if (backdropImage != null)
+            {
+                // Call the user service with only backdrop image
+                await userService.SaveAccount(user, null, backdropImage);
+            }
+            else if (profileImage != null)
+            {
+                // Call the user service with only profile image
+                await userService.SaveAccount(user, profileImage, null);
+            }
+            else
+            {
+                // Call the user service with no images
+                await userService.SaveAccount(user, null, null);
+            }
+        
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error creating user: {ex.Message}");
-            // Handle the error appropriately (e.g., display an error message)
-        }
-    }
 
-    
+            if (profileImage.Size > 512000)
+            {
+                notificationService.Notify(NotificationSeverity.Error, "Error creating user, profile image can not be larger than 500 KB");
+
+            }
+            else if (backdropImage.Size > 512000)
+            {
+                notificationService.Notify(NotificationSeverity.Error, "Error creating user, backdrop image can not be larger than 500 KB");
+
+            }
+            else
+            {
+                notificationService.Notify(NotificationSeverity.Error, "Error creating user", ex.Message);
+
+            }
+        }
+        navigationManager.NavigateTo("/");
+
+    }
 
     private void Cancel()
     {

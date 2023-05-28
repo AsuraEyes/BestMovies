@@ -7,6 +7,7 @@ namespace MovieServer.Models;
 public class User
 {
     [BsonId]
+
     [BsonElement("email")]
     public string Email { get; set; }
 
