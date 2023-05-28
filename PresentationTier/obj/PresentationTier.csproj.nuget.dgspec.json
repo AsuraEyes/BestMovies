@@ -134,6 +134,10 @@
               "target": "Package",
               "version": "[7.1.0, )"
             },
+            "ISO.3166.CountryCodes": {
+              "target": "Package",
+              "version": "[1.0.3, )"
+            },
             "Magick.NET-Q16-AnyCPU": {
               "target": "Package",
               "version": "[13.1.2, )"

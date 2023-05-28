@@ -68,6 +68,21 @@
           }
         }
       },
+      "ISO.3166.CountryCodes/1.0.3": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "12.0.2"
+        },
+        "compile": {
+          "lib/netstandard2.0/ISO.3166.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/ISO.3166.dll": {}
+        },
+        "build": {
+          "build/ISO.3166.CountryCodes.targets": {}
+        }
+      },
       "LibSassBuilder/2.0.1": {
         "type": "package",
         "build": {
@@ -980,6 +995,20 @@
         "lib/netstandard2.0/DnsClient.xml",
         "lib/netstandard2.1/DnsClient.dll",
         "lib/netstandard2.1/DnsClient.xml"
+      ]
+    },
+    "ISO.3166.CountryCodes/1.0.3": {
+      "sha512": "Nqa+WqZVuiItV9yxju+4YI/tIR0PyiqICn7QPvPRNTV/OEvKWYTEjRAEVt6v95tXFMepfhYLm4kcugJLSs+3zw==",
+      "type": "package",
+      "path": "iso.3166.countrycodes/1.0.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "build/ISO.3166.CountryCodes.targets",
+        "codes.json",
+        "iso.3166.countrycodes.1.0.3.nupkg.sha512",
+        "iso.3166.countrycodes.nuspec",
+        "lib/netstandard2.0/ISO.3166.dll"
       ]
     },
     "LibSassBuilder/2.0.1": {
@@ -2536,6 +2565,7 @@
   "projectFileDependencyGroups": {
     "net7.0": [
       "Blazored.Modal >= 7.1.0",
+      "ISO.3166.CountryCodes >= 1.0.3",
       "Magick.NET-Q16-AnyCPU >= 13.1.2",
       "MovieServer >= 1.0.0",
       "Radzen.Blazor >= 4.10.1",
@@ -2597,6 +2627,10 @@
           "Blazored.Modal": {
             "target": "Package",
             "version": "[7.1.0, )"
+          },
+          "ISO.3166.CountryCodes": {
+            "target": "Package",
+            "version": "[1.0.3, )"
           },
           "Magick.NET-Q16-AnyCPU": {
             "target": "Package",

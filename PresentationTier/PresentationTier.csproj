@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Blazored.Modal" Version="7.1.0" />
+    <PackageReference Include="ISO.3166.CountryCodes" Version="1.0.3" />
     <PackageReference Include="Magick.NET-Q16-AnyCPU" Version="13.1.2" />
     <PackageReference Include="Radzen.Blazor" Version="4.10.1" />
     <PackageReference Include="SixLabors.ImageSharp" Version="3.0.1" />
