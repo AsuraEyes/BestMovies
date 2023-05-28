@@ -3,6 +3,7 @@
 @using PresentationTier.Models
 @using MovieServer.Models
 @using PresentationTier.Data
+@using PresentationTier.Utilities
 @inject NavigationManager navigationManager
 @inject IUserService userService
 @inject NavigationManager _navigationManager
@@ -52,7 +53,7 @@
 
                 <div class="form-group">
                     <label for="countryCode">Country Code Number:</label>
-                    <InputText class="form-control" id="countryCode" @bind-Value="user.CountryCallingCode"></InputText>
+                    <InputNumber class="form-control" id="countryCode" @bind-Value="user.CountryCallingCode"></InputNumber>
                 </div>
 
                 <div class="form-group">
@@ -75,10 +76,23 @@
     private IBrowserFile backdropImage;
     private IBrowserFile profileImage;
 
+
+
+    private async Task HandleBackdropPictureSelection(InputFileChangeEventArgs e)
+    {
+        backdropImage = e.File;
+    }
+
+    private async Task HandleProfilePictureSelection(InputFileChangeEventArgs e)
+    {
+       profileImage = e.File;
+    }
+
     private async Task SaveAccount()
     {
         try
         {
+            
             // Call the user service to register the user
             await userService.SaveAccount(user, profileImage, backdropImage);
         }
@@ -89,15 +103,7 @@
         }
     }
 
-    private async Task HandleBackdropPictureSelection(InputFileChangeEventArgs e)
-    {
-        backdropImage = e.File;
-    }
-
-    private async Task HandleProfilePictureSelection(InputFileChangeEventArgs e)
-    {
-        profileImage = e.File;
-    }
+    
 
     private void Cancel()
     {

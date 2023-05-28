@@ -9,8 +9,10 @@
       "PresentationTier/1.0.0": {
         "dependencies": {
           "Blazored.Modal": "7.1.0",
+          "Magick.NET-Q16-AnyCPU": "13.1.2",
           "MovieServer": "1.0.0",
           "Radzen.Blazor": "4.10.1",
+          "SixLabors.ImageSharp": "3.0.1",
           "Syncfusion.Blazor": "21.1.41"
         },
         "runtime": {
@@ -62,6 +64,67 @@
         }
       },
       "LibSassBuilder/2.0.1": {},
+      "Magick.NET-Q16-AnyCPU/13.1.2": {
+        "dependencies": {
+          "Magick.NET.Core": "13.1.2"
+        },
+        "runtime": {
+          "lib/netstandard21/Magick.NET-Q16-AnyCPU.dll": {
+            "assemblyVersion": "13.1.0.0",
+            "fileVersion": "13.1.2.0"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/linux-arm64/native/Magick.Native-Q16-arm64.dll.so": {
+            "rid": "linux-arm64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/linux-musl-x64/native/Magick.Native-Q16-x64.dll.so": {
+            "rid": "linux-musl-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/linux-x64/native/Magick.Native-Q16-x64.dll.so": {
+            "rid": "linux-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/osx-arm64/native/Magick.Native-Q16-arm64.dll.dylib": {
+            "rid": "osx-arm64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/osx-x64/native/Magick.Native-Q16-x64.dll.dylib": {
+            "rid": "osx-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-arm64/native/Magick.Native-Q16-arm64.dll": {
+            "rid": "win-arm64",
+            "assetType": "native",
+            "fileVersion": "7.1.1.9"
+          },
+          "runtimes/win-x64/native/Magick.Native-Q16-x64.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "7.1.1.9"
+          },
+          "runtimes/win-x86/native/Magick.Native-Q16-x86.dll": {
+            "rid": "win-x86",
+            "assetType": "native",
+            "fileVersion": "7.1.1.9"
+          }
+        }
+      },
+      "Magick.NET.Core/13.1.2": {
+        "runtime": {
+          "lib/netstandard21/Magick.NET.Core.dll": {
+            "assemblyVersion": "13.1.0.0",
+            "fileVersion": "13.1.2.0"
+          }
+        }
+      },
       "Microsoft.AspNetCore.Authorization/7.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Metadata": "7.0.0",
@@ -243,6 +306,14 @@
           }
         }
       },
+      "SixLabors.ImageSharp/3.0.1": {
+        "runtime": {
+          "lib/net6.0/SixLabors.ImageSharp.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.1.0"
+          }
+        }
+      },
       "Snappier/1.0.0": {
         "runtime": {
           "lib/net5.0/Snappier.dll": {
@@ -419,6 +490,20 @@
       "path": "libsassbuilder/2.0.1",
       "hashPath": "libsassbuilder.2.0.1.nupkg.sha512"
     },
+    "Magick.NET-Q16-AnyCPU/13.1.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-u0s0WhQwP4hSQxqeTG/aaVBsimVzTJVa0Yk525EEBhNV5I3uyX5QOnU2goZW8klKXAdEqrTURAd7eG2x9mExBQ==",
+      "path": "magick.net-q16-anycpu/13.1.2",
+      "hashPath": "magick.net-q16-anycpu.13.1.2.nupkg.sha512"
+    },
+    "Magick.NET.Core/13.1.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-rCcGFN3gei9hd8WynJGI6xo4Yv3djBnG1IWopoCZ7quqbhIJOHF8ArORiu3RE4+Ai5fzeqLIeknj8NQOnGHOnA==",
+      "path": "magick.net.core/13.1.2",
+      "hashPath": "magick.net.core.13.1.2.nupkg.sha512"
+    },
     "Microsoft.AspNetCore.Authorization/7.0.0": {
       "type": "package",
       "serviceable": true,
@@ -593,6 +678,13 @@
       "sha512": "sha512-XqD4TpfyYGa7QTPzaGlMVbcecKnXy4YmYLDWrU+JIj7IuRNl7DH2END+Ll7ekWIY8o3dAMWLFDE1xdhfIWD1nw==",
       "path": "sharpcompress/0.30.1",
       "hashPath": "sharpcompress.0.30.1.nupkg.sha512"
+    },
+    "SixLabors.ImageSharp/3.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-o0v/J6SJwp3RFrzR29beGx0cK7xcMRgOyIuw8ZNLQyNnBhiyL/vIQKn7cfycthcWUPG3XezUjFwBWzkcUUDFbg==",
+      "path": "sixlabors.imagesharp/3.0.1",
+      "hashPath": "sixlabors.imagesharp.3.0.1.nupkg.sha512"
     },
     "Snappier/1.0.0": {
       "type": "package",
