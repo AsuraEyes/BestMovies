@@ -28,11 +28,11 @@ public class UserService:IUserService
         this.userMiddlePoint = userMiddlePoint;
     }
 
-    public async Task<User> ValidateUser(string email, string password)
+    public async Task<UserModel> ValidateUser(string email, string password)
     {
         Console.WriteLine("Test 1 Email: " + email + "\nPassword: " + password);
-        var userString = await client.GetStringAsync(uri + $"/Login?email={email}&password={password}");
-        var user = JsonSerializer.Deserialize<User>(userString, new JsonSerializerOptions
+        var userString = await client.GetStringAsync(uri1 + $"/Login?email={email}&password={password}");
+        var user = JsonSerializer.Deserialize<UserModel>(userString, new JsonSerializerOptions
         {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase
         });

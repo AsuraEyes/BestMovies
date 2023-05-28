@@ -10,6 +10,7 @@ public class MovieService : IMovieService
 
     public MovieService()
     {
+        
         client = new HttpClient();
     }
 

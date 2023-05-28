@@ -25,6 +25,21 @@ public class UserRepository : IUserRepository
     {
         await users.InsertOneAsync(user);
     }
+    public async Task UpdateUserAsync(User user)
+    {
+        var filter = Builders<User>.Filter.Eq("_id", user.Email);
+        var update = Builders<User>.Update
+            .Set(u => u.Password, user.Password)
+            .Set(u => u.Username, user.Username)
+            .Set(u => u.Name, user.Name)
+            .Set(u => u.CountryCallingCode, user.CountryCallingCode)
+            .Set(u => u.PhoneNumber, user.PhoneNumber)
+            .Set(u => u.ProfileImage, user.ProfileImage)
+            .Set(u => u.BackdropImage, user.BackdropImage)
+            .Set(u => u.DateOfBirth, user.DateOfBirth);
+
+        await users.UpdateOneAsync(filter, update);
+    }
 
     public async Task<User> GetUserAsync(string email)
     {
