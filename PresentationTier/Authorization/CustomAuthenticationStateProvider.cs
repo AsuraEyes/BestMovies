@@ -2,7 +2,6 @@ using System.Security.Claims;
 using System.Text.Json;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.JSInterop;
-using MovieServer.Models;
 using PresentationTier.Data;
 using PresentationTier.Models;
 
@@ -12,7 +11,7 @@ public class CustomAuthenticationStateProvider : AuthenticationStateProvider {
     private readonly IJSRuntime jsRuntime;
     private readonly IUserService userService;
 
-    private UserModel cachedUser;
+    private User cachedUser;
     public User CachedUser { get; private set; }
 
     public CustomAuthenticationStateProvider(IJSRuntime jsRuntime, IUserService userService) {
@@ -25,7 +24,7 @@ public class CustomAuthenticationStateProvider : AuthenticationStateProvider {
         if (cachedUser == null) {
             var userAsJson = await jsRuntime.InvokeAsync<string>("sessionStorage.getItem", "currentUser");
             if (!string.IsNullOrEmpty(userAsJson)) {
-                var tmp = JsonSerializer.Deserialize<UserModel>(userAsJson);
+                var tmp = JsonSerializer.Deserialize<Models.User>(userAsJson);
                 await ValidateLogin(tmp.Email, tmp.Password);
             }
         } else {
@@ -63,7 +62,7 @@ public class CustomAuthenticationStateProvider : AuthenticationStateProvider {
         NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(user)));
     }
 
-    private ClaimsIdentity SetupClaimsForUser(UserModel user) {
+    private ClaimsIdentity SetupClaimsForUser(Models.User user) {
         var claims = new List<Claim>
         {
             new (ClaimTypes.Email, user.Email),

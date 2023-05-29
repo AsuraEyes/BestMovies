@@ -5,13 +5,9 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using PresentationTier.Models;
-using MovieServer.Repository;
 using PresentationTier.Data;
-using MovieServer.Models;
 using Newtonsoft.Json.Linq;
-using MovieServer.Controllers;
 using Microsoft.AspNetCore.Components.Forms;
-using MovieServer.MiddlePoints;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 
@@ -22,23 +18,21 @@ public class UserService:IUserService
     private readonly HttpClient client;
     private readonly IHttpContextAccessor httpContextAccessor;
 
-    private const string uri = "https://bestmoviesapi.azurewebsites.net";
-    private const string uri1 = "https://localhost:7254/Register";
-    private readonly IUserMiddlePoint userMiddlePoint;
+    private const string uri1 = "https://bestmoviesapi.azurewebsites.net";
+    private const string uri = "https://localhost:7254";
 
 
-    public UserService(HttpClient httpClient, IUserMiddlePoint userMiddlePoint, IHttpContextAccessor httpContextAccessor)
+    public UserService(HttpClient httpClient, IHttpContextAccessor httpContextAccessor)
     {
         client = httpClient;
-        this.userMiddlePoint = userMiddlePoint;
         this.httpContextAccessor = httpContextAccessor;
     }
 
-    public async Task<UserModel> ValidateUser(string email, string password)
+    public async Task<Models.User> ValidateUser(string email, string password)
     {
         Console.WriteLine("Test 1 Email: " + email + "\nPassword: " + password);
         var userString = await client.GetStringAsync(uri + $"/Login?email={email}&password={password}");
-        var user = JsonSerializer.Deserialize<UserModel>(userString, new JsonSerializerOptions
+        var user = JsonSerializer.Deserialize<Models.User>(userString, new JsonSerializerOptions
         {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase
         });
@@ -48,17 +42,13 @@ public class UserService:IUserService
 
     public async Task SaveAccount(User user, IBrowserFile profileImage, IBrowserFile backdropImage)
     {
-        // Set the role
-        user.Role = "Reviewer";
-        user.Joined = DateTime.Now.Date;
-
         if (profileImage != null)
         {
             // Convert profile image to byte array
             using (var memoryStream = new MemoryStream())
             {
                 await profileImage.OpenReadStream().CopyToAsync(memoryStream);
-                user.ProfileImage = memoryStream.ToArray();
+                user.Profile = memoryStream.ToArray();
             }
         }
 
@@ -68,14 +58,19 @@ public class UserService:IUserService
             using (var memoryStream = new MemoryStream())
             {
                 await backdropImage.OpenReadStream().CopyToAsync(memoryStream);
-                user.BackdropImage = memoryStream.ToArray();
+                user.Backdrop = memoryStream.ToArray();
             }
         }
+        Console.WriteLine(uri);
+        var userAsJson = JsonSerializer.Serialize(user);
+        HttpContent content = new StringContent(userAsJson, Encoding.UTF8, "application/json");
+        var test = JsonSerializer.Deserialize<User>(userAsJson, new JsonSerializerOptions
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        });
+        await client.PostAsync(uri + "/Register", content);
+        Console.WriteLine(userAsJson);
 
-        await userMiddlePoint.CreateUserAsync(user);
-
-        // Save the user to the database or perform any other required operations
-        // Example: userRepository.SaveUser(user);
     }
 
 
@@ -86,7 +81,7 @@ public class UserService:IUserService
         try
         {
             // Update the user in the database using the repository
-            await userMiddlePoint.UpdateUserAsync(user);
+            //await userMiddlePoint.UpdateUserAsync(user);
         }
         catch (Exception ex)
         {
@@ -100,11 +95,12 @@ public class UserService:IUserService
     {
         if (!string.IsNullOrEmpty(userEmail))
         {
-            var user = await userMiddlePoint.GetUserAsync(userEmail);
-            return user;
+           // var user = await userMiddlePoint.GetUserAsync(userEmail);
+           // return user;
         }
 
-        return new User(); // Return a default User object or create a new instance
+        //return new MovieServer.Models.User(); // Return a default User object or create a new instance
+        return null;
     }
 
     private string ExtractErrorMessage(string errorContent)
@@ -119,8 +115,4 @@ public class UserService:IUserService
 
         return errorMessage ?? "Unknown error";
     }
-
-
-
-
 }

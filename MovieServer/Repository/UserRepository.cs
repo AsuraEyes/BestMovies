@@ -33,8 +33,8 @@ public class UserRepository : IUserRepository
             .Set(u => u.Name, user.Name)
             .Set(u => u.CountryCallingCode, user.CountryCallingCode)
             .Set(u => u.PhoneNumber, user.PhoneNumber)
-            .Set(u => u.ProfileImage, user.ProfileImage)
-            .Set(u => u.BackdropImage, user.BackdropImage)
+            .Set(u => u.Profile, user.Profile)
+            .Set(u => u.Backdrop, user.Backdrop)
             .Set(u => u.DateOfBirth, user.DateOfBirth);
 
         await users.UpdateOneAsync(filter, update);

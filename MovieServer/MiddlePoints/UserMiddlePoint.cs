@@ -15,9 +15,8 @@ public class UserMiddlePoint : IUserMiddlePoint
 
     public async Task CreateUserAsync(User user)
     {
-        // var role = "Reviewer";
-        //user.Role = role;
         await userRepository.CreateUserAsync(user);
+        Console.WriteLine(user.Name);
     }
 
     public async Task UpdateUserAsync(User user)
