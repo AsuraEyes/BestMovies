@@ -17,6 +17,7 @@ builder.Services.AddSwaggerGen();
 //Repositories
 builder.Services.AddScoped<IReviewsRepository, ReviewsRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IPostRepository, PostRepository>();
 
 //Services
 builder.Services.AddScoped<IMediaService, MediaService>();
@@ -29,6 +30,7 @@ builder.Services.AddScoped<IMovieMiddlePoint, MovieMiddlePoint>();
 builder.Services.AddScoped<IReviewMiddlePoint, ReviewMiddlePoint>();
 builder.Services.AddScoped<ITVMiddlePoint, TVMiddlePoint>();
 builder.Services.AddScoped<IUserMiddlePoint, UserMiddlePoint>();
+builder.Services.AddScoped<IPostMiddlePoint, PostMiddlePoint>();
 
 
 var app = builder.Build();
