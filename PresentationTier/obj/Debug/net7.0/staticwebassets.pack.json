@@ -57,6 +57,22 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\images\\Icons\\comment-solid.svg",
+      "PackagePath": "staticwebassets\\images\\Icons\\comment-solid.svg"
+    },
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\images\\Icons\\share-nodes-solid.svg",
+      "PackagePath": "staticwebassets\\images\\Icons\\share-nodes-solid.svg"
+    },
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\images\\Icons\\thumbs-down-solid.svg",
+      "PackagePath": "staticwebassets\\images\\Icons\\thumbs-down-solid.svg"
+    },
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\images\\Icons\\thumbs-up-solid.svg",
+      "PackagePath": "staticwebassets\\images\\Icons\\thumbs-up-solid.svg"
+    },
+    {
       "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\images\\carousel\\christstatue.jpg",
       "PackagePath": "staticwebassets\\images\\carousel\\christstatue.jpg"
     },

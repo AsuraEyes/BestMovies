@@ -19,6 +19,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ICollectionRepository, CollectionRepository>();
 builder.Services.AddScoped<IReviewsRepository, ReviewsRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IPostRepository, PostRepository>();
 
 //Services
 builder.Services.AddScoped<ICollectionService, CollectionService>();
@@ -35,6 +36,7 @@ builder.Services.AddScoped<IPersonMiddlePoint, PersonMiddlePoint>();
 builder.Services.AddScoped<IReviewMiddlePoint, ReviewMiddlePoint>();
 builder.Services.AddScoped<ITVMiddlePoint, TVMiddlePoint>();
 builder.Services.AddScoped<IUserMiddlePoint, UserMiddlePoint>();
+builder.Services.AddScoped<IPostMiddlePoint, PostMiddlePoint>();
 
 
 var app = builder.Build();
