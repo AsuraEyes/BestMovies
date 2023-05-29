@@ -1,14 +1,12 @@
 @page "/Posts"
 
-
 @using PresentationTier.Models
 @using System.Collections.Generic
 @using PresentationTier.Data
-@using System.Security.Claims;
+@using System.Security.Claims
 @inject IPostService postService
 @inject IUserService userService
 @inject AuthenticationStateProvider authenticationStateProvider
-
 
 <style>
     .profile-pic {
@@ -58,6 +56,7 @@
         margin-bottom: 20px;
         font-size: 18px;
         color: #4B5563;
+        width: 100%;
     }
 
     .editor button {
@@ -74,8 +73,6 @@
             background-color: #4338CA;
             cursor: pointer;
         }
-    /* ... existing styles ... */
-
 
     .grid-container {
         display: grid;
@@ -96,12 +93,12 @@
         <AuthorizeView>
             <Authorized>
                 <div class="RadzenCard" style="border-radius: 10px; width: 770px">
-                    <div class="editor" style="width: 758px; height: 343px">
+                    <div class="editor">
                         <h1>Create a Post</h1>
                         <div class="profile-info" style="display: flex; align-items: center;">
-                            <div class="form-label" style="margin-left: 10px;">@currentUser.Username</div>
+                            <div class="form-label" style="margin-left: 10px;">@currentUser.Email</div>
                         </div>
-                        <InputTextArea @bind-Value="@newPost.Content" style="width: 100%; font-size: 18px;"></InputTextArea>
+                        <textarea @bind="@newPost.Content" style="font-size: 18px;"></textarea>
                         <button class="btn btn-primary float-right" @onclick="CreatePost">Post</button>
                     </div>
                 </div>
@@ -110,25 +107,27 @@
                 <p>Please log in to create a post.</p>
             </NotAuthorized>
         </AuthorizeView>
-        <div class="RadzenCard" style="width: 769px; height: 256px; margin-top:10px">
-            <RadzenCard Style="width: 755px; height: 262px">
-                <RadzenStack Orientation="Radzen.Orientation.Horizontal">
-                    <RadzenImage Path="https://bootdey.com/img/Content/avatar/avatar6.png" Style="width: 50px; border-radius: 50%" />
-                    <RadzenStack Gap="0">
-                        <RadzenText TextStyle="TextStyle.DisplayH6">Test Post</RadzenText>
-                        <RadzenText TextStyle="TextStyle.Caption">Test Poster</RadzenText>
-                    </RadzenStack>
-                </RadzenStack>
-                <RadzenText Style="padding-top: 10px">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </RadzenText>
-                <div style="display: flex; justify-content: space-between; margin-top: 10px;">
-                    <img id="likeIcon" width="30" height="30" src="/images/icons/thumbs-up-solid.svg" onclick="ToggleLike()" />
-                    <img id="dislikeIcon" width="30" height="30" src="/images/icons/thumbs-down-solid.svg" onclick="dislikePost()" />
-                    <img src="/images/icons/comment-solid.svg" width="30" height="30" />
-                    <img src="/images/icons/share-nodes-solid.svg" width="30" height="30" />
+        <div class="RadzenCard" style="margin-top: 10px">
+            @foreach (var post in posts)
+            {
+                <div class="RadzenCard" style="width: 769px; height: 256px; margin-top: 10px;">
+                    <RadzenCard Style="width: 755px; height: 262px;">
+                        <RadzenStack Orientation="Radzen.Orientation.Horizontal">
+                            <RadzenImage Path="https://bootdey.com/img/Content/avatar/avatar6.png" Style="width: 50px; border-radius: 50%;" />
+                            <RadzenStack Gap="0">
+                                <RadzenText TextStyle="TextStyle.Caption">@post.PostedBy</RadzenText>
+                            </RadzenStack>
+                        </RadzenStack>
+                        <RadzenText Style="padding-top: 10px">@post.Content</RadzenText>
+                        <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+                            <img id="likeIcon" width="30" height="30" src="/images/icons/thumbs-up-solid.svg" onclick="ToggleLike()" />
+                            <img id="dislikeIcon" width="30" height="30" src="/images/icons/thumbs-down-solid.svg" onclick="dislikePost()" />
+                            <img src="/images/icons/comment-solid.svg" width="30" height="30" />
+                            <img src="/images/icons/share-nodes-solid.svg" width="30" height="30" />
+                        </div>
+                    </RadzenCard>
                 </div>
-            </RadzenCard>
+            }
         </div>
     </div>
     <div class="right-column">
@@ -137,8 +136,8 @@
                 <RadzenStack Gap="25" JustifyContent="Radzen.JustifyContent.Normal" Orientation="Radzen.Orientation.Vertical">
                     <h1>#Trending</h1>
                     <RadzenCard>
-                        <RadzenStack Orientation="Radzen.Orientation.Horizontal">
-                            <RadzenImage Path="https://bootdey.com/img/Content/avatar/avatar6.png" Style="width: 50px; border-radius: 50%" />
+                        <RadzenStack Orientation="Radzen.Orientation.Horizontal" Gap="10">
+                            <RadzenImage Path="https://bootdey.com/img/Content/avatar/avatar6.png" Style="width: 50px; border-radius: 50%;" />
                             <RadzenStack Gap="0">
                                 <RadzenText TextStyle="TextStyle.DisplayH6">Test Post</RadzenText>
                                 <RadzenText TextStyle="TextStyle.Caption">Test Poster</RadzenText>
@@ -152,23 +151,27 @@
 </div>
 
 
-
-
 @code {
     private User currentUser = new User();
     private Post newPost = new Post();
+    private List<Post> posts = new List<Post>();
 
     protected override async Task OnInitializedAsync()
     {
         // Call the ValidateUser method to validate the user
-        var currentUser = await userService.ValidateUser("shrhrhd", "æljksakæljh");
-
-        // Use the validated user object as needed
+        var currentUser = await userService.ValidateUser("shrhrhd", "kebab");
 
         // Refresh the authentication state
         await RefreshAuthenticationState();
 
-        // Perform other initialization tasks
+        // Fetch all posts
+        posts = await postService.GetAllPosts();
+
+        //// Populate the PostedBy property with the user's email
+        //foreach (var post in posts)
+        //{
+        //    post.PostedBy = postService.GetPostedByEmail(post.PostedBy);
+        //}
 
         // Call the base OnInitializedAsync method
         await base.OnInitializedAsync();
@@ -186,17 +189,20 @@
         var updatedUser = new ClaimsPrincipal(identity);
 
         // Update the authentication state with the new ClaimsPrincipal
-      //  await authenticationStateProvider.SetAuthenticationStateAsync(new AuthenticationState(updatedUser));
+        // await authenticationStateProvider.SetAuthenticationStateAsync(new AuthenticationState(updatedUser));
     }
 
     private async Task CreatePost()
     {
-        newPost.PostedBy = currentUser.Username;
+        newPost.PostedDate = DateTime.Now;
+
+        // Get the current user's email using your custom user service
+        var currentUser = await userService.GetCurrentUser();
+        newPost.PostedBy = currentUser.Email;
 
         await postService.SavePost(newPost);
 
         // Reset the post creation form
         newPost = new Post();
     }
-
 }

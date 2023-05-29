@@ -32,5 +32,20 @@ namespace MovieServer.Controllers
                 return StatusCode(500, e.Message);
             }
         }
+        [HttpGet]
+        [Route("/GetAllPosts")]
+        public async Task<ActionResult<List<Post>>> GetAllPosts()
+        {
+            try
+            {
+                var posts = await postMiddlePoint.GetAllPostsAsync();
+                return Ok(posts);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return StatusCode(500, e.Message);
+            }
+        }
     }
 }

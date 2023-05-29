@@ -23,5 +23,16 @@ namespace MovieServer.Repository
         {
             await posts.InsertOneAsync(post);
         }
+        public async Task<List<Post>> GetAllPostsAsync()
+        {
+            var filter = Builders<Post>.Filter.Empty;
+            var posts = await this.posts.Find(filter).ToListAsync();
+            foreach (var post in posts)
+            {
+                Console.WriteLine(post);
+            }
+            return posts;
+        }
+
     }
 }
