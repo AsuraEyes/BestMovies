@@ -19,6 +19,7 @@ public class UserMiddlePoint : IUserMiddlePoint
     public async Task CreateUserAsync(User user)
     {
         await userRepository.CreateUserAsync(user);
+        Console.WriteLine(user.Name);
     }
 
     public async Task UpdateUserAsync(User user)

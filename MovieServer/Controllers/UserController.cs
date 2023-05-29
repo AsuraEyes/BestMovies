@@ -21,13 +21,14 @@ public class UserController : Controller
     [HttpPost]
     [Route("/Register")]
 
-    public async Task<ActionResult> CreateUserAsync(User user)
+    public async Task<ActionResult> CreateUserAsync([FromBody]User user)
     {
         try
         {
-            await userRepository.CreateUserAsync(user);
-
-            return Ok();
+            await userMiddlePoint.CreateUserAsync(user);
+            Console.WriteLine(user.Name);
+            Console.WriteLine("TEEEEEST");
+            return Ok(user);
         }
         catch (Exception e)
         {
@@ -42,7 +43,7 @@ public class UserController : Controller
         try
         {
             await userRepository.CreateUserAsync(user);
-            return Ok();
+            return Ok(user);
         }
         catch (Exception e)
         {
