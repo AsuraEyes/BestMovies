@@ -47,6 +47,8 @@ namespace PresentationTier.Data
                     var createdPost = JsonConvert.DeserializeObject<Post>(responseContent);
 
                     // Optionally, you can return the created post or perform any other actions
+
+                    // Refresh the page using the NavigationManager
                 }
                 else
                 {
@@ -62,6 +64,7 @@ namespace PresentationTier.Data
                 throw new Exception("An error occurred while saving the post.", ex);
             }
         }
+
 
         public async Task<List<Post>> GetAllPosts()
         {
@@ -101,6 +104,58 @@ namespace PresentationTier.Data
             string email = authState.User.FindFirstValue(ClaimTypes.Email);
 
             return email;
+        }
+     
+        public async Task LikePost(Post post)
+        {
+            try
+            {
+                // Perform the necessary operations to indicate that the post is liked
+                post.NumberOfLikes++; // Increment the number of likes
+
+                // Update the post on the server
+                var content = new StringContent(JsonConvert.SerializeObject(post), Encoding.UTF8, "application/json");
+                var response = await client.PutAsync($"{apiUrl}/UpdatePost/{post.Id}", content);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    // Handle the case when the request was not successful
+                    // You can log the error or throw an exception if needed
+                    throw new Exception($"Failed to update the post. StatusCode: {response.StatusCode}");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle any exceptions that occurred during the request
+                // You can log the error or throw a custom exception if needed
+                throw new Exception("An error occurred while liking the post.", ex);
+            }
+        }
+
+        public async Task DislikePost(Post post)
+        {
+            try
+            {
+                // Perform the necessary operations to indicate that the post is disliked
+                post.NumberOfLikes--; // Decrement the number of likes
+
+                // Update the post on the server
+                var content = new StringContent(JsonConvert.SerializeObject(post), Encoding.UTF8, "application/json");
+                var response = await client.PutAsync($"{apiUrl}/UpdatePost/{post.Id}", content);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    // Handle the case when the request was not successful
+                    // You can log the error or throw an exception if needed
+                    throw new Exception($"Failed to update the post. StatusCode: {response.StatusCode}");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle any exceptions that occurred during the request
+                // You can log the error or throw a custom exception if needed
+                throw new Exception("An error occurred while disliking the post.", ex);
+            }
         }
     }
 }

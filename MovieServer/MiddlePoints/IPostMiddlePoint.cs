@@ -6,5 +6,7 @@ namespace MovieServer.MiddlePoints
     {
         Task CreatePostAsync(Post post);
         Task<List<Post>> GetAllPostsAsync();
+        Task UpdatePostAsync(Post post);
+        Task<Post> GetPostByIdAsync(string postId);
     }
 }

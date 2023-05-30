@@ -47,5 +47,36 @@ namespace MovieServer.Controllers
                 return StatusCode(500, e.Message);
             }
         }
+
+        [HttpPut("{id}")]
+        [Route("/UpdatePost")]
+        public async Task<IActionResult> UpdatePost(string id, [FromBody] int numberOfLikes)
+        {
+            var existingPost = await postMiddlePoint.GetPostByIdAsync(id);
+            if (existingPost == null)
+            {
+                return NotFound();
+            }
+
+            // Update the NumberOfLikes property of the existing post
+            existingPost.NumberOfLikes = numberOfLikes;
+
+            await postMiddlePoint.UpdatePostAsync(existingPost);
+
+            return NoContent();
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Post>> GetPostById(string id)
+        {
+            var post = await postMiddlePoint.GetPostByIdAsync(id);
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            return post;
+        }
+
     }
 }
