@@ -3,17 +3,25 @@ using System.Text;
 using System;
 using PresentationTier.Models;
 using Amazon.Runtime.Internal.Endpoints.StandardLibrary;
+using Blazorise;
+using PresentationTier.Authorization;
+using Microsoft.AspNetCore.Components.Authorization;
+using System.Security.Claims;
+using Newtonsoft.Json;
 
 namespace PresentationTier.Data
 {
-    public class PostService: IPostService
+    public class PostService : IPostService
     {
         private readonly HttpClient client;
         private readonly IHttpContextAccessor httpContextAccessor;
-        public PostService(HttpClient httpClient, IHttpContextAccessor accessor)
+        private readonly AuthenticationStateProvider authenticationStateProvider;
+
+        public PostService(HttpClient httpClient, IHttpContextAccessor accessor, AuthenticationStateProvider authStateProvider)
         {
             client = httpClient;
             httpContextAccessor = accessor;
+            authenticationStateProvider = authStateProvider;
         }
         private const string uri1 = "https://bestmoviesapi.azurewebsites.net";
         private const string apiUrl = "https://localhost:7254";
@@ -22,11 +30,25 @@ namespace PresentationTier.Data
         {
             try
             {
-                var postAsJson = JsonSerializer.Serialize(post);
+                var postAsJson = JsonConvert.SerializeObject(post);
+
+                // Retrieve the logged-in user's email using the CustomAuthenticationStateProvider
+                string email = GetLoggedInUserEmail();
+
+                // Modify the post object to include the logged-in user's email
+                post.PostedBy = email;
+
                 var content = new StringContent(postAsJson, Encoding.UTF8, "application/json");
                 var response = await client.PostAsync($"{apiUrl}/CreatePost", content);
 
-                if (!response.IsSuccessStatusCode)
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseContent = await response.Content.ReadAsStringAsync();
+                    var createdPost = JsonConvert.DeserializeObject<Post>(responseContent);
+
+                    // Optionally, you can return the created post or perform any other actions
+                }
+                else
                 {
                     // Handle the case when the request was not successful
                     // You can log the error or throw an exception if needed
@@ -50,11 +72,7 @@ namespace PresentationTier.Data
                 if (response.IsSuccessStatusCode)
                 {
                     var content = await response.Content.ReadAsStringAsync();
-                    var posts = JsonSerializer.Deserialize<List<Post>>(content);
-                    foreach (var post in posts)
-                    {
-                        Console.WriteLine($"Post ID: {post.Id}, Content: {post.Content} FROM SERVICE");
-                    }
+                    var posts = JsonConvert.DeserializeObject<List<Post>>(content);
                     return posts;
                 }
                 else
@@ -71,5 +89,19 @@ namespace PresentationTier.Data
                 throw new Exception("An error occurred while retrieving posts.", ex);
             }
         }
+
+
+
+        private string GetLoggedInUserEmail()
+        {
+            // Get the authentication state using the CustomAuthenticationStateProvider
+            var authState = authenticationStateProvider.GetAuthenticationStateAsync().Result;
+
+            // Retrieve the user's email from the authentication state
+            string email = authState.User.FindFirstValue(ClaimTypes.Email);
+
+            return email;
+        }
     }
 }
+

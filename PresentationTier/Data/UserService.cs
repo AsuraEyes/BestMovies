@@ -10,6 +10,7 @@ using Newtonsoft.Json.Linq;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
+using MovieServer.MiddlePoints;
 
 namespace PresentationTier.Data;
 
@@ -17,26 +18,30 @@ public class UserService:IUserService
 {
     private readonly HttpClient client;
     private readonly IHttpContextAccessor httpContextAccessor;
+    private readonly IUserMiddlePoint userMiddlePoint;
+
+
 
     private const string uri1 = "https://bestmoviesapi.azurewebsites.net";
     private const string uri = "https://localhost:7254";
 
 
-    public UserService(HttpClient httpClient, IHttpContextAccessor httpContextAccessor)
+    public UserService(HttpClient httpClient, IHttpContextAccessor httpContextAccessor, IUserMiddlePoint userMiddlePoint)
     {
         client = httpClient;
         this.httpContextAccessor = httpContextAccessor;
+        this.userMiddlePoint = userMiddlePoint;
     }
 
-    public async Task<Models.User> ValidateUser(string email, string password)
+    public async Task<User> ValidateUser(string email, string password)
     {
-        Console.WriteLine("Test 1 Email: " + email + "\nPassword: " + password);
+      //  Console.WriteLine("Test 1 Email: " + email + "\nPassword: " + password);
         var userString = await client.GetStringAsync(uri + $"/Login?email={email}&password={password}");
-        var user = JsonSerializer.Deserialize<Models.User>(userString, new JsonSerializerOptions
+        var user = JsonSerializer.Deserialize<User>(userString, new JsonSerializerOptions
         {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase
         });
-        Console.WriteLine("Test 2 Email: " + user.Email + "\nPassword: " + user.Password);
+       // Console.WriteLine("Test 2 Email: " + user.Email + "\nPassword: " + user.Password);
         return user;
     }
 
@@ -61,6 +66,7 @@ public class UserService:IUserService
                 user.Backdrop = memoryStream.ToArray();
             }
         }
+        user.Role = "Reviewer";
         Console.WriteLine(uri);
         var userAsJson = JsonSerializer.Serialize(user);
         HttpContent content = new StringContent(userAsJson, Encoding.UTF8, "application/json");
@@ -95,12 +101,13 @@ public class UserService:IUserService
     {
         if (!string.IsNullOrEmpty(userEmail))
         {
-           // var user = await userMiddlePoint.GetUserAsync(userEmail);
+            var user = await userMiddlePoint.GetUserAsync(userEmail);
            // return user;
         }
 
-        //return new MovieServer.Models.User(); // Return a default User object or create a new instance
-        return null;
+        // If userEmail is empty or null, you may want to handle that case accordingly.
+        // For now, let's return a default User object or create a new instance.
+        return new User();
     }
 
     private string ExtractErrorMessage(string errorContent)
