@@ -6,148 +6,195 @@
 @using System.Security.Claims
 @inject IPostService postService
 @inject IUserService userService
+@inject NavigationManager navigationManager
 @inject AuthenticationStateProvider authenticationStateProvider
 
 <style>
-    .profile-pic {
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        object-fit: cover;
-        padding-bottom: 10px;
+    .container {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        padding: 20px;
     }
 
-    .icon {
-        fill: gray;
-        width: 24px;
-        height: 24px;
-        cursor: pointer;
+    .left-column,
+    .right-column {
+        width: 50%;
     }
-
-        .icon.active {
-            fill: green;
-        }
 
     .editor {
         background-color: white;
-        padding: 40px;
+        padding: 20px;
         border-radius: 5px;
         box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.1);
-    }
-
-    .editor1 {
-        background-color: aliceblue;
-        padding: 40px;
-        border-radius: 5px;
-        box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.1);
-    }
-
-    .editor h1 {
-        font-size: 36px;
-        margin-bottom: 30px;
-    }
-
-    .editor input,
-    .editor textarea {
-        background-color: #F1F3F5;
-        border: none;
-        border-radius: 5px;
-        padding: 15px;
         margin-bottom: 20px;
-        font-size: 18px;
-        color: #4B5563;
     }
 
-    .editor button {
-        background-color: #4F46E5;
-        border: none;
-        border-radius: 5px;
-        color: white;
-        padding: 15px;
-        font-size: 18px;
-        transition: all 0.2s ease-in-out;
-    }
+        .editor h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
 
-        .editor button:hover {
-            background-color: #4338CA;
+        .editor input,
+        .editor textarea {
+            background-color: #F1F3F5;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-size: 16px;
+            color: #4B5563;
+            width: 100%;
+        }
+
+        .editor button {
+            background-color: #4F46E5;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            padding: 10px;
+            font-size: 16px;
+            transition: background-color 0.2s ease-in-out;
             cursor: pointer;
         }
 
-    .grid-container {
-        display: grid;
-        grid-template-columns: 1fr auto;
-        grid-gap: 20px;
+            .editor button:hover {
+                background-color: #4338CA;
+            }
+
+    .post-list {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
     }
 
-    .right-column {
-        position: sticky;
-        top: 20px;
-        height: 1000px;
-        overflow-y: auto;
+    .post-card {
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.1);
     }
+
+        .post-card .profile-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+            .post-card .profile-info .profile-pic {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                object-fit: cover;
+                margin-right: 10px;
+            }
+
+        .post-card .content {
+            margin-bottom: 10px;
+        }
+
+        .post-card .icons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+            .post-card .icons img {
+                width: 24px;
+                height: 24px;
+                cursor: pointer;
+                margin-right: 10px;
+            }
+
+                .post-card .icons img.active {
+                    fill: green;
+                }
+
+    .trending-section {
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.1);
+    }
+
+        .trending-section h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+    .trending-card {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+        .trending-card .profile-pic {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+
+        .trending-card .post-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+            .trending-card .post-info .post-title {
+                font-size: 18px;
+                font-weight: bold;
+            }
+
+            .trending-card .post-info .post-poster {
+                font-size: 14px;
+                color: #6B7280;
+            }
 </style>
 
-<div class="grid-container">
+<div class="container">
     <div class="left-column">
-        <AuthorizeView>
-            <Authorized>
-                <div class="RadzenCard" style="border-radius: 10px; width: 770px">
-                    <div class="editor">
-                        <h1>Create a Post</h1>
-                        <div class="profile-info" style="display: flex; align-items: center;">
-                            <div class="form-label" style="margin-left: 10px;">@currentUser.Email</div>
-                        </div>
-                        <InputTextArea @bind-Value="@newPost.Content" style="width: 100%; font-size: 18px;"></InputTextArea>
-                        <button class="btn btn-primary float-right" @onclick="CreatePost">Post</button>
-                    </div>
-                </div>
-            </Authorized>
-            <NotAuthorized>
-                <p>Please log in to create a post.</p>
-            </NotAuthorized>
-        </AuthorizeView>
-        <div class="RadzenCard" style="margin-top: 10px">
+        <div class="editor">
+            <h1>Create a Post</h1>
+            <div class="form-label">@currentUser.Email</div>
+            <InputText @bind-Value="@newPost.Title" rows="3" DisplayName="Title"></InputText>
+            <InputTextArea @bind-Value="@newPost.Content" rows="3" DisplayName="Content"></InputTextArea>
+            <button class="btn btn-primary" @onclick="CreatePost">Post</button>
+        </div>
+
+        <div class="post-list">
             @foreach (var post in posts)
             {
-                <div class="RadzenCard" style="width: 769px; height: 256px; margin-top:10px">
-                    <RadzenCard Style="width: 755px; height: 262px">
-                        <RadzenStack Orientation="Radzen.Orientation.Horizontal">
-                            <RadzenImage Path="https://bootdey.com/img/Content/avatar/avatar6.png" Style="width: 50px; border-radius: 50%" />
-                            <RadzenStack Gap="0">
-                                <RadzenText TextStyle="TextStyle.Caption">@post.PostedBy</RadzenText>
-                            </RadzenStack>
-                        </RadzenStack>
-                        <RadzenText Style="padding-top: 10px">@post.Content</RadzenText>
-                        <div style="display: flex; justify-content: space-between; margin-top: 10px;">
-                            <img id="likeIcon" width="30" height="30" src="/images/icons/thumbs-up-solid.svg" onclick="ToggleLike()" />
-                            <img id="dislikeIcon" width="30" height="30" src="/images/icons/thumbs-down-solid.svg" onclick="dislikePost()" />
-                            <img src="/images/icons/comment-solid.svg" width="30" height="30" />
-                            <img src="/images/icons/share-nodes-solid.svg" width="30" height="30" />
-                        </div>
-                    </RadzenCard>
+                <div class="post-card">
+                    <div class="profile-info">
+                        <img class="profile-pic" src="@($"data:image/png;base64,{Convert.ToBase64String(post.Picture)}")" alt="Profile Picture" />
+                        <div class="form-label">@post.PostedBy</div>
+                    </div>
+                    <div class="content">@post.Content</div>
+                    <div class="icons">
+                        <img id="likeIcon" src="/images/icons/thumbs-up-solid.svg" alt="Like" @onclick="LikePost" />
+                        <img id="dislikeIcon" src="/images/icons/thumbs-down-solid.svg" alt="Dislike" @onclick="DisLikePost" />
+                        <img src="/images/icons/comment-solid.svg" alt="Comment" />
+                        <img src="/images/icons/share-nodes-solid.svg" alt="Share" />
+                    </div>
                 </div>
             }
         </div>
-        <div class="right-column">
-            <div class="RadzenCard">
-                <div class="editor">
-                    <RadzenStack Gap="25" JustifyContent="Radzen.JustifyContent.Normal" Orientation="Radzen.Orientation.Vertical">
-                        <h1>#Trending</h1>
-                        <RadzenCard>
-                            <RadzenStack Orientation="Radzen.Orientation.Horizontal" Gap="10">
-                                <RadzenImage Path="https://bootdey.com/img/Content/avatar/avatar6.png" Style="width: 50px; border-radius: 50%" />
-                                <RadzenStack Gap="0">
-                                    <RadzenText TextStyle="TextStyle.DisplayH6">Test Post</RadzenText>
-                                    <RadzenText TextStyle="TextStyle.Caption">Test Poster</RadzenText>
-                                </RadzenStack>
-                            </RadzenStack>
-                        </RadzenCard>
-                    </RadzenStack>
+    </div>
+    <div class="right-column">
+        <div class="trending-section">
+            <h1>#Trending</h1>
+            <div class="trending-card">
+                <img class="profile-pic" src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="Profile Picture" />
+                <div class="post-info">
+                    <div class="post-title">Test Post</div>
+                    <div class="post-poster">Test Poster</div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
+
 
 @code {
     private User currentUser = new User();
@@ -164,8 +211,8 @@
         // Set the necessary user details
         this.currentUser.Email = currentUser.Email;
         this.currentUser.Password = currentUser.Password;
-       // this.currentUser.Profile = currentUser.Profile;
-        //this.currentUser.Username = currentUser.Username;
+        this.currentUser.Profile = currentUser.Profile;
+        this.currentUser.Username = currentUser.Username;
 
 
         // Refresh the authentication state
@@ -207,17 +254,59 @@
         var post = new Post
             {
                 Id = newPost.Id,
+                Title = newPost.Title,
                 Content = newPost.Content,
                 PostedDate = DateTime.Now,
                 PostedBy = user.Email,
-               // ProfilePicture = user.Profile,
-                Username = user.Username
+                Picture = user.Profile,
+                Username = user.Username,
+                NumberOfLikes = newPost.NumberOfLikes 
+               
             };
 
         // Save the post
         await postService.SavePost(post);
 
+        //navigationManager.NavigateTo("/Posts",true);
+
         // Reset the post creation form
         newPost = new Post();
+    }
+
+    private async Task LikePost()
+    {
+        try
+        {
+            // Get the post to be liked
+            var postToLike = posts.FirstOrDefault();
+
+            // Call the like method in the postService
+            await postService.LikePost(postToLike);
+
+            posts = await postService.GetAllPosts();
+        }
+        catch (Exception ex)
+        {
+
+        }
+    }
+
+    private async Task DisLikePost()
+    {
+        try
+        {
+            // Get the post to be disliked
+            var postToDislike = posts.FirstOrDefault(); 
+
+            // Call the dislike method in the postService
+            await postService.DislikePost(postToDislike);
+
+            // Refresh the posts list to reflect the updated like count
+            posts = await postService.GetAllPosts();
+        }
+        catch (Exception ex)
+        {
+ 
+        }
     }
 }

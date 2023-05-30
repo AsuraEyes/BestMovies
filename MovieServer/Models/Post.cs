@@ -8,6 +8,8 @@ namespace MovieServer.Models
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
+        [BsonElement("title")]
+        public string Title { get; set; }
 
         [BsonElement("content")]
         public string Content { get; set; }
@@ -18,9 +20,14 @@ namespace MovieServer.Models
         [BsonElement("postedBy")]
         public string PostedBy { get; set; }
 
-
+        [BsonElement("picture")]
+        public byte[] Picture { get; set; }
 
         [BsonElement("username")]
         public string Username { get; set; }
+
+        [BsonElement("numberOfLikes")]
+        public int NumberOfLikes { get; set; }
+
     }
 }

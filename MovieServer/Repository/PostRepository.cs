@@ -1,6 +1,7 @@
 ﻿using MongoDB.Driver;
 using MovieServer.Models;
 using MovieServer.MiddlePoints;
+using MongoDB.Bson;
 
 namespace MovieServer.Repository
 {
@@ -32,6 +33,27 @@ namespace MovieServer.Repository
                 Console.WriteLine(post);
             }
             return posts;
+        }
+
+        public async Task UpdatePostAsync(Post post)
+        {
+            var filter = Builders<Post>.Filter.Eq("_id", post.Id);
+            var update = Builders<Post>.Update
+                .Set(p => p.NumberOfLikes, post.NumberOfLikes);
+
+            await posts.UpdateOneAsync(filter, update);
+        }
+
+
+        public async Task<Post> GetPostByIdAsync(string postId)
+        {
+            if (!ObjectId.TryParse(postId, out ObjectId objectId))
+            {
+                return null;
+            }
+
+            var filter = Builders<Post>.Filter.Eq("_id", objectId);
+            return await posts.Find(filter).FirstOrDefaultAsync();
         }
 
     }

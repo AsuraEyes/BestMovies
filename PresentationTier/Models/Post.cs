@@ -8,13 +8,18 @@ namespace PresentationTier.Models
 
         public string Id { get; set; }
 
+        public string Title { get; set; }
+
         public string Content { get; set; }
 
         public DateTime PostedDate { get; set; }
 
         public string PostedBy { get; set; }
 
+        public byte[] Picture { get; set; }
 
         public string Username { get; set; }
+        public int NumberOfLikes { get; set; }
+
     }
 }
