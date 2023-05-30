@@ -26,8 +26,6 @@ public class UserController : Controller
         try
         {
             await userMiddlePoint.CreateUserAsync(user);
-            Console.WriteLine(user.Name);
-            Console.WriteLine("TEEEEEST");
             return Ok(user);
         }
         catch (Exception e)

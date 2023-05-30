@@ -56,7 +56,6 @@
         margin-bottom: 20px;
         font-size: 18px;
         color: #4B5563;
-        width: 100%;
     }
 
     .editor button {
@@ -98,7 +97,7 @@
                         <div class="profile-info" style="display: flex; align-items: center;">
                             <div class="form-label" style="margin-left: 10px;">@currentUser.Email</div>
                         </div>
-                        <textarea @bind="@newPost.Content" style="font-size: 18px;"></textarea>
+                        <InputTextArea @bind-Value="@newPost.Content" style="width: 100%; font-size: 18px;"></InputTextArea>
                         <button class="btn btn-primary float-right" @onclick="CreatePost">Post</button>
                     </div>
                 </div>
@@ -110,10 +109,10 @@
         <div class="RadzenCard" style="margin-top: 10px">
             @foreach (var post in posts)
             {
-                <div class="RadzenCard" style="width: 769px; height: 256px; margin-top: 10px;">
-                    <RadzenCard Style="width: 755px; height: 262px;">
+                <div class="RadzenCard" style="width: 769px; height: 256px; margin-top:10px">
+                    <RadzenCard Style="width: 755px; height: 262px">
                         <RadzenStack Orientation="Radzen.Orientation.Horizontal">
-                            <RadzenImage Path="https://bootdey.com/img/Content/avatar/avatar6.png" Style="width: 50px; border-radius: 50%;" />
+                            <RadzenImage Path="https://bootdey.com/img/Content/avatar/avatar6.png" Style="width: 50px; border-radius: 50%" />
                             <RadzenStack Gap="0">
                                 <RadzenText TextStyle="TextStyle.Caption">@post.PostedBy</RadzenText>
                             </RadzenStack>
@@ -129,49 +128,51 @@
                 </div>
             }
         </div>
-    </div>
-    <div class="right-column">
-        <div class="RadzenCard">
-            <div class="editor">
-                <RadzenStack Gap="25" JustifyContent="Radzen.JustifyContent.Normal" Orientation="Radzen.Orientation.Vertical">
-                    <h1>#Trending</h1>
-                    <RadzenCard>
-                        <RadzenStack Orientation="Radzen.Orientation.Horizontal" Gap="10">
-                            <RadzenImage Path="https://bootdey.com/img/Content/avatar/avatar6.png" Style="width: 50px; border-radius: 50%;" />
-                            <RadzenStack Gap="0">
-                                <RadzenText TextStyle="TextStyle.DisplayH6">Test Post</RadzenText>
-                                <RadzenText TextStyle="TextStyle.Caption">Test Poster</RadzenText>
+        <div class="right-column">
+            <div class="RadzenCard">
+                <div class="editor">
+                    <RadzenStack Gap="25" JustifyContent="Radzen.JustifyContent.Normal" Orientation="Radzen.Orientation.Vertical">
+                        <h1>#Trending</h1>
+                        <RadzenCard>
+                            <RadzenStack Orientation="Radzen.Orientation.Horizontal" Gap="10">
+                                <RadzenImage Path="https://bootdey.com/img/Content/avatar/avatar6.png" Style="width: 50px; border-radius: 50%" />
+                                <RadzenStack Gap="0">
+                                    <RadzenText TextStyle="TextStyle.DisplayH6">Test Post</RadzenText>
+                                    <RadzenText TextStyle="TextStyle.Caption">Test Poster</RadzenText>
+                                </RadzenStack>
                             </RadzenStack>
-                        </RadzenStack>
-                    </RadzenCard>
-                </RadzenStack>
+                        </RadzenCard>
+                    </RadzenStack>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-
 @code {
     private User currentUser = new User();
     private Post newPost = new Post();
     private List<Post> posts = new List<Post>();
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         // Call the ValidateUser method to validate the user
-        var currentUser = await userService.ValidateUser("shrhrhd", "kebab");
+        var currentUser = await userService.ValidateUser("dag", "dag");
+
+        // Set the necessary user details
+        this.currentUser.Email = currentUser.Email;
+        this.currentUser.Password = currentUser.Password;
+       // this.currentUser.Profile = currentUser.Profile;
+        //this.currentUser.Username = currentUser.Username;
+
 
         // Refresh the authentication state
         await RefreshAuthenticationState();
 
         // Fetch all posts
         posts = await postService.GetAllPosts();
-
-        //// Populate the PostedBy property with the user's email
-        //foreach (var post in posts)
-        //{
-        //    post.PostedBy = postService.GetPostedByEmail(post.PostedBy);
-        //}
 
         // Call the base OnInitializedAsync method
         await base.OnInitializedAsync();
@@ -183,24 +184,38 @@
         var user = authState.User;
 
         // Create a new ClaimsIdentity with the updated user claims
-        var identity = new ClaimsIdentity(user.Claims);
+        var identity = new ClaimsIdentity(user.Claims, "updatedUser");
 
         // Create a new ClaimsPrincipal with the updated identity
         var updatedUser = new ClaimsPrincipal(identity);
 
         // Update the authentication state with the new ClaimsPrincipal
-        // await authenticationStateProvider.SetAuthenticationStateAsync(new AuthenticationState(updatedUser));
+        var newAuthState = new AuthenticationState(updatedUser);
+        await Task.Run(() => authenticationStateTask = Task.FromResult(newAuthState));
     }
+
 
     private async Task CreatePost()
     {
-        newPost.PostedDate = DateTime.Now;
+        string userEmail = currentUser.Email;
+        string password = currentUser.Password;
 
-        // Get the current user's email using your custom user service
-        var currentUser = await userService.GetCurrentUser();
-        newPost.PostedBy = currentUser.Email;
+        // Call the ValidateUser method to validate the user and retrieve the user object
+        User user = await userService.ValidateUser(userEmail, password);
 
-        await postService.SavePost(newPost);
+        // Create the post object with the necessary details
+        var post = new Post
+            {
+                Id = newPost.Id,
+                Content = newPost.Content,
+                PostedDate = DateTime.Now,
+                PostedBy = user.Email,
+               // ProfilePicture = user.Profile,
+                Username = user.Username
+            };
+
+        // Save the post
+        await postService.SavePost(post);
 
         // Reset the post creation form
         newPost = new Post();

@@ -8,14 +8,19 @@ namespace MovieServer.Models
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
+
         [BsonElement("content")]
-
         public string Content { get; set; }
-        [BsonElement("posted_date")]
 
+        [BsonElement("postedDate")]
         public DateTime PostedDate { get; set; }
-        [BsonElement("posted_by")]
 
+        [BsonElement("postedBy")]
         public string PostedBy { get; set; }
+
+
+
+        [BsonElement("username")]
+        public string Username { get; set; }
     }
 }

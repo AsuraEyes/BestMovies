@@ -11,8 +11,7 @@ public class User
     public string Password { get; set; }
 
     [Required(ErrorMessage = "Please confirm your password.")]
-    [Compare("Password", ErrorMessage = "The passwords do not match. Please try again.")]
-    public string ConfirmPassword { get; set; }
+
 
     public string Role { get; set; }
     public string Name { get; set; }
