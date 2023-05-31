@@ -9,7 +9,7 @@ namespace PresentationTier.Models
         public string Id { get; set; }
 
         public string Title { get; set; }
-
+            
         public string Content { get; set; }
 
         public DateTime PostedDate { get; set; }
@@ -20,6 +20,7 @@ namespace PresentationTier.Models
 
         public string Username { get; set; }
         public int NumberOfLikes { get; set; }
-
+        public List<string> LikedByUsers { get; set; }
+        public List<string> DisLikedByUsers { get; set; }
     }
 }

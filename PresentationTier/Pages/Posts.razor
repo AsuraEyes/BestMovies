@@ -1,5 +1,6 @@
 @page "/Posts"
 
+@using PresentationTier.Authorization;
 @using PresentationTier.Models
 @using System.Collections.Generic
 @using PresentationTier.Data
@@ -10,7 +11,6 @@
 @inject IUserService userService
 @inject NavigationManager navigationManager
 @inject AuthenticationStateProvider authenticationStateProvider
-
 <style>
     .container {
         display: flex;
@@ -25,7 +25,7 @@
     }
 
     .editor {
-        background-color: white;
+        background-color: #F8F9FA;
         padding: 20px;
         border-radius: 5px;
         box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.1);
@@ -39,7 +39,7 @@
 
         .editor input,
         .editor textarea {
-            background-color: #F1F3F5;
+            background-color: white;
             border: none;
             border-radius: 5px;
             padding: 10px;
@@ -75,8 +75,14 @@
         padding: 20px;
         border-radius: 5px;
         box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.1);
+        font-family: "Comic Sans MS", cursive;
     }
 
+    .title {
+        font-size: 24px;
+        margin-bottom: 10px;
+        color: #1A3AA4;
+    }
         .post-card .profile-info {
             display: flex;
             align-items: center;
@@ -93,6 +99,8 @@
 
         .post-card .content {
             margin-bottom: 10px;
+           font-size: 18px;
+        color: #A4841A;
         }
 
         .post-card .icons {
@@ -108,10 +116,11 @@
                 margin-right: 10px;
             }
 
-                .post-card .icons img.active {
-                    fill: green;
-                }
-
+    .post-card .likes {
+        font-size: 14px;
+        color: #888888; 
+        margin-top: 10px;
+    }
     .trending-section {
         background-color: white;
         padding: 20px;
@@ -150,7 +159,7 @@
 <div class="container">
     <div class="left-column">
         <div class="editor">
-            <h1>Create a Post</h1>
+       <h1>Create a Post</h1>
             <div class="form-label">@currentUser.Email</div>
             <InputText @bind-Value="@newPost.Title" rows="3" DisplayName="Title"></InputText>
             <InputTextArea @bind-Value="@newPost.Content" rows="3" DisplayName="Content"></InputTextArea>
@@ -165,14 +174,13 @@
                         <img class="profile-pic" src="@($"data:image/png;base64,{Convert.ToBase64String(post.Picture)}")" alt="Profile Picture" />
                         <div class="form-label">@post.PostedBy</div>
                     </div>
+                    <div class="title">@post.Title</div>
                     <div class="content">@post.Content</div>
-                    <h3>Number of Likes: @post.NumberOfLikes</h3>
                     <div class="icons">
                         <img id="likeIcon" src="/images/icons/thumbs-up-solid.svg" alt="Like" @onclick="() => LikePost(post)" />
                         <img id="dislikeIcon" src="/images/icons/thumbs-down-solid.svg" alt="Dislike" @onclick="() => DisLikePost(post)" />
-                        <img src="/images/icons/comment-solid.svg" alt="Comment" />
-                        <img src="/images/icons/share-nodes-solid.svg" alt="Share" />
                     </div>
+                    <div class="likes">Likes: @post.NumberOfLikes</div>
                 </div>
             }
         </div>
@@ -192,35 +200,23 @@
             }
         </div>
     </div>
-
 </div>
-
-
-
-
 @code {
     private User currentUser = new User();
     private Post newPost = new Post();
     private List<Post> posts = new List<Post>();
     private List<Post> topPosts = new List<Post>();
 
-    [CascadingParameter]
-    private Task<AuthenticationState> authenticationStateTask { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        // Call the ValidateUser method to validate the user
-        var currentUser = await userService.ValidateUser("dag", "dag");
-
-        // Set the necessary user details
-        this.currentUser.Email = currentUser.Email;
-        this.currentUser.Password = currentUser.Password;
-        this.currentUser.Profile = currentUser.Profile;
-        this.currentUser.Username = currentUser.Username;
-
-
-        // Refresh the authentication state
-        await RefreshAuthenticationState();
+        var email = ((CustomAuthenticationStateProvider)authenticationStateProvider).
+        GetAuthenticationStateAsync().Result.User.FindFirst(claim => claim.Type.Equals(ClaimTypes.Email))?.Value;
+        
+        if (!string.IsNullOrEmpty(email))
+        {
+            currentUser = await userService.GetLoggedInUser(email);
+        }
 
         // Fetch all posts
         posts = await postService.GetAllPosts();
@@ -232,21 +228,7 @@
         await base.OnInitializedAsync();
     }
 
-    private async Task RefreshAuthenticationState()
-    {
-        var authState = await authenticationStateProvider.GetAuthenticationStateAsync();
-        var user = authState.User;
-
-        // Create a new ClaimsIdentity with the updated user claims
-        var identity = new ClaimsIdentity(user.Claims, "updatedUser");
-
-        // Create a new ClaimsPrincipal with the updated identity
-        var updatedUser = new ClaimsPrincipal(identity);
-
-        // Update the authentication state with the new ClaimsPrincipal
-        var newAuthState = new AuthenticationState(updatedUser);
-        await Task.Run(() => authenticationStateTask = Task.FromResult(newAuthState));
-    }
+  
 
 
     private async Task CreatePost()
@@ -267,8 +249,8 @@
                 PostedBy = user.Email,
                 Picture = user.Profile,
                 Username = user.Username,
-                NumberOfLikes = newPost.NumberOfLikes 
-               
+                NumberOfLikes = newPost.NumberOfLikes
+
             };
 
         // Save the post
@@ -280,14 +262,18 @@
 
     private async Task LikePost(Post post)
     {
-        await postService.LikePost(post);
+        string userId = currentUser.Email;
+
+        await postService.LikePost(post,userId);
         await postService.UpdatePostAsync(post);
 
     }
 
     private async Task DisLikePost(Post post)
     {
-        await postService.DislikePost(post);
+        string userId = currentUser.Email;
+
+        await postService.DisLikePost(post, userId);
         await postService.UpdatePostAsync(post);
     }
 

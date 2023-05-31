@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 using MovieServer.MiddlePoints;
+using Newtonsoft.Json;
 
 namespace PresentationTier.Data;
 
@@ -20,11 +21,8 @@ public class UserService:IUserService
     private readonly IHttpContextAccessor httpContextAccessor;
     private readonly IUserMiddlePoint userMiddlePoint;
 
-
-
     private const string uri1 = "https://bestmoviesapi.azurewebsites.net";
     private const string uri = "https://localhost:7254";
-
 
     public UserService(HttpClient httpClient, IHttpContextAccessor httpContextAccessor, IUserMiddlePoint userMiddlePoint)
     {
@@ -35,13 +33,8 @@ public class UserService:IUserService
 
     public async Task<User> ValidateUser(string email, string password)
     {
-      //  Console.WriteLine("Test 1 Email: " + email + "\nPassword: " + password);
         var userString = await client.GetStringAsync(uri + $"/Login?email={email}&password={password}");
-        var user = JsonSerializer.Deserialize<User>(userString, new JsonSerializerOptions
-        {
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-        });
-       // Console.WriteLine("Test 2 Email: " + user.Email + "\nPassword: " + user.Password);
+        var user = JsonConvert.DeserializeObject<User>(userString);
         return user;
     }
 
@@ -66,60 +59,50 @@ public class UserService:IUserService
                 user.Backdrop = memoryStream.ToArray();
             }
         }
+
         user.Role = "Reviewer";
-        Console.WriteLine(uri);
-        var userAsJson = JsonSerializer.Serialize(user);
+        var userAsJson = JsonConvert.SerializeObject(user);
         HttpContent content = new StringContent(userAsJson, Encoding.UTF8, "application/json");
-        var test = JsonSerializer.Deserialize<User>(userAsJson, new JsonSerializerOptions
-        {
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-        });
+        var test = JsonConvert.DeserializeObject<User>(userAsJson);
         await client.PostAsync(uri + "/Register", content);
-        Console.WriteLine(userAsJson);
-
     }
-
 
     public async Task EditUser(User user)
     {
-        // Perform any necessary validation or business logic checks
-
         try
         {
-            // Update the user in the database using the repository
-            //await userMiddlePoint.UpdateUserAsync(user);
+            //ToDo
         }
         catch (Exception ex)
         {
-            // Handle any exceptions or errors that occur during the update process
             Console.WriteLine($"Error updating user: {ex.Message}");
-            throw; // Optionally, you can handle the exception and return a specific error message or result
+            throw; 
         }
     }
 
-    public async Task<User> GetLoggedInUser(string userEmail)
+    public async Task<User> GetLoggedInUser(string email)
     {
-        if (!string.IsNullOrEmpty(userEmail))
+        try
         {
-            var user = await userMiddlePoint.GetUserAsync(userEmail);
-           // return user;
+            var response = await client.GetAsync($"{uri}/User/{email}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                var user = JsonConvert.DeserializeObject<User>(content);
+                return user;
+            }
+            else
+            {
+
+                throw new Exception($"Failed to retrieve the user. StatusCode: {response.StatusCode}");
+            }
         }
+        catch (Exception ex)
+        {
 
-        // If userEmail is empty or null, you may want to handle that case accordingly.
-        // For now, let's return a default User object or create a new instance.
-        return new User();
+            throw new Exception("An error occurred while retrieving the user.", ex);
+        }
     }
 
-    private string ExtractErrorMessage(string errorContent)
-    {
-        // Implement your custom logic to extract the error message from the errorContent
-        // and return it as a string
-        // You can use JSON deserialization or string manipulation depending on the structure of the error content
-
-        // Example: assuming the error content is a JSON object with a "message" property
-        var errorObj = JObject.Parse(errorContent);
-        var errorMessage = errorObj["message"]?.ToString();
-
-        return errorMessage ?? "Unknown error";
-    }
 }
