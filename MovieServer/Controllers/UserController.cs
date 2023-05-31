@@ -65,6 +65,18 @@ public class UserController : Controller
             return StatusCode(500, e.Message);
         }
     }
+    [HttpGet("{email}")]
+    public async Task<IActionResult> GetUserByEmail(string email)
+    {
+        var user = await userMiddlePoint.GetUserAsync(email);
+
+        if (user == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(user);
+    }
 
 
 }

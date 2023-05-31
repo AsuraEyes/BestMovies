@@ -47,22 +47,14 @@ namespace PresentationTier.Data
                 {
                     var responseContent = await response.Content.ReadAsStringAsync();
                     var createdPost = JsonConvert.DeserializeObject<Post>(responseContent);
-
-                    // Optionally, you can return the created post or perform any other actions
-
-                    // Refresh the page using the NavigationManager
                 }
                 else
                 {
-                    // Handle the case when the request was not successful
-                    // You can log the error or throw an exception if needed
                     throw new Exception($"Failed to save the post. StatusCode: {response.StatusCode}");
                 }
             }
             catch (Exception ex)
             {
-                // Handle any exceptions that occurred during the request
-                // You can log the error or throw a custom exception if needed
                 throw new Exception("An error occurred while saving the post.", ex);
             }
         }
@@ -82,15 +74,11 @@ namespace PresentationTier.Data
                 }
                 else
                 {
-                    // Handle the case when the request was not successful
-                    // You can log the error or throw an exception if needed
                     throw new Exception($"Failed to retrieve posts. StatusCode: {response.StatusCode}");
                 }
             }
             catch (Exception ex)
             {
-                // Handle any exceptions that occurred during the request
-                // You can log the error or throw a custom exception if needed
                 throw new Exception("An error occurred while retrieving posts.", ex);
             }
         }
@@ -107,59 +95,58 @@ namespace PresentationTier.Data
 
             return email;
         }
-     
-        public async Task LikePost(Post post)
-        {
-            try
-            {
-                // Perform the necessary operations to indicate that the post is liked
-                post.NumberOfLikes++; // Increment the number of likes
 
-                // Update the post on the server
-                var content = new StringContent(JsonConvert.SerializeObject(post), Encoding.UTF8, "application/json");
-                var response = await client.PutAsync($"{apiUrl}/UpdatePost/{post.Id}", content);
-                Console.WriteLine(content);
-                if (!response.IsSuccessStatusCode)
-                {
-                    // Handle the case when the request was not successful
-                    // You can log the error or throw an exception if needed
-                    throw new Exception($"Failed to update the post. StatusCode: {response.StatusCode}");
-                }
-            }
-            catch (Exception ex)
+
+        public async Task LikePost(Post post, string userId)
+        {
+            // Initialize the LikedByUsers property if it is null
+            if (post.LikedByUsers == null)
             {
-                // Handle any exceptions that occurred during the request
-                // You can log the error or throw a custom exception if needed
-                throw new Exception("An error occurred while liking the post.", ex);
+                post.LikedByUsers = new List<string>();
             }
+
+            // Check if the user has already liked the post
+            if (post.LikedByUsers.Contains(userId))
+            {
+                // User has already liked the post, handle accordingly
+                return;
+            }
+
+            // Add the user ID to the LikedByUsers collection
+            post.LikedByUsers.Add(userId);
+
+            // Increment the number of likes
+            post.NumberOfLikes++;
+
+            // Update the post in the database
+            await UpdatePostAsync(post);
         }
 
-        public async Task DislikePost(Post post)
+        public async Task DisLikePost(Post post, string userId)
         {
-            try
+            // Initialize the LikedByUsers property if it is null
+            if (post.DisLikedByUsers == null)
             {
-                // Perform the necessary operations to indicate that the post is disliked
-                post.NumberOfLikes--; // Decrement the number of likes
-
-                // Update the post on the server
-                var content = new StringContent(JsonConvert.SerializeObject(post), Encoding.UTF8, "application/json");
-                var response = await client.PutAsync($"{apiUrl}/UpdatePost/{post.Id}", content);
-
-                if (!response.IsSuccessStatusCode)
-                {
-                    // Handle the case when the request was not successful
-                    // You can log the error or throw an exception if needed
-                    throw new Exception($"Failed to update the post. StatusCode: {response.StatusCode}");
-                }
-            }
-            catch (Exception ex)
-            {
-                // Handle any exceptions that occurred during the request
-                // You can log the error or throw a custom exception if needed
-                throw new Exception("An error occurred while disliking the post.", ex);
+                post.DisLikedByUsers = new List<string>();
             }
 
+            // Check if the user has already liked the post
+            if (post.DisLikedByUsers.Contains(userId))
+            {
+                // User has already liked the post, handle accordingly
+                return;
+            }
+
+            // Add the user ID to the LikedByUsers collection
+            post.DisLikedByUsers.Add(userId);
+
+            // Increment the number of likes
+            post.NumberOfLikes--;
+
+            // Update the post in the database
+            await UpdatePostAsync(post);
         }
+
         public async Task UpdatePostAsync(Post post)
         {
             try
@@ -169,15 +156,11 @@ namespace PresentationTier.Data
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    // Handle the case when the request was not successful
-                    // You can log the error or throw an exception if needed
                     throw new Exception($"Failed to update the post. StatusCode: {response.StatusCode}");
                 }
             }
             catch (Exception ex)
             {
-                // Handle any exceptions that occurred during the request
-                // You can log the error or throw a custom exception if needed
                 throw new Exception("An error occurred while updating the post.", ex);
             }
         }
