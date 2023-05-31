@@ -48,8 +48,8 @@ namespace MovieServer.Controllers
             }
         }
 
-        [HttpPut("{id}")]
-        [Route("/UpdatePost")]
+        //   [HttpPut("{id}")]
+        [HttpPut("/UpdatePost/{id}")]
         public async Task<IActionResult> UpdatePost(string id, [FromBody] int numberOfLikes)
         {
             var existingPost = await postMiddlePoint.GetPostByIdAsync(id);

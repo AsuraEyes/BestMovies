@@ -4,6 +4,8 @@
 @using System.Collections.Generic
 @using PresentationTier.Data
 @using System.Security.Claims
+@using MongoDB.Driver
+
 @inject IPostService postService
 @inject IUserService userService
 @inject NavigationManager navigationManager
@@ -128,12 +130,6 @@
         gap: 10px;
     }
 
-        .trending-card .profile-pic {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-        }
-
         .trending-card .post-info {
             display: flex;
             flex-direction: column;
@@ -148,6 +144,7 @@
                 font-size: 14px;
                 color: #6B7280;
             }
+
 </style>
 
 <div class="container">
@@ -169,9 +166,10 @@
                         <div class="form-label">@post.PostedBy</div>
                     </div>
                     <div class="content">@post.Content</div>
+                    <h3>Number of Likes: @post.NumberOfLikes</h3>
                     <div class="icons">
-                        <img id="likeIcon" src="/images/icons/thumbs-up-solid.svg" alt="Like" @onclick="LikePost" />
-                        <img id="dislikeIcon" src="/images/icons/thumbs-down-solid.svg" alt="Dislike" @onclick="DisLikePost" />
+                        <img id="likeIcon" src="/images/icons/thumbs-up-solid.svg" alt="Like" @onclick="() => LikePost(post)" />
+                        <img id="dislikeIcon" src="/images/icons/thumbs-down-solid.svg" alt="Dislike" @onclick="() => DisLikePost(post)" />
                         <img src="/images/icons/comment-solid.svg" alt="Comment" />
                         <img src="/images/icons/share-nodes-solid.svg" alt="Share" />
                     </div>
@@ -182,15 +180,19 @@
     <div class="right-column">
         <div class="trending-section">
             <h1>#Trending</h1>
-            <div class="trending-card">
-                <img class="profile-pic" src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="Profile Picture" />
-                <div class="post-info">
-                    <div class="post-title">Test Post</div>
-                    <div class="post-poster">Test Poster</div>
+            @foreach (var post in topPosts)
+            {
+                <div class="trending-card">
+                    <div class="post-info">
+                        <div class="post-title">@post.Title</div>
+                        <div class="post-poster">@post.Username</div>
+                        <div class="post-likes">@post.NumberOfLikes.ToString()</div>
+                    </div>
                 </div>
-            </div>
+            }
         </div>
     </div>
+
 </div>
 
 
@@ -200,6 +202,8 @@
     private User currentUser = new User();
     private Post newPost = new Post();
     private List<Post> posts = new List<Post>();
+    private List<Post> topPosts = new List<Post>();
+
     [CascadingParameter]
     private Task<AuthenticationState> authenticationStateTask { get; set; }
 
@@ -220,6 +224,9 @@
 
         // Fetch all posts
         posts = await postService.GetAllPosts();
+       
+        // Get the top 5 posts based on the number of likes
+        topPosts = GetTopPosts(5);
 
         // Call the base OnInitializedAsync method
         await base.OnInitializedAsync();
@@ -267,46 +274,33 @@
         // Save the post
         await postService.SavePost(post);
 
-        //navigationManager.NavigateTo("/Posts",true);
-
         // Reset the post creation form
         newPost = new Post();
     }
 
-    private async Task LikePost()
+    private async Task LikePost(Post post)
     {
-        try
-        {
-            // Get the post to be liked
-            var postToLike = posts.FirstOrDefault();
+        await postService.LikePost(post);
+        await postService.UpdatePostAsync(post);
 
-            // Call the like method in the postService
-            await postService.LikePost(postToLike);
-
-            posts = await postService.GetAllPosts();
-        }
-        catch (Exception ex)
-        {
-
-        }
     }
 
-    private async Task DisLikePost()
+    private async Task DisLikePost(Post post)
     {
-        try
-        {
-            // Get the post to be disliked
-            var postToDislike = posts.FirstOrDefault(); 
-
-            // Call the dislike method in the postService
-            await postService.DislikePost(postToDislike);
-
-            // Refresh the posts list to reflect the updated like count
-            posts = await postService.GetAllPosts();
-        }
-        catch (Exception ex)
-        {
- 
-        }
+        await postService.DislikePost(post);
+        await postService.UpdatePostAsync(post);
     }
+
+    private List<Post> GetTopPosts(int count)
+    {
+        // Sort the posts by the number of likes in descending order
+        var sortedPosts = posts.OrderByDescending(p => p.NumberOfLikes);
+
+        // Take the top 'count' number of posts
+        var topPosts = sortedPosts.Take(count).ToList();
+
+        return topPosts;
+    }
+
+
 }

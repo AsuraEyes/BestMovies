@@ -7,5 +7,6 @@ namespace PresentationTier.Data
         Task<List<Post>> GetAllPosts();
         Task DislikePost(Post post);
         Task LikePost(Post post);
+        Task UpdatePostAsync(Post post);
     }
 }
