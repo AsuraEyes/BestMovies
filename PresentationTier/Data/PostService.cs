@@ -8,6 +8,8 @@ using PresentationTier.Authorization;
 using Microsoft.AspNetCore.Components.Authorization;
 using System.Security.Claims;
 using Newtonsoft.Json;
+using MongoDB.Driver;
+using PresentationTier.Pages;
 
 namespace PresentationTier.Data
 {
@@ -116,7 +118,7 @@ namespace PresentationTier.Data
                 // Update the post on the server
                 var content = new StringContent(JsonConvert.SerializeObject(post), Encoding.UTF8, "application/json");
                 var response = await client.PutAsync($"{apiUrl}/UpdatePost/{post.Id}", content);
-
+                Console.WriteLine(content);
                 if (!response.IsSuccessStatusCode)
                 {
                     // Handle the case when the request was not successful
@@ -156,7 +158,31 @@ namespace PresentationTier.Data
                 // You can log the error or throw a custom exception if needed
                 throw new Exception("An error occurred while disliking the post.", ex);
             }
+
         }
+        public async Task UpdatePostAsync(Post post)
+        {
+            try
+            {
+                var content = new StringContent(post.NumberOfLikes.ToString(), Encoding.UTF8, "application/json");
+                var response = await client.PutAsync($"{apiUrl}/UpdatePost/{post.Id}", content);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    // Handle the case when the request was not successful
+                    // You can log the error or throw an exception if needed
+                    throw new Exception($"Failed to update the post. StatusCode: {response.StatusCode}");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle any exceptions that occurred during the request
+                // You can log the error or throw a custom exception if needed
+                throw new Exception("An error occurred while updating the post.", ex);
+            }
+        }
+
+
     }
 }
 
