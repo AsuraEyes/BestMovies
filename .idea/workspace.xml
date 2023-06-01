@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="af02c375-d6b1-45ec-b30b-32322cd51386" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.vs/BestMovies/FileContentIndex/23ab11a6-f10c-460a-8988-57cf6f62e792.vsidx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.vs/BestMovies/FileContentIndex/3bf9cb21-9682-470f-9257-c18fba5f8df4.vsidx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.vs/BestMovies/FileContentIndex/5d254766-b130-4fd0-ad70-cf5cacdbb694.vsidx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.vs/BestMovies/FileContentIndex/87fb5ca5-3a10-4322-a6d4-a994bd3784e6.vsidx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MovieServer/Controllers/PostController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MovieServer/MiddlePoints/IPostMiddlePoint.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MovieServer/MiddlePoints/PostMiddlePoint.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MovieServer/Models/Post.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MovieServer/Repository/IPostRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MovieServer/Repository/PostRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PresentationTier/Data/IPostService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PresentationTier/Data/PostService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PresentationTier/Models/Post.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PresentationTier/Pages/Posts.razor" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PresentationTier/bin/Debug/net7.0/Blazorise.Icons.FontAwesome.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PresentationTier/bin/Debug/net7.0/Blazorise.Licensing.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PresentationTier/bin/Debug/net7.0/Blazorise.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PresentationTier/bin/Debug/net7.0/Microsoft.AspNetCore.Authorization.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PresentationTier/bin/Debug/net7.0/Microsoft.AspNetCore.Components.Forms.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PresentationTier/bin/Debug/net7.0/Microsoft.AspNetCore.Components.Web.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PresentationTier/bin/Debug/net7.0/Microsoft.AspNetCore.Components.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PresentationTier/bin/Debug/net7.0/Microsoft.AspNetCore.Metadata.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PresentationTier/bin/Debug/net7.0/Microsoft.Extensions.Options.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PresentationTier/bin/Debug/net7.0/Microsoft.JSInterop.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PresentationTier/wwwroot/images/Icons/comment-solid.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PresentationTier/wwwroot/images/Icons/share-nodes-solid.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PresentationTier/wwwroot/images/Icons/thumbs-down-solid.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PresentationTier/wwwroot/images/Icons/thumbs-up-solid.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/BestMovies/DesignTimeBuild/.dtbcache.v2" beforeDir="false" afterPath="$PROJECT_DIR$/.vs/BestMovies/DesignTimeBuild/.dtbcache.v2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/BestMovies/FileContentIndex/0e1be9b8-e7eb-4c2d-891b-dde38d3f7c48.vsidx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/BestMovies/FileContentIndex/116e28b6-248b-46d6-9e33-5317dcfa3165.vsidx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/BestMovies/FileContentIndex/537228fb-22b5-4f2b-a7d7-fcc60158a85f.vsidx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/BestMovies/FileContentIndex/864fc0c1-1e5e-4dc7-9bc4-3d42e643b367.vsidx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/BestMovies/v17/.suo" beforeDir="false" afterPath="$PROJECT_DIR$/.vs/BestMovies/v17/.suo" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MovieServer/Controllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MovieServer/Controllers/UserController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MovieServer/MovieServer.csproj.user" beforeDir="false" afterPath="$PROJECT_DIR$/MovieServer/MovieServer.csproj.user" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MovieServer/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MovieServer/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MovieServer/bin/Debug/net7.0/MovieServer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/MovieServer/bin/Debug/net7.0/MovieServer.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MovieServer/bin/Debug/net7.0/MovieServer.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/MovieServer/bin/Debug/net7.0/MovieServer.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MovieServer/obj/Debug/net7.0/MovieServer.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/MovieServer/obj/Debug/net7.0/MovieServer.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MovieServer/obj/Debug/net7.0/MovieServer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/MovieServer/obj/Debug/net7.0/MovieServer.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MovieServer/obj/Debug/net7.0/MovieServer.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/MovieServer/obj/Debug/net7.0/MovieServer.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MovieServer/obj/Debug/net7.0/ref/MovieServer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/MovieServer/obj/Debug/net7.0/ref/MovieServer.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MovieServer/obj/Debug/net7.0/refint/MovieServer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/MovieServer/obj/Debug/net7.0/refint/MovieServer.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PresentationTier/Data/IUserService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PresentationTier/Data/IUserService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PresentationTier/Pages/LoginPage.razor" beforeDir="false" afterPath="$PROJECT_DIR$/PresentationTier/Pages/LoginPage.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PresentationTier/PresentationTier.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/PresentationTier/PresentationTier.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PresentationTier/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PresentationTier/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PresentationTier/bin/Debug/net7.0/MovieServer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/PresentationTier/bin/Debug/net7.0/MovieServer.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PresentationTier/bin/Debug/net7.0/MovieServer.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/PresentationTier/bin/Debug/net7.0/MovieServer.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PresentationTier/bin/Debug/net7.0/PresentationTier.deps.json" beforeDir="false" afterPath="$PROJECT_DIR$/PresentationTier/bin/Debug/net7.0/PresentationTier.deps.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PresentationTier/bin/Debug/net7.0/PresentationTier.dll" beforeDir="false" afterPath="$PROJECT_DIR$/PresentationTier/bin/Debug/net7.0/PresentationTier.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PresentationTier/bin/Debug/net7.0/PresentationTier.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/PresentationTier/bin/Debug/net7.0/PresentationTier.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PresentationTier/bin/Debug/net7.0/PresentationTier.staticwebassets.runtime.json" beforeDir="false" afterPath="$PROJECT_DIR$/PresentationTier/bin/Debug/net7.0/PresentationTier.staticwebassets.runtime.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PresentationTier/obj/Debug/net7.0/PresentationTier.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/PresentationTier/obj/Debug/net7.0/PresentationTier.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PresentationTier/obj/Debug/net7.0/PresentationTier.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/PresentationTier/obj/Debug/net7.0/PresentationTier.assets.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PresentationTier/obj/Debug/net7.0/PresentationTier.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/PresentationTier/obj/Debug/net7.0/PresentationTier.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PresentationTier/obj/Debug/net7.0/PresentationTier.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/PresentationTier/obj/Debug/net7.0/PresentationTier.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PresentationTier/obj/Debug/net7.0/PresentationTier.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/PresentationTier/obj/Debug/net7.0/PresentationTier.csproj.FileListAbsolute.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PresentationTier/obj/Debug/net7.0/PresentationTier.dll" beforeDir="false" afterPath="$PROJECT_DIR$/PresentationTier/obj/Debug/net7.0/PresentationTier.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PresentationTier/obj/Debug/net7.0/PresentationTier.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/PresentationTier/obj/Debug/net7.0/PresentationTier.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PresentationTier/obj/Debug/net7.0/project.razor.vs.json" beforeDir="false" afterPath="$PROJECT_DIR$/PresentationTier/obj/Debug/net7.0/project.razor.vs.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PresentationTier/obj/Debug/net7.0/ref/PresentationTier.dll" beforeDir="false" afterPath="$PROJECT_DIR$/PresentationTier/obj/Debug/net7.0/ref/PresentationTier.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PresentationTier/obj/Debug/net7.0/refint/PresentationTier.dll" beforeDir="false" afterPath="$PROJECT_DIR$/PresentationTier/obj/Debug/net7.0/refint/PresentationTier.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PresentationTier/obj/Debug/net7.0/staticwebassets.build.json" beforeDir="false" afterPath="$PROJECT_DIR$/PresentationTier/obj/Debug/net7.0/staticwebassets.build.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PresentationTier/obj/Debug/net7.0/staticwebassets.development.json" beforeDir="false" afterPath="$PROJECT_DIR$/PresentationTier/obj/Debug/net7.0/staticwebassets.development.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PresentationTier/obj/Debug/net7.0/staticwebassets.pack.json" beforeDir="false" afterPath="$PROJECT_DIR$/PresentationTier/obj/Debug/net7.0/staticwebassets.pack.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PresentationTier/obj/Debug/net7.0/staticwebassets/msbuild.PresentationTier.Microsoft.AspNetCore.StaticWebAssets.props" beforeDir="false" afterPath="$PROJECT_DIR$/PresentationTier/obj/Debug/net7.0/staticwebassets/msbuild.PresentationTier.Microsoft.AspNetCore.StaticWebAssets.props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PresentationTier/obj/PresentationTier.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/PresentationTier/obj/PresentationTier.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PresentationTier/obj/PresentationTier.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/PresentationTier/obj/PresentationTier.csproj.nuget.g.props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PresentationTier/obj/PresentationTier.csproj.nuget.g.targets" beforeDir="false" afterPath="$PROJECT_DIR$/PresentationTier/obj/PresentationTier.csproj.nuget.g.targets" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PresentationTier/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/PresentationTier/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PresentationTier/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/PresentationTier/obj/project.nuget.cache" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="2QaxGCvepz5Z07v2NUCKNa165Mn" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="af02c375-d6b1-45ec-b30b-32322cd51386" name="Changes" comment="" />
+      <created>1685605396699</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1685605396699</updated>
+      <workItem from="1685605408047" duration="330000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
