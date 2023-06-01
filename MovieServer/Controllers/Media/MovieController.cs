@@ -32,6 +32,38 @@ public class MovieController : Controller
     }
     
     [HttpGet]
+    [Route("/Movies")]
+    public async Task<ActionResult<MediaList>> GetMoviesAsync([FromQuery] int page)
+    {
+        try
+        {
+            var movies = await movieMiddlePoint.GetMoviesAsync(page);
+            return Ok(movies);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
+    
+    [HttpGet]
+    [Route("/SearchMovies")]
+    public async Task<ActionResult<MediaList>> GetMoviesAsync([FromQuery] string query, int page)
+    {
+        try
+        {
+            var movies = await movieMiddlePoint.GetMoviesAsync(query, page);
+            return Ok(movies);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
+    
+    [HttpGet]
     [Route("{id:int}/Recommended")]
     public async Task<ActionResult<Models.Media[]>> GetRecommendedAsync(int id)
     {

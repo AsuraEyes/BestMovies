@@ -9,7 +9,8 @@ public class MovieMiddlePoint : IMovieMiddlePoint
     private Movie movie;
     private MediaList media;
     private const string Image = "https://image.tmdb.org/t/p/original";
-    private const string Youtube = "https://www.youtube.com/watch?v=";
+    private const string Youtube = "https://www.youtube.com/embed/";
+    private const string AutoPlay = "?autoplay=1";
     private const string Vimeo = "https://vimeo.com/";
 
     public MovieMiddlePoint(IMovieService movieService)
@@ -25,13 +26,48 @@ public class MovieMiddlePoint : IMovieMiddlePoint
         movie.Trailer = SetTrailer();
         movie.Poster = SetImage(movie.Poster);
         movie.Backdrop = SetImage(movie.Backdrop);
-        if (movie.Collection != null)
+        if (movie.MovieCollection != null)
         {
-            movie.Collection.Backdrop = SetImage(movie.Collection.Backdrop);
+            movie.MovieCollection.Backdrop = SetImage(movie.MovieCollection.Backdrop);
         }
-        movie.Credits.Cast = SetCast();
+        movie.Credits.TopCast = SetCast();
+        movie.Credits.Cast = SetPeople(movie.Credits.Cast);
+        movie.Credits.Crew = SetPeople(movie.Credits.Crew);
+        movie.Language = SetLanguage();
 
         return movie;
+    }
+
+    public async Task<MediaList> GetMoviesAsync(int page)
+    {
+        if (page == 0)
+        {
+            page = 1;
+        }
+        var movies = await movieService.GetMoviesAsync(page);
+
+        foreach (var m in movies.ListOfMedia)
+        {
+            var img = SetImage(m.Poster);
+            m.Poster = img;
+        }
+        return movies;
+    }
+    
+    public async Task<MediaList> GetMoviesAsync(string query, int page)
+    {
+        if (page == 0)
+        {
+            page = 1;
+        }
+        var movies = await movieService.GetMoviesAsync(query, page);
+
+        foreach (var m in movies.ListOfMedia)
+        {
+            var img = SetImage(m.Poster);
+            m.Poster = img;
+        }
+        return movies;
     }
 
     public async Task<Models.Media[]> GetRecommendedAsync(int id)
@@ -68,7 +104,7 @@ public class MovieMiddlePoint : IMovieMiddlePoint
             {
                 if (video.Site.Equals("YouTube"))
                 {
-                    movie.Trailer = Youtube + video.Key;
+                    movie.Trailer = Youtube + video.Key + AutoPlay;
                     break;
                 }
 
@@ -82,7 +118,7 @@ public class MovieMiddlePoint : IMovieMiddlePoint
             {
                 if (video.Site.Equals("YouTube"))
                 {
-                    movie.Trailer = Youtube + video.Key;
+                    movie.Trailer = Youtube + video.Key + AutoPlay;;
                 }
                 else if (video.Site.Equals("Vimeo"))
                 {
@@ -99,16 +135,39 @@ public class MovieMiddlePoint : IMovieMiddlePoint
     {
         return Image + img;
     }
+    
+    private Person[] SetPeople(Person[] people)
+    {
+        foreach (var person in people)
+        {
+            person.Picture = SetImage(person.Picture);
+        }
+        return people;
+    }
 
     private Person[] SetCast()
     {
-        foreach (var person in movie.Credits.Cast)
+        IList<Person> people = new List<Person>();
+        
+        for (var i = 0; i < 9; i++)
         {
-            var img = Image + person.Picture;
-            person.Picture = img;
-                
+            people.Add(movie.Credits.Cast[i]);
+            people[i].Picture = SetImage(movie.Credits.Cast[i].Picture);
         }
 
-        return movie.Credits.Cast;
+        return people.ToArray();
+    }
+
+    private string SetLanguage()
+    {
+        foreach (var sl in movie.SpokenLanguages)
+        {
+            if (sl.iso_639_1.Equals(movie.Language))
+            {
+                movie.Language = sl.Name;
+            }
+        }
+
+        return movie.Language;
     }
 }

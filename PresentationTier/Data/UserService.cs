@@ -1,16 +1,6 @@
-using System;
-using System.Net.Http;
 using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Components;
 using PresentationTier.Models;
-using PresentationTier.Data;
-using Newtonsoft.Json.Linq;
 using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.AspNetCore.Http;
-using System.Security.Claims;
-using MovieServer.MiddlePoints;
 using Newtonsoft.Json;
 
 namespace PresentationTier.Data
@@ -18,16 +8,14 @@ namespace PresentationTier.Data
     public class UserService : IUserService
     {
         private readonly HttpClient client;
-        private readonly IUserMiddlePoint userMiddlePoint;
 
         // API endpoints
         private const string uri1 = "https://bestmoviesapi.azurewebsites.net";
         private const string uri = "https://localhost:7254";
 
-        public UserService(HttpClient httpClient, IUserMiddlePoint userMiddlePoint)
+        public UserService(HttpClient httpClient)
         {
             client = httpClient;
-            this.userMiddlePoint = userMiddlePoint;
         }
 
         // Validate user credentials

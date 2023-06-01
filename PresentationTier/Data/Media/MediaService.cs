@@ -6,7 +6,7 @@ namespace PresentationTier.Data.Media;
 public class MediaService : IMediaService
 {
     private readonly HttpClient client;
-    private const string uri = "https://bestmoviesapi.azurewebsites.net/Trending";
+    private const string uri = "https://localhost:7254";
 
     public MediaService()
     {
@@ -15,7 +15,27 @@ public class MediaService : IMediaService
 
     public async Task<Models.Media[]> GetTrendingAsync()
     {
-        var mediaString = await client.GetStringAsync(uri);
+        var mediaString = await client.GetStringAsync(uri+"/Trending");
+        var media = JsonSerializer.Deserialize<Models.Media[]>(mediaString, new JsonSerializerOptions
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        });
+        return media;
+    }
+    
+    public async Task<Models.Media[]> GetMoviesAsync()
+    {
+        var mediaString = await client.GetStringAsync(uri+"/NowPlaying");
+        var media = JsonSerializer.Deserialize<Models.Media[]>(mediaString, new JsonSerializerOptions
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        });
+        return media;
+    }
+    
+    public async Task<Models.Media[]> GetTVShowsAsync()
+    {
+        var mediaString = await client.GetStringAsync(uri+"/AiringToday");
         var media = JsonSerializer.Deserialize<Models.Media[]>(mediaString, new JsonSerializerOptions
         {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase

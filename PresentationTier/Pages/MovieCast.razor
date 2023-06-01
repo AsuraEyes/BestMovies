@@ -1,0 +1,79 @@
+@page "/movie/{Id:int}/cast"
+@using PresentationTier.Data.Media
+@using PresentationTier.Models
+@using Orientation = Radzen.Orientation
+
+@inject NavigationManager NavigationManager
+
+@inject IMovieService MovieService
+
+<PageTitle>@movie.Title - Cast</PageTitle>
+<RadzenStack Style="width: 1720px" Gap="45">
+    <RadzenStack Style="width: 100%; max-height: 200px; background-color: rgba(0, 0, 0, 0.8)">
+        <RadzenImage Path="@movie.Backdrop" Style="opacity: 40%; mask-image: linear-gradient(to top, transparent 750px, black); pointer-events: none"/>
+        <RadzenStack Orientation="Orientation.Horizontal" Style="position: absolute; margin: 45px 160px; width: 1400px">
+            <RadzenImage Path="@movie.Poster" Style="max-height: 125px; padding-left: 5px; padding-top: 5px; padding-bottom: 5px"/>
+            <RadzenStack Gap="0" Style="width: 100%">
+                <RadzenText Style="margin-top: 15px; color: #ffffff; font-weight: 100" TextStyle="TextStyle.DisplayH4">
+                    <RadzenLink Path="@NavigateToMovie(Id)" Style="color: #ffffff; font-weight: 600">@movie.Title</RadzenLink> (@movie.ReleaseDate.Year)
+                </RadzenText>
+                <RadzenLink Text="← Back to main" Path="@NavigateToMovie(Id)"/>
+            </RadzenStack>
+        </RadzenStack>
+    </RadzenStack>
+
+    <RadzenStack Orientation="Orientation.Horizontal">
+        <RadzenStack Gap="15" Style="width: 700px; margin: 45px 160px">
+            <RadzenText Text="Cast" TextStyle="TextStyle.DisplayH5"/>
+            @foreach (var actor in cast)
+            {
+                <RadzenStack Orientation="Orientation.Horizontal" onclick="@(() => NavigateToCastMember(actor.Id))">
+                    <RadzenImage Path="@actor.Picture" Style="height: 75px"/>
+                    <RadzenStack Gap="0" Style="margin-top: 5px; margin-bottom: 5px">
+                        <RadzenText Text="@actor.Name"/>
+                        <RadzenText Text="@actor.Character"/>
+                    </RadzenStack>
+                </RadzenStack>
+            }
+        </RadzenStack>
+        <RadzenStack  Gap="15" Style="width: 700px; margin: 45px 160px">
+            <RadzenText Text="Crew" TextStyle="TextStyle.DisplayH5"/>
+            @foreach (var member in crew)
+            {
+                <RadzenStack Orientation="Orientation.Horizontal" onclick="@(() => NavigateToCastMember(member.Id))">
+                    <RadzenImage Path="@member.Picture" Style="height: 75px"/>
+                    <RadzenStack Gap="0" Style="margin-top: 5px; margin-bottom: 5px">
+                        <RadzenText Text="@member.Name"/>
+                        <RadzenText Text="@member.Job"/>
+                    </RadzenStack>
+                </RadzenStack>
+            }
+        </RadzenStack>
+    </RadzenStack>
+</RadzenStack>
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private Movie movie = new();
+    private Models.Person[] cast = {};
+    private Models.Person[] crew = {};
+
+    protected override async Task OnInitializedAsync()
+    {
+        movie = await MovieService.GetMovieAsync(Id);
+        cast = movie.Credits.Cast;
+        crew = movie.Credits.Crew;
+    }
+    
+    private static string NavigateToMovie(int id)
+    {
+        return $"movie/{id}";
+    }
+    
+    private void NavigateToCastMember(int id)
+    {
+        NavigationManager.NavigateTo($"/person/{id}");
+    }
+}

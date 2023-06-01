@@ -14,7 +14,6 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
 
 builder.Services.AddBlazoredModal();
 
@@ -31,6 +30,7 @@ builder.Services.AddScoped<CustomAuthenticationStateProvider>();
 builder.Services.AddHttpContextAccessor();
 
 //Services
+builder.Services.AddScoped<ICollectionService, CollectionService>();
 builder.Services.AddScoped<IMediaService, MediaService>();
 builder.Services.AddScoped<IMovieService, MovieService>();
 builder.Services.AddScoped<ITVService, TVService>();
