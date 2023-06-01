@@ -20,10 +20,13 @@ namespace MovieServer.Repository
             posts = database.GetCollection<Post>("posts");
         }
 
+        // Create a new post by inserting it into the posts collection
         public async Task CreatePostAsync(Post post)
         {
             await posts.InsertOneAsync(post);
         }
+
+        // Retrieve all posts from the posts collection
         public async Task<List<Post>> GetAllPostsAsync()
         {
             var filter = Builders<Post>.Filter.Empty;
@@ -35,6 +38,7 @@ namespace MovieServer.Repository
             return posts;
         }
 
+        // Update a post by finding it based on the postId and updating its NumberOfLikes
         public async Task UpdatePostAsync(Post post)
         {
             var filter = Builders<Post>.Filter.Eq("_id", post.Id);
@@ -44,7 +48,7 @@ namespace MovieServer.Repository
             await posts.UpdateOneAsync(filter, update);
         }
 
-
+        // Retrieve a post by its postId
         public async Task<Post> GetPostByIdAsync(string postId)
         {
             if (!ObjectId.TryParse(postId, out ObjectId objectId))
@@ -55,6 +59,5 @@ namespace MovieServer.Repository
             var filter = Builders<Post>.Filter.Eq("_id", objectId);
             return await posts.Find(filter).FirstOrDefaultAsync();
         }
-
     }
 }

@@ -5,9 +5,11 @@ namespace Tests
 {
     public class PostTest
     {
+        private PostService _postService;
         [SetUp]
         public void Setup()
         {
+
         }
 
         [Test]

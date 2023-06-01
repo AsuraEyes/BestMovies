@@ -86,3 +86,4 @@ C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\bin\Debug\n
 C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\bin\Debug\net7.0\Microsoft.AspNetCore.Metadata.dll
 C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\bin\Debug\net7.0\Microsoft.Extensions.Options.dll
 C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\bin\Debug\net7.0\Microsoft.JSInterop.dll
+C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\bin\Debug\net7.0\nunit.framework.dll
