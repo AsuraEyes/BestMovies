@@ -16,18 +16,19 @@ namespace PresentationTier.Data
     public class PostService : IPostService
     {
         private readonly HttpClient client;
-        private readonly IHttpContextAccessor httpContextAccessor;
         private readonly AuthenticationStateProvider authenticationStateProvider;
 
-        public PostService(HttpClient httpClient, IHttpContextAccessor accessor, AuthenticationStateProvider authStateProvider)
+        public PostService(HttpClient httpClient, AuthenticationStateProvider authStateProvider)
         {
             client = httpClient;
-            httpContextAccessor = accessor;
             authenticationStateProvider = authStateProvider;
         }
+
+        // API endpoints
         private const string uri1 = "https://bestmoviesapi.azurewebsites.net";
         private const string apiUrl = "https://localhost:7254";
 
+        // Save a new post
         public async Task SavePost(Post post)
         {
             try
@@ -59,7 +60,7 @@ namespace PresentationTier.Data
             }
         }
 
-
+        // Get all posts
         public async Task<List<Post>> GetAllPosts()
         {
             try
@@ -83,8 +84,7 @@ namespace PresentationTier.Data
             }
         }
 
-
-
+        // Get the email of the currently logged-in user
         private string GetLoggedInUserEmail()
         {
             // Get the authentication state using the CustomAuthenticationStateProvider
@@ -96,7 +96,7 @@ namespace PresentationTier.Data
             return email;
         }
 
-
+        // Like a post
         public async Task LikePost(Post post, string userId)
         {
             // Initialize the LikedByUsers property if it is null
@@ -122,31 +122,33 @@ namespace PresentationTier.Data
             await UpdatePostAsync(post);
         }
 
+        // Dislike a post
         public async Task DisLikePost(Post post, string userId)
         {
-            // Initialize the LikedByUsers property if it is null
+            // Initialize the DisLikedByUsers property if it is null
             if (post.DisLikedByUsers == null)
             {
                 post.DisLikedByUsers = new List<string>();
             }
 
-            // Check if the user has already liked the post
+            // Check if the user has already disliked the post
             if (post.DisLikedByUsers.Contains(userId))
             {
-                // User has already liked the post, handle accordingly
+                // User has already disliked the post, handle accordingly
                 return;
             }
 
-            // Add the user ID to the LikedByUsers collection
+            // Add the user ID to the DisLikedByUsers collection
             post.DisLikedByUsers.Add(userId);
 
-            // Increment the number of likes
+            // Decrement the number of likes
             post.NumberOfLikes--;
 
             // Update the post in the database
             await UpdatePostAsync(post);
         }
 
+        // Update a post
         public async Task UpdatePostAsync(Post post)
         {
             try
@@ -164,8 +166,5 @@ namespace PresentationTier.Data
                 throw new Exception("An error occurred while updating the post.", ex);
             }
         }
-
-
     }
 }
-

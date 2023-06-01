@@ -159,6 +159,7 @@
 <div class="container">
     <div class="left-column">
         <div class="editor">
+
        <h1>Create a Post</h1>
             <div class="form-label">@currentUser.Email</div>
             <InputText @bind-Value="@newPost.Title" rows="3" DisplayName="Title"></InputText>
@@ -199,6 +200,8 @@
                 </div>
             }
         </div>
+        <button class="btn btn-primary" @onclick="Logout">Log Out</button>
+
     </div>
 </div>
 @code {
@@ -279,8 +282,8 @@
 
     private List<Post> GetTopPosts(int count)
     {
-        // Sort the posts by the number of likes in descending order
-        var sortedPosts = posts.OrderByDescending(p => p.NumberOfLikes);
+        // Sorting the posts by the number of likes in descending order
+            var sortedPosts = posts.OrderByDescending(p => p.NumberOfLikes);
 
         // Take the top 'count' number of posts
         var topPosts = sortedPosts.Take(count).ToList();
@@ -288,5 +291,13 @@
         return topPosts;
     }
 
+    private async Task Logout()
+    {
+        // Call the authenticationStateProvider's method to sign out the user
+        await ((CustomAuthenticationStateProvider)authenticationStateProvider).Logout();
+
+        // Redirect the user to the home page or any desired page after logout
+        navigationManager.NavigateTo("/");
+    }
 
 }
