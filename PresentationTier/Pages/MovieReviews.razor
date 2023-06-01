@@ -2,23 +2,22 @@
 @using PresentationTier.Models
 @using PresentationTier.Data.Media
 
-@inject NavigationManager NavigationManager
-
 @inject IMovieService MovieService
 
 <PageTitle>@movie.Title - Reviews</PageTitle>
-<RadzenStack Gap="30">
-    <RadzenRow Style="height: 117px">
-        <RadzenStack Orientation="Radzen.Orientation.Horizontal" Style="width: 100%;">
-            <RadzenImage Path="@image" Style="max-height: 125px; padding-left: 5px; padding-top: 5px; padding-bottom: 5px"/>
+<RadzenStack Style="width: 1720px" Gap="45">
+    <RadzenStack Style="width: 100%; max-height: 200px; background-color: rgba(0, 0, 0, 0.8)">
+        <RadzenImage Path="@movie.Backdrop" Style="opacity: 40%; mask-image: linear-gradient(to top, transparent 750px, black); pointer-events: none"/>
+        <RadzenStack Orientation="Radzen.Orientation.Horizontal" Style="position: absolute; margin: 45px 160px; width: 1400px">
+            <RadzenImage Path="@movie.Poster" Style="max-height: 125px; padding-left: 5px; padding-top: 5px; padding-bottom: 5px"/>
             <RadzenStack Gap="0" Style="width: 100%">
-                <RadzenText Style="margin-top: 15px" TextStyle="TextStyle.DisplayH4">
-                    <RadzenLink Path="@NavigateToMovie(Id)" Style="color: rgb(40,54,60)">@movie.Title</RadzenLink> (@movie.ReleaseDate.Year)
+                <RadzenText Style="margin-top: 15px; color: #ffffff; font-weight: 100" TextStyle="TextStyle.DisplayH4">
+                    <RadzenLink Path="@NavigateToMovie(Id)" Style="color: #ffffff; font-weight: 600">@movie.Title</RadzenLink> (@movie.ReleaseDate.Year)
                 </RadzenText>
                 <RadzenLink Text="← Back to main" Path="@NavigateToMovie(Id)"/>
             </RadzenStack>
         </RadzenStack>
-    </RadzenRow>
+    </RadzenStack>
 
     <RadzenRow>
         <RadzenStack Orientation="Radzen.Orientation.Horizontal" Style="width: 100%">
@@ -58,14 +57,10 @@
 
     private User User = new(){Username = "John Doe", Joined = new DateTime(2022, 4, 12)};
     private Movie movie = new();
-    private string image = "https://image.tmdb.org/t/p/original";
-    private string backdrop = "https://image.tmdb.org/t/p/original";
 
     protected override async Task OnInitializedAsync()
     {
         movie = await MovieService.GetMovieAsync(Id);
-        image += movie.Poster;
-        backdrop += movie.Backdrop;
     }
 
     private List<Review> GetReviews()

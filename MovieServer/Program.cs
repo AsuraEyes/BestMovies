@@ -1,4 +1,5 @@
 using MovieServer.DAO;
+using MovieServer.Data;
 using MovieServer.Data.Media;
 using MovieServer.MiddlePoints;
 using MovieServer.MiddlePoints.Media;
@@ -14,17 +15,22 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 //Repositories
+builder.Services.AddScoped<ICollectionRepository, CollectionRepository>();
 builder.Services.AddScoped<IReviewsRepository, ReviewsRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 //Services
+builder.Services.AddScoped<ICollectionService, CollectionService>();
 builder.Services.AddScoped<IMediaService, MediaService>();
 builder.Services.AddScoped<IMovieService, MovieService>();
+builder.Services.AddScoped<IPersonService, PersonService>();
 builder.Services.AddScoped<ITVService, TVService>();
 
 //MiddlePoint
+builder.Services.AddScoped<ICollectionMiddlePoint, CollectionMiddlePoint>();
 builder.Services.AddScoped<IMediaMiddlePoint, MediaMiddlePoint>();
 builder.Services.AddScoped<IMovieMiddlePoint, MovieMiddlePoint>();
+builder.Services.AddScoped<IPersonMiddlePoint, PersonMiddlePoint>();
 builder.Services.AddScoped<IReviewMiddlePoint, ReviewMiddlePoint>();
 builder.Services.AddScoped<ITVMiddlePoint, TVMiddlePoint>();
 builder.Services.AddScoped<IUserMiddlePoint, UserMiddlePoint>();

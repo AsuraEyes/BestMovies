@@ -6,29 +6,43 @@ namespace MovieServer.MiddlePoints;
 public class UserMiddlePoint : IUserMiddlePoint
 {
     private readonly IUserRepository userRepository;
+    private readonly ICollectionRepository collectionRepository;
+    private const string Role = "Reviewer";
 
 
-    public UserMiddlePoint(IUserRepository userRepository)
+    public UserMiddlePoint(IUserRepository userRepository, ICollectionRepository collectionRepository)
     {
         this.userRepository = userRepository;
+        this.collectionRepository = collectionRepository;
     }
 
     public async Task CreateUserAsync(User user)
     {
-        var role = "Reviewer";
-        user.Role = role;
+        user.Role = Role;
+        var watchList = new UserCollection
+        {
+            Name = "Watchlist",
+            Email = user.Email
+        };
+        
+        var favorites = new UserCollection
+        {
+            Name = "Favorites",
+            Email = user.Email
+        };
+
+        await collectionRepository.CreateCollectionAsync(watchList);
+        await collectionRepository.CreateCollectionAsync(favorites);
         await userRepository.CreateUserAsync(user);
     }
 
     public async Task<User> ValidateUserAsync(string email, string password)
     {
-        Console.WriteLine("testtttt");
         var user = await userRepository.GetUserAsync(email);
         if (user == null)
         {
             return null;
         }
-        Console.WriteLine("Email: " + user.Email + "\nPassword: " + user.Password);
 
         return password.Equals(user.Password) ? user : null;
     }

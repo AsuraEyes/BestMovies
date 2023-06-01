@@ -31,4 +31,36 @@ public class MediaController : Controller
             return  StatusCode(500, e.Message);
         }
     }
+    
+    [HttpGet]
+    [Route("/NowPlaying")]
+    public async Task<ActionResult<Models.Media[]>> GetMoviesAsync()
+    {
+        try
+        {
+            var media = await mediaMiddlePoint.GetMoviesAsync();
+            return Ok(media);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return  StatusCode(500, e.Message);
+        }
+    }
+    
+    [HttpGet]
+    [Route("/AiringToday")]
+    public async Task<ActionResult<Models.Media[]>> GetTVShowsAsync()
+    {
+        try
+        {
+            var media = await mediaMiddlePoint.GetTVShowsAsync();
+            return Ok(media);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return  StatusCode(500, e.Message);
+        }
+    }
 }

@@ -7,8 +7,10 @@ public class TVMiddlePoint : ITVMiddlePoint
 {
     private readonly ITVService tvService;
     private TV tv;
-    private readonly string image = "https://image.tmdb.org/t/p/original";
-    private string trailer = "https://www.youtube.com/watch?v=";
+    private const string Image = "https://image.tmdb.org/t/p/original";
+    private const string Youtube = "https://www.youtube.com/embed/";
+    private const string AutoPlay = "?autoplay=1";
+    private const string Vimeo = "https://vimeo.com/";
 
     public TVMiddlePoint(ITVService tvService)
     {
@@ -33,30 +35,50 @@ public class TVMiddlePoint : ITVMiddlePoint
         {
             if (video.Name.Equals("Official Trailer"))
             {
-                trailer += video.Key;
-                break;
+                if (video.Site.Equals("YouTube"))
+                {
+                    tv.Trailer = Youtube + video.Key + AutoPlay;
+                    break;
+                }
+
+                if (video.Site.Equals("Vimeo"))
+                {
+                    tv.Trailer = Vimeo + video.Key;
+                    break;
+                }
             }
-            trailer += video.Key;
+            else
+            {
+                if (video.Site.Equals("YouTube"))
+                {
+                    tv.Trailer = Youtube + video.Key + AutoPlay;
+                    ;
+                }
+                else if (video.Site.Equals("Vimeo"))
+                {
+                    tv.Trailer = Vimeo + video.Key;
+                    break;
+                }
+            }
         }
-        
-        return trailer;
+        return tv.Trailer;
     }
 
     private string SetPoster()
     {
-        return tv.Poster.Insert(0, image);
+        return tv.Poster.Insert(0, Image);
     }
     
     private string SetBackdrop()
     {
-        return tv.Backdrop.Insert(0, image);
+        return tv.Backdrop.Insert(0, Image);
     }
     
     private Person[] SetCast()
     {
         foreach (var person in tv.Credits.Cast)
         {
-            var img = image + person.Picture;
+            var img = Image + person.Picture;
             person.Picture = img;
         }
     

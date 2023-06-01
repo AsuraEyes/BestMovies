@@ -32,9 +32,9 @@ public class ReviewsRepository : IReviewsRepository
         return results;
     }
     
-    public async Task<IList<Review>> GetAllUserReviewsAsync(string userId)
+    public async Task<IList<Review>> GetAllUserReviewsAsync(string email)
     {
-        var filter = Builders<Review>.Filter.Eq("user", userId);
+        var filter = Builders<Review>.Filter.Eq("user", email);
         var results = await reviews.Find(filter).ToListAsync();
 
         return results;

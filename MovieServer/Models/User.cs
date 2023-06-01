@@ -17,10 +17,10 @@ public class User
     [BsonElement("name")]
     public string Name{ get; set; }
     [BsonElement("country_code")]
-    public string CountryCallingCode { get; set; }
+    public int CountryCallingCode { get; set; }
     [BsonElement("phone_number")]
     public int PhoneNumber{ get; set; }
-    [BsonElement("picture")]
+    [BsonElement("profile")]
     public string Profile { get; set; }
     [BsonElement("backdrop")]
     public string Backdrop { get; set; }

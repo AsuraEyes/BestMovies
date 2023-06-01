@@ -1,0 +1,77 @@
+@page "/collection/{Id:int}"
+@using PresentationTier.Models
+@using PresentationTier.Data
+@using Orientation = Radzen.Orientation
+@using System.Globalization
+
+@inject NavigationManager NavigationManager
+
+@inject ICollectionService CollectionService
+
+<PageTitle>@movieCollection.Name</PageTitle>
+<RadzenRow Style="width: 1720px">
+    <RadzenStack Orientation="Orientation.Vertical" Gap="40" Style="width: 100%; max-height: 600px; background-color: rgba(0, 0, 0, 0.8)">
+        <RadzenImage Path="@movieCollection.Backdrop" Style="opacity: 40%; mask-image: linear-gradient(to top, transparent 150px, black); pointer-events: none"/>
+        <RadzenStack Orientation="Orientation.Horizontal" Style="position: absolute; margin: 45px 160px; width: 1400px">
+            <RadzenImage Path="@movieCollection.Poster" Style="width: 300px; height: 450px; border-radius: 10px"/>
+            <RadzenStack Gap="15" Style="margin-right: 40px; position: relative; top: 75px; height: 304px">
+                <RadzenText TextStyle="TextStyle.DisplayH3" Text="@movieCollection.Name" Style="margin-bottom: 0; color: #ffffff"/>
+                <RadzenStack Gap="0">
+                    <RadzenText Text="Overview" TextStyle="TextStyle.DisplayH6" Style="margin-bottom: 0; margin-top: 8px; color: #ffffff"/>
+                    <RadzenText Style="padding-top: 10px; color: #ffffff" Text="@movieCollection.Overview"/>
+                </RadzenStack>
+                <RadzenRow Gap="5">
+                    <RadzenText Text="Number of Movies:" TextStyle="TextStyle.Body1" Style="font-weight: bold; color: #ffffff"/>
+                    <RadzenText Style="color: #ffffff">@movies.Length</RadzenText>
+                </RadzenRow>
+                <RadzenRow Gap="5">
+                    <RadzenText Text="Revenue:" TextStyle="TextStyle.Body1" Style="font-weight: bold; color: #ffffff"/>
+                    <RadzenText Style="color: #ffffff">@movieCollection.Revenue.ToString("C0", CultureInfo.CreateSpecificCulture("en-US"))</RadzenText>
+                </RadzenRow>
+            </RadzenStack>
+        </RadzenStack>
+    </RadzenStack>
+    <RadzenStack Orientation="Orientation.Horizontal">
+        <RadzenRow Gap="10" Style="margin: 30px 160px; width: 1320px">
+            <RadzenStack Style="width: 100%">
+                <RadzenText TextStyle="TextStyle.H5">Movies</RadzenText>
+                <RadzenRow Gap="10">
+                    @foreach (var movie in movies)
+                    {
+                        <RadzenCard onclick="@(() => NavigateToMovie(movie.Id))" Style="height: 150px; padding: 0; width: 100%; border-radius: 10px">
+                            <RadzenStack Orientation="Orientation.Horizontal">
+                                <RadzenImage Path="@movie.Poster" Style="border-radius: 10px 0 0 10px; width: 94px; height: 150px"/>
+                                <RadzenStack Style="margin: 15px 0">
+                                    <RadzenStack Gap="0">
+                                        <RadzenText Text="@movie.Title" Style="font-weight: bold"/>
+                                        <RadzenText Text="@movie.ReleaseDate.ToString("dd MMMM yyyy")" TextStyle="TextStyle.Body2"/>
+                                    </RadzenStack>
+                                    <RadzenText Text="@movie.Overview"/>
+                                </RadzenStack>
+                            </RadzenStack>
+                        </RadzenCard>
+                    }
+                </RadzenRow>
+            </RadzenStack>
+        </RadzenRow>
+    </RadzenStack>
+</RadzenRow>
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private Models.MovieCollection movieCollection = new();
+    private Movie[] movies = {};
+
+    protected override async Task OnInitializedAsync()
+    {
+        movieCollection = await CollectionService.GetMovieCollectionAsync(Id);
+        movies = movieCollection.Movies;
+    }
+
+    private void NavigateToMovie(int id)
+    {
+        NavigationManager.NavigateTo($"/movie/{id}",true);
+    }
+}

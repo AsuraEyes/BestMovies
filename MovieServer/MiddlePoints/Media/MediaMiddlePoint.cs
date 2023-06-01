@@ -28,6 +28,30 @@ public class MediaMiddlePoint : IMediaMiddlePoint
         return media.ListOfMedia;
     }
     
+    public async Task<Models.Media[]> GetMoviesAsync()
+    {
+        media = await mediaService.GetMoviesAsync();
+        
+        foreach (var m in media.ListOfMedia)
+        {
+            m.Poster = SetImage(m.Poster);
+        }
+        
+        return media.ListOfMedia;
+    }
+    
+    public async Task<Models.Media[]> GetTVShowsAsync()
+    {
+        media = await mediaService.GetTVShowsAsync();
+        
+        foreach (var m in media.ListOfMedia)
+        {
+            m.Poster = SetImage(m.Poster);
+        }
+        
+        return media.ListOfMedia;
+    }
+    
     private static string SetImage(string img)
     {
         return img.Insert(0, Image);

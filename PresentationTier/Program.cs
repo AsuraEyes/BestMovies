@@ -1,22 +1,16 @@
-using Blazored.Modal;
 using Microsoft.AspNetCore.Components.Authorization;
 using PresentationTier.Authorization;
 using PresentationTier.Data;
 using PresentationTier.Data.Media;
 using Radzen;
-using Syncfusion.Blazor;
 
 var builder = WebApplication.CreateBuilder(args);
+
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
-
-builder.Services.AddBlazoredModal();
-
-//Syncfusion
-builder.Services.AddSyncfusionBlazor();
 
 //Radzen Services
 builder.Services.AddScoped<DialogService>();
@@ -25,8 +19,10 @@ builder.Services.AddScoped<TooltipService>();
 builder.Services.AddScoped<ContextMenuService>();
 
 //Services
+builder.Services.AddScoped<ICollectionService, CollectionService>();
 builder.Services.AddScoped<IMediaService, MediaService>();
 builder.Services.AddScoped<IMovieService, MovieService>();
+builder.Services.AddScoped<IPersonService, PersonService>();
 builder.Services.AddScoped<ITVService, TVService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();

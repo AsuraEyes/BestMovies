@@ -1,0 +1,94 @@
+@page "/movie/search"
+@using PresentationTier.Data.Media
+@using PresentationTier.Models
+@using Orientation = Radzen.Orientation
+@using Microsoft.AspNetCore.WebUtilities
+@using Microsoft.AspNetCore.Mvc
+
+@inject NavigationManager NavigationManager
+
+@inject IMovieService MovieService
+
+<PageTitle>Movies</PageTitle>
+<RadzenRow Style="width: 1720px">
+    <RadzenStack Style="margin: 45px 160px; width: 1600px">
+        <RadzenText Text="Movies" TextStyle="TextStyle.DisplayH4"/>
+        <RadzenStack Orientation="Orientation.Horizontal" Gap="0" Style="position: relative">
+            <RadzenTextBox Placeholder=@Search @bind-Value="@Search" Style="border-radius: 25px 0 0 25px; border: 1px solid rgb(33, 33, 33)"/>
+            <RadzenButton Style="border-radius: 0 25px 25px 0;" ButtonStyle="ButtonStyle.Dark" Icon="search" Variant="Variant.Outlined" Click="SearchMovie"/>
+        </RadzenStack>
+        <RadzenRow>
+            @foreach (var movie in movies)
+            {
+                <RadzenStack Style="width: 250px" onclick="@(() => NavigateToMovie(movie.Id))">
+                    <RadzenCard Style="border-radius: 10px; padding: 0">
+                        <RadzenImage Path="@movie.Poster" Style="border-radius: 10px; width: 100%"/>
+                    </RadzenCard>
+                    <RadzenText Style="width: 100%">@movie.Title</RadzenText>
+                </RadzenStack>
+            }
+        </RadzenRow>
+            <RadzenStack Orientation="Orientation.Horizontal" Style="position: relative; left: 50%; bottom: 0">
+                @switch (Page)
+                {
+                    case < 1:
+                        <RadzenButton Text="Previous" Variant="@Variant.Outlined" ButtonStyle="@ButtonStyle.Dark" Click="@Previous" Disabled="true"/>
+                        <RadzenButton Text="Next" Variant="@Variant.Outlined" ButtonStyle="@ButtonStyle.Dark" Click="@Next"/>
+                        break;
+                    case > 500:
+                        <RadzenButton Text="Previous" Variant="@Variant.Outlined" ButtonStyle="@ButtonStyle.Dark" Click="@Previous"/>
+                        <RadzenButton Text="Next" Variant="@Variant.Outlined" ButtonStyle="@ButtonStyle.Dark" Click="@Next" Disabled="true"/>
+                        break;
+                    default:
+                        <RadzenButton Text="Previous" Variant="@Variant.Outlined" ButtonStyle="@ButtonStyle.Dark" Click="@Previous" Style="border-radius: 25px"/>
+                        <RadzenButton Text="Next" Variant="@Variant.Outlined" ButtonStyle="@ButtonStyle.Dark" Click="@Next" Style="border-radius: 25px"/>
+                        break;
+                }
+            </RadzenStack>
+    </RadzenStack>
+</RadzenRow>
+
+@code {
+    [Parameter]
+    [SupplyParameterFromQuery(Name = "query")]
+    public string Search { get; set;}
+    private int Page = 1;
+
+    private MediaList media = new ();
+    private Media[] movies = {};
+
+    protected override async Task OnInitializedAsync()
+    {
+        media = await MovieService.GetMoviesAsync(Search, Page);
+        movies = media.ListOfMedia;
+    }
+    
+    private void SearchMovie()
+    {
+        if (Search.Equals(""))
+        {
+            NavigationManager.NavigateTo("/movie");
+        }
+        else
+        {
+            NavigationManager.NavigateTo($"/movie/search?query={Search}", true);
+        }
+    }
+
+    private async Task Next()
+    {
+        Page++;
+        await OnInitializedAsync();
+    }
+    
+    private async Task Previous()
+    {
+        Page--;
+        await OnInitializedAsync();
+    }
+    
+    private void NavigateToMovie(int id)
+    {
+        NavigationManager.NavigateTo($"/movie/{id}");
+    }
+}

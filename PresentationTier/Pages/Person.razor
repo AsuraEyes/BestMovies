@@ -1,0 +1,270 @@
+@page "/person/{Id:int}"
+@using PresentationTier.Data.Media
+@using PresentationTier.Models
+@using Orientation = Radzen.Orientation
+
+@inject NavigationManager NavigationManager
+
+@inject IPersonService PersonService
+
+<PageTitle>@person.Name</PageTitle>
+<RadzenStack Gap="45" Style="width: 1720px; padding-left: 10%; padding-right: 10%">
+    <RadzenStack Orientation="Orientation.Horizontal">
+        <RadzenImage Path="@person.Picture" Style="max-width: 350px; border-radius: 10px"/>
+        <RadzenStack Gap="20">
+            <RadzenText Text="@person.Name" TextStyle="TextStyle.DisplayH4" Style="margin-top: 10px; margin-bottom: 10px"/>
+            <RadzenStack Gap="0">
+                <RadzenText Text="Biography" TextStyle="TextStyle.DisplayH6"/>
+                <RadzenText Text="@person.Biography"/>
+            </RadzenStack>
+        </RadzenStack>
+    </RadzenStack>
+    <RadzenStack Orientation="Orientation.Horizontal">
+        <RadzenStack Style="width: 350px" Gap="15">
+            <RadzenText Text="Personal info" TextStyle="TextStyle.DisplayH5"/>
+            <RadzenStack Gap="0">
+                <RadzenText Text="Known Credits" TextStyle="TextStyle.DisplayH6"/>
+                <RadzenText Text="@credits.ToString()"/>
+            </RadzenStack>
+            <RadzenStack Gap="0">
+                <RadzenText Text="Birthday" TextStyle="TextStyle.DisplayH6"/>
+                <RadzenText Text="@person.Birthday.ToString("d")"/>
+            </RadzenStack>
+            <RadzenStack Gap="0">
+                <RadzenText Text="Place of Birth" TextStyle="TextStyle.DisplayH6"/>
+                <RadzenText Text="@person.PlaceOfBirth"/>
+            </RadzenStack>
+        </RadzenStack>
+        <RadzenStack Gap="45">
+            <RadzenStack Gap="0">
+                <RadzenText Text="Known for" TextStyle="TextStyle.DisplayH5"/>
+                <RadzenRow Gap="10">
+                    @foreach (var media in knownFor)
+                    {
+                        if (media.Type.Equals("movie"))
+                        {
+                            <RadzenCard onclick="@(() => NavigateToMovie(media.Id))" class="rz-shadow-7" Style="padding: 0; width: 500px; border-radius: 10px">
+                                <RadzenStack Orientation="Orientation.Horizontal">
+                                    <RadzenImage Path="@media.Poster" Style="border-radius: 10px 0 0 10px; height: 100px"/>
+                                    <RadzenStack Gap="0" Style="margin-top: 5px">
+                                        <RadzenText Text="@media.Title" TextStyle="TextStyle.H6" Style="font-weight: bold; margin: 5px"/>
+                                        <RadzenText Text="@media.Character" Style="margin: 5px"/>
+                                    </RadzenStack>
+                                </RadzenStack>
+                            </RadzenCard>
+                        }
+                        else
+                        {
+                            <RadzenCard onclick="@(() => NavigateToTVShow(media.Id))" class="rz-shadow-7" Style="padding: 0; width: 500px; border-radius: 10px">
+                                <RadzenStack Orientation="Orientation.Horizontal">
+                                    <RadzenImage Path="@media.Poster" Style="border-radius: 10px 0 0 10px; height: 100px"/>
+                                    <RadzenStack Gap="0" Style="margin-top: 5px">
+                                        <RadzenText Text="@media.Name" TextStyle="TextStyle.H6" Style="font-weight: bold; margin: 5px"/>
+                                        <RadzenText Text="@media.Character" Style="margin: 5px"/>
+                                    </RadzenStack>
+                                </RadzenStack>
+                            </RadzenCard>
+                        }
+                    }
+                </RadzenRow>
+            </RadzenStack>
+            <RadzenStack Gap="5" Style="width: 1000px">
+                <RadzenText Text="Credits" TextStyle="TextStyle.DisplayH5"/>
+                <RadzenStack Gap="25">
+                    @if (cast != null)
+                    {
+                        <RadzenStack Gap="0">
+                            <RadzenText Text="Acting" TextStyle="TextStyle.DisplayH6"/>
+                            @foreach (var media in cast)
+                            {
+                                if (media.Type.Equals("movie"))
+                                {
+                                    <RadzenCard onclick="@(() => NavigateToMovie(media.Id))" Style="padding: 10px; border-radius: 0">
+                                        <RadzenStack Gap="5">
+                                            <RadzenStack Orientation="Orientation.Horizontal">
+                                                <RadzenImage Path="@media.Poster" Style="width: 50px"/>
+                                                <RadzenStack Gap="0">
+                                                    <RadzenText Text="@media.Title" Style="font-weight: bold; margin: 5px"/>
+                                                    <RadzenText Text="@media.Character" Style="margin: 5px"/>
+                                                </RadzenStack>
+                                            </RadzenStack>
+                                        </RadzenStack>
+                                    </RadzenCard>
+                                }
+                                else
+                                {
+                                    <RadzenCard onclick="@(() => NavigateToTVShow(media.Id))" Style="padding: 10px; border-radius: 0">
+                                        <RadzenStack Gap="5">
+                                            <RadzenStack Orientation="Orientation.Horizontal">
+                                                <RadzenImage Path="@media.Poster" Style="width: 50px"/>
+                                                <RadzenStack Gap="0">
+                                                    <RadzenText Text="@media.Name" Style="font-weight: bold; margin: 5px"/>
+                                                    <RadzenText Text="@media.Character" Style="margin: 5px"/>
+                                                </RadzenStack>
+                                            </RadzenStack>
+                                        </RadzenStack>
+                                    </RadzenCard>
+                                }
+                            }
+                        </RadzenStack>
+                    }
+                    @if (crew != null)
+                    {
+                        <RadzenStack Gap="0">
+                            <RadzenText Text="Production" TextStyle="TextStyle.DisplayH6"/>
+                            @if (production != null)
+                            {
+                                <RadzenCard class="rz-shadow-7" Style="padding: 10px">
+                                    <RadzenStack Gap="5">
+                                        @foreach (var prod in production)
+                                        {
+                                            if (prod.Type.Equals("movie"))
+                                            {
+                                                <RadzenStack onclick="@(() => NavigateToMovie(prod.Id))" Orientation="Orientation.Horizontal">
+                                                    <RadzenImage Path="@prod.Poster" Style="width: 50px"/>
+                                                    <RadzenStack Gap="0">
+                                                        <RadzenText Text="@prod.Title" Style="font-weight: bold; margin: 5px"/>
+                                                        <RadzenText Text="@prod.Job" Style="margin: 5px"/>
+                                                    </RadzenStack>
+                                                </RadzenStack>
+                                            }
+                                            else
+                                            {
+                                                <RadzenStack onclick="@(() => NavigateToTVShow(prod.Id))" Orientation="Orientation.Horizontal">
+                                                    <RadzenImage Path="@prod.Poster" Style="width: 50px"/>
+                                                    <RadzenStack Gap="0">
+                                                        <RadzenText Text="@prod.Name" Style="font-weight: bold; margin: 5px"/>
+                                                        <RadzenText Text="@prod.Job" Style="margin: 5px"/>
+                                                    </RadzenStack>
+                                                </RadzenStack>
+                                            }
+                                        }
+                                    </RadzenStack>
+                                </RadzenCard>
+                            }
+                            else
+                            {
+                                <RadzenText Text="This person has not produced anything." Style="margin: 5px; font-style: oblique"/>
+                            }
+                        </RadzenStack>
+                        <RadzenStack Gap="0">
+                            <RadzenText Text="Crew" TextStyle="TextStyle.DisplayH5"/>
+                            @if (isCrew != null)
+                            {
+                                <RadzenCard class="rz-shadow-7" Style="padding: 10px">
+                                    <RadzenStack Gap="5">
+                                        @foreach (var crews in isCrew)
+                                        {
+                                            if (crews.Type.Equals("movie"))
+                                            {
+                                                <RadzenStack onclick="@(() => NavigateToMovie(crews.Id))" Orientation="Orientation.Horizontal">
+                                                    <RadzenImage Path="@crews.Poster" Style="width: 50px"/>
+                                                    <RadzenStack Gap="0">
+                                                        <RadzenText Text="@crews.Title" Style="font-weight: bold; margin: 5px"/>
+                                                        <RadzenText Text="@crews.Job" Style="margin: 5px"/>
+                                                    </RadzenStack>
+                                                </RadzenStack>
+                                            }
+                                            else
+                                            {
+                                                <RadzenStack onclick="@(() => NavigateToTVShow(crews.Id))" Orientation="Orientation.Horizontal">
+                                                    <RadzenImage Path="@crews.Poster" Style="width: 50px"/>
+                                                    <RadzenStack Gap="0">
+                                                        <RadzenText Text="@crews.Name" Style="font-weight: bold; margin: 5px"/>
+                                                        <RadzenText Text="@crews.Job" Style="margin: 5px"/>
+                                                    </RadzenStack>
+                                                </RadzenStack>
+                                            }
+                                        }
+                                    </RadzenStack>
+                                </RadzenCard>
+                            }
+                            else
+                            {
+                                <RadzenText Text="This person has not been a crew member in anything." Style="margin: 5px; font-style: oblique"/>
+                            }
+                        </RadzenStack>
+                        <RadzenStack Gap="0">
+                            <RadzenText Text="Directing" TextStyle="TextStyle.DisplayH6"/>
+                            @if (directing != null)
+                            {
+                                <RadzenCard class="rz-shadow-7" Style="padding: 10px">
+                                <RadzenStack Gap="5">
+                                    @foreach (var direct in directing)
+                                    {
+                                        if (direct.Type.Equals("movie"))
+                                        {
+                                            <RadzenStack onclick="@(() => NavigateToMovie(direct.Id))" Orientation="Orientation.Horizontal">
+                                                <RadzenImage Path="@direct.Poster" Style="width: 50px"/>
+                                                <RadzenStack Gap="0">
+                                                    <RadzenText Text="@direct.Title" Style="font-weight: bold; margin: 5px"/>
+                                                    <RadzenText Text="@direct.Job" Style="margin: 5px"/>
+                                                </RadzenStack>
+                                            </RadzenStack>
+                                        }
+                                        else
+                                        {
+                                            <RadzenStack onclick="@(() => NavigateToTVShow(direct.Id))" Orientation="Orientation.Horizontal">
+                                                <RadzenImage Path="@direct.Poster" Style="width: 50px"/>
+                                                <RadzenStack Gap="0">
+                                                    <RadzenText Text="@direct.Name" Style="font-weight: bold; margin: 5px"/>
+                                                    <RadzenText Text="@direct.Job" Style="margin: 5px"/>
+                                                </RadzenStack>
+                                            </RadzenStack>
+                                        }
+                                    }
+                                </RadzenStack>
+                            </RadzenCard>
+                            }
+                            else
+                            {
+                                <RadzenText Text="This person has not directed anything." Style="margin: 5px; font-style: oblique"/>
+                            }
+                        </RadzenStack>
+                    }
+                </RadzenStack>
+            </RadzenStack>
+        </RadzenStack>
+    </RadzenStack>
+</RadzenStack>
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private Models.Person person = new();
+    private IEnumerable<Media> cast;
+    private IEnumerable<Media> crew;
+    private int credits;
+    private Media[] knownFor = {};
+    private IEnumerable<Media> production;
+    private IEnumerable<Media> isCrew;
+    private IEnumerable<Media> directing;
+    
+    protected override async Task OnInitializedAsync()
+    {
+        person = await PersonService.GetPersonAsync(Id);
+        cast = person.MediaCredits.Cast;
+        crew = person.MediaCredits.Crew;
+        knownFor = person.MediaCredits.KnownFor;
+        credits = cast.Count() + crew.Count();
+        SetCrew();
+    }
+    
+    private void NavigateToMovie(int id)
+    {
+        NavigationManager.NavigateTo($"movie/{id}");
+    }
+    
+    private void NavigateToTVShow(int id)
+    {
+        NavigationManager.NavigateTo($"tv/{id}");
+    }
+
+    private void SetCrew()
+    {
+        production = crew.Where(p => p.Department.Equals("Production"));
+        isCrew = crew.Where(p => p.Department.Equals("Crew"));
+        directing = crew.Where(p => p.Department.Equals("Directing"));
+    }
+}

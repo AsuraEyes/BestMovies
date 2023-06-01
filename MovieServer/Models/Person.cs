@@ -8,12 +8,19 @@ public class Person
     public string Name { get; set; }
     public string Biography { get; set; }
     public DateTime Birthday { get; set; }
-    public DateTime DeathDate { get; set; }
+    [JsonPropertyName("deathday")]
+    public DateTime? DeathDay { get; set; }
     public int Gender { get; set; }
     [JsonPropertyName("profile_path")]
     public string Picture { get; set; }
+    [JsonPropertyName("place_of_birth")]
     public string PlaceOfBirth { get; set; }
+    [JsonPropertyName("known_for_department")]
+    public string KnownFor { get; set; }
     public string Character { get; set; }
     public string Job { get; set; }
     public string Department { get; set; }
+    [JsonPropertyName("combined_credits")]
+    public MediaCredits MediaCredits { get; set; }
+    public Media[] MediaKnownFor { get; set; }
 }

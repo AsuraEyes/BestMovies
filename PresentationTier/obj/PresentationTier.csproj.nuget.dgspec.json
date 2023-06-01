@@ -21,6 +21,7 @@
         ],
         "sources": {
           "/usr/local/share/dotnet/library-packs": {},
+          "/usr/local/share/dotnet/sdk/7.0.302/Sdks/Microsoft.NET.Sdk.Web/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -39,17 +40,13 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
-            "Blazored.Modal": {
+            "MongoDB.Bson": {
               "target": "Package",
-              "version": "[7.1.0, )"
+              "version": "[2.19.1, )"
             },
             "Radzen.Blazor": {
               "target": "Package",
               "version": "[4.10.1, )"
-            },
-            "Syncfusion.Blazor": {
-              "target": "Package",
-              "version": "[21.1.41, )"
             }
           },
           "imports": [
@@ -71,7 +68,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.200/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.302/RuntimeIdentifierGraph.json"
         }
       }
     }

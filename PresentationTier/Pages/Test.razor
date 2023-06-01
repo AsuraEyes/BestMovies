@@ -1,0 +1,26 @@
+@page "/test"
+<h3>Test</h3>
+<div class="col-md-6 col-sm-12 p-4">
+    <RadzenText TextStyle="TextStyle.H5" TagName="TagName.H3">Activity</RadzenText>
+    <RadzenText TextStyle="TextStyle.Body1">
+        Shows how to use multiple scales with RadzenArcGauge
+    </RadzenText>
+    <RadzenArcGauge Style="width: 125px; height: 125px">
+        <RadzenArcGaugeScale Min="0" Max="100" StartAngle="0" EndAngle="360" Fill="rgba(203, 255, 0, 0.5)">
+            <RadzenArcGaugeScaleValue Value="@move" Fill="rgb(203, 255, 0)">
+                <Template>
+                    <RadzenText Text="text"/>
+                </Template>
+            </RadzenArcGaugeScaleValue>
+        </RadzenArcGaugeScale>
+    </RadzenArcGauge>
+</div>
+
+
+@code {
+    double move = 38;
+
+    protected override void OnInitialized()
+    {
+    }
+}
