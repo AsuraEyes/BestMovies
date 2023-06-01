@@ -29,6 +29,10 @@ namespace MovieServer.MiddlePoints
         {
             return await postRepository.GetPostByIdAsync(postId);
         }
+        //public async Task<Post> GetPostByUserId(string email)
+        //{
+        //    return await postRepository.GetPostByUserId(email);
+        //}
 
         // Update a post by delegating the operation to the post repository
         public async Task UpdatePostAsync(Post post)

@@ -166,5 +166,12 @@ namespace PresentationTier.Data
                 throw new Exception("An error occurred while updating the post.", ex);
             }
         }
+
+        //Get post by id
+
+        //public async Task getPostByIdAsync(string email)
+        //{
+
+        //}
     }
 }
