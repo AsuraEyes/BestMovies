@@ -123,3 +123,4 @@ C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\MovieServer\obj\Debug\net7.0
 C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\MovieServer\obj\Debug\net7.0\MovieServer.pdb
 C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\MovieServer\obj\Debug\net7.0\MovieServer.genruntimeconfig.cache
 C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\MovieServer\obj\Debug\net7.0\ref\MovieServer.dll
+C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\MovieServer\bin\Debug\net7.0\nunit.framework.dll

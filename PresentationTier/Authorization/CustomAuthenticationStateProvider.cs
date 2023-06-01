@@ -12,6 +12,7 @@ public class CustomAuthenticationStateProvider : AuthenticationStateProvider {
     private readonly IUserService userService;
 
     private User cachedUser;
+    public User CachedUser { get; private set; }
 
     public CustomAuthenticationStateProvider(IJSRuntime jsRuntime, IUserService userService) {
         this.jsRuntime = jsRuntime;
@@ -23,7 +24,7 @@ public class CustomAuthenticationStateProvider : AuthenticationStateProvider {
         if (cachedUser == null) {
             var userAsJson = await jsRuntime.InvokeAsync<string>("sessionStorage.getItem", "currentUser");
             if (!string.IsNullOrEmpty(userAsJson)) {
-                var tmp = JsonSerializer.Deserialize<User>(userAsJson);
+                var tmp = JsonSerializer.Deserialize<Models.User>(userAsJson);
                 await ValidateLogin(tmp.Email, tmp.Password);
             }
         } else {
@@ -45,6 +46,7 @@ public class CustomAuthenticationStateProvider : AuthenticationStateProvider {
             var serialisedData = JsonSerializer.Serialize(user);
             jsRuntime.InvokeVoidAsync("sessionStorage.setItem", "currentUser", serialisedData);
             cachedUser = user;
+            
         } catch (Exception e) {
             throw e;
         }
@@ -60,7 +62,7 @@ public class CustomAuthenticationStateProvider : AuthenticationStateProvider {
         NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(user)));
     }
 
-    private ClaimsIdentity SetupClaimsForUser(User user) {
+    private ClaimsIdentity SetupClaimsForUser(Models.User user) {
         var claims = new List<Claim>
         {
             new (ClaimTypes.Email, user.Email),

@@ -1,0 +1,301 @@
+@page "/Posts"
+
+@using PresentationTier.Authorization;
+@using PresentationTier.Models
+@using System.Collections.Generic
+@using PresentationTier.Data
+@using System.Security.Claims
+@using MongoDB.Driver
+
+@inject IPostService postService
+@inject IUserService userService
+@inject NavigationManager navigationManager
+@inject AuthenticationStateProvider authenticationStateProvider
+<style>
+    .container {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .left-column,
+    .right-column {
+        width: 50%;
+    }
+
+    .editor {
+        background-color: #F8F9FA;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+
+        .editor h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .editor input,
+        .editor textarea {
+            background-color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-size: 16px;
+            color: #4B5563;
+            width: 100%;
+        }
+
+        .editor button {
+            background-color: #4F46E5;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            padding: 10px;
+            font-size: 16px;
+            transition: background-color 0.2s ease-in-out;
+            cursor: pointer;
+        }
+
+            .editor button:hover {
+                background-color: #4338CA;
+            }
+
+    .post-list {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .post-card {
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.1);
+        font-family: "Comic Sans MS", cursive;
+    }
+
+    .title {
+        font-size: 24px;
+        margin-bottom: 10px;
+        color: #1A3AA4;
+    }
+        .post-card .profile-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+            .post-card .profile-info .profile-pic {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                object-fit: cover;
+                margin-right: 10px;
+            }
+
+        .post-card .content {
+            margin-bottom: 10px;
+           font-size: 18px;
+        color: #A4841A;
+        }
+
+        .post-card .icons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+            .post-card .icons img {
+                width: 24px;
+                height: 24px;
+                cursor: pointer;
+                margin-right: 10px;
+            }
+
+    .post-card .likes {
+        font-size: 14px;
+        color: #888888; 
+        margin-top: 10px;
+    }
+    .trending-section {
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.1);
+    }
+
+        .trending-section h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+    .trending-card {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+        .trending-card .post-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+            .trending-card .post-info .post-title {
+                font-size: 18px;
+                font-weight: bold;
+            }
+
+            .trending-card .post-info .post-poster {
+                font-size: 14px;
+                color: #6B7280;
+            }
+
+</style>
+
+<div class="container">
+    <div class="left-column">
+        <div class="editor">
+
+       <h1>Create a Post</h1>
+            <div class="form-label">@currentUser.Email</div>
+            <InputText @bind-Value="@newPost.Title" rows="3" DisplayName="Title"></InputText>
+            <InputTextArea @bind-Value="@newPost.Content" rows="3" DisplayName="Content"></InputTextArea>
+            <button class="btn btn-primary" @onclick="CreatePost">Post</button>
+        </div>
+
+        <div class="post-list">
+            @foreach (var post in posts)
+            {
+                <div class="post-card">
+                    <div class="profile-info">
+                        <img class="profile-pic" src="@($"data:image/png;base64,{Convert.ToBase64String(post.Picture)}")" alt="Profile Picture" />
+                        <div class="form-label">@post.PostedBy</div>
+                    </div>
+                    <div class="title">@post.Title</div>
+                    <div class="content">@post.Content</div>
+                    <div class="icons">
+                        <img id="likeIcon" src="/images/icons/thumbs-up-solid.svg" alt="Like" @onclick="() => LikePost(post)" />
+                        <img id="dislikeIcon" src="/images/icons/thumbs-down-solid.svg" alt="Dislike" @onclick="() => DisLikePost(post)" />
+                    </div>
+                    <div class="likes">Likes: @post.NumberOfLikes</div>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="right-column">
+        <div class="trending-section">
+            <h1>#Trending</h1>
+            @foreach (var post in topPosts)
+            {
+                <div class="trending-card">
+                    <div class="post-info">
+                        <div class="post-title">@post.Title</div>
+                        <div class="post-poster">@post.Username</div>
+                        <div class="post-likes">@post.NumberOfLikes.ToString()</div>
+                    </div>
+                </div>
+            }
+        </div>
+        <button class="btn btn-primary" @onclick="Logout">Log Out</button>
+
+    </div>
+</div>
+@code {
+    private User currentUser = new User();
+    private Post newPost = new Post();
+    private List<Post> posts = new List<Post>();
+    private List<Post> topPosts = new List<Post>();
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        var email = ((CustomAuthenticationStateProvider)authenticationStateProvider).
+        GetAuthenticationStateAsync().Result.User.FindFirst(claim => claim.Type.Equals(ClaimTypes.Email))?.Value;
+        
+        if (!string.IsNullOrEmpty(email))
+        {
+            currentUser = await userService.GetLoggedInUser(email);
+        }
+
+        // Fetch all posts
+        posts = await postService.GetAllPosts();
+       
+        // Get the top 5 posts based on the number of likes
+        topPosts = GetTopPosts(5);
+
+        // Call the base OnInitializedAsync method
+        await base.OnInitializedAsync();
+    }
+
+  
+    private async Task CreatePost()
+    {
+        string userEmail = currentUser.Email;
+        string password = currentUser.Password;
+
+        // Call the ValidateUser method to validate the user and retrieve the user object
+        User user = await userService.ValidateUser(userEmail, password);
+
+        // Create the post object with the necessary details
+        var post = new Post
+            {
+                Id = newPost.Id,
+                Title = newPost.Title,
+                Content = newPost.Content,
+                PostedDate = DateTime.Now,
+                PostedBy = user.Email,
+                Picture = user.Profile,
+                Username = user.Username,
+                NumberOfLikes = newPost.NumberOfLikes
+
+            };
+
+        // Save the post
+        await postService.SavePost(post);
+
+        // Reset the post creation form
+        newPost = new Post();
+    }
+
+    private async Task LikePost(Post post)
+    {
+        string userId = currentUser.Email;
+
+        await postService.LikePost(post,userId);
+        await postService.UpdatePostAsync(post);
+
+    }
+
+    private async Task DisLikePost(Post post)
+    {
+        string userId = currentUser.Email;
+
+        await postService.DisLikePost(post, userId);
+        await postService.UpdatePostAsync(post);
+    }
+
+    private List<Post> GetTopPosts(int count)
+    {
+        // Sorting the posts by the number of likes in descending order
+            var sortedPosts = posts.OrderByDescending(p => p.NumberOfLikes);
+
+        // Take the top 'count' number of posts
+        var topPosts = sortedPosts.Take(count).ToList();
+
+        return topPosts;
+    }
+
+    private async Task Logout()
+    {
+        // Call the authenticationStateProvider's method to sign out the user
+        await ((CustomAuthenticationStateProvider)authenticationStateProvider).Logout();
+
+        // Redirect the user to the home page or any desired page after logout
+        navigationManager.NavigateTo("/");
+    }
+
+}

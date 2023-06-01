@@ -67,7 +67,7 @@
 @code {
     private string email;
     private string password;
-    private string errorMessage;
+    private string? errorMessage;
 
     private async Task PerformLogin()
     {
@@ -82,7 +82,7 @@
         {
             errorMessage = e.Message;
         }
-        navigationManager.NavigateTo("/");
+        navigationManager.NavigateTo("/Posts");
     }
 
     private async Task PerformLogout()

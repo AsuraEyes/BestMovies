@@ -1,0 +1,225 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\PresentationTier.bundle.scp.css",
+      "PackagePath": "staticwebassets\\PresentationTier.bundle.scp.css"
+    },
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\css\\open-iconic\\FONT-LICENSE",
+      "PackagePath": "staticwebassets\\css\\open-iconic"
+    },
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\css\\open-iconic\\ICON-LICENSE",
+      "PackagePath": "staticwebassets\\css\\open-iconic"
+    },
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\css\\open-iconic\\README.md",
+      "PackagePath": "staticwebassets\\css\\open-iconic\\README.md"
+    },
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\css\\open-iconic\\font\\css\\open-iconic-bootstrap.min.css",
+      "PackagePath": "staticwebassets\\css\\open-iconic\\font\\css\\open-iconic-bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.eot",
+      "PackagePath": "staticwebassets\\css\\open-iconic\\font\\fonts\\open-iconic.eot"
+    },
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.otf",
+      "PackagePath": "staticwebassets\\css\\open-iconic\\font\\fonts\\open-iconic.otf"
+    },
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.svg",
+      "PackagePath": "staticwebassets\\css\\open-iconic\\font\\fonts\\open-iconic.svg"
+    },
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.ttf",
+      "PackagePath": "staticwebassets\\css\\open-iconic\\font\\fonts\\open-iconic.ttf"
+    },
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.woff",
+      "PackagePath": "staticwebassets\\css\\open-iconic\\font\\fonts\\open-iconic.woff"
+    },
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\css\\site.css",
+      "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\images\\Icons\\comment-solid.svg",
+      "PackagePath": "staticwebassets\\images\\Icons\\comment-solid.svg"
+    },
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\images\\Icons\\share-nodes-solid.svg",
+      "PackagePath": "staticwebassets\\images\\Icons\\share-nodes-solid.svg"
+    },
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\images\\Icons\\thumbs-down-solid.svg",
+      "PackagePath": "staticwebassets\\images\\Icons\\thumbs-down-solid.svg"
+    },
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\images\\Icons\\thumbs-up-solid.svg",
+      "PackagePath": "staticwebassets\\images\\Icons\\thumbs-up-solid.svg"
+    },
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\images\\carousel\\christstatue.jpg",
+      "PackagePath": "staticwebassets\\images\\carousel\\christstatue.jpg"
+    },
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\images\\carousel\\colosseum.jpg",
+      "PackagePath": "staticwebassets\\images\\carousel\\colosseum.jpg"
+    },
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\images\\carousel\\greatwall.jpg",
+      "PackagePath": "staticwebassets\\images\\carousel\\greatwall.jpg"
+    },
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\images\\carousel\\london.png",
+      "PackagePath": "staticwebassets\\images\\carousel\\london.png"
+    },
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\images\\carousel\\machupichu.jpg",
+      "PackagePath": "staticwebassets\\images\\carousel\\machupichu.jpg"
+    },
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\images\\carousel\\moscow.png",
+      "PackagePath": "staticwebassets\\images\\carousel\\moscow.png"
+    },
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\images\\carousel\\san-francisco.png",
+      "PackagePath": "staticwebassets\\images\\carousel\\san-francisco.png"
+    },
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\images\\carousel\\tajmahal.jpg",
+      "PackagePath": "staticwebassets\\images\\carousel\\tajmahal.jpg"
+    },
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\images\\carousel\\tokyo.png",
+      "PackagePath": "staticwebassets\\images\\carousel\\tokyo.png"
+    },
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\img\\1.jpeg",
+      "PackagePath": "staticwebassets\\img\\1.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\img\\10.jpg",
+      "PackagePath": "staticwebassets\\img\\10.jpg"
+    },
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\img\\11.jpg",
+      "PackagePath": "staticwebassets\\img\\11.jpg"
+    },
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\img\\12.jpg",
+      "PackagePath": "staticwebassets\\img\\12.jpg"
+    },
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\img\\13.jpg",
+      "PackagePath": "staticwebassets\\img\\13.jpg"
+    },
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\img\\14.jpg",
+      "PackagePath": "staticwebassets\\img\\14.jpg"
+    },
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\img\\15.jpg",
+      "PackagePath": "staticwebassets\\img\\15.jpg"
+    },
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\img\\16.jpg",
+      "PackagePath": "staticwebassets\\img\\16.jpg"
+    },
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\img\\17.jpg",
+      "PackagePath": "staticwebassets\\img\\17.jpg"
+    },
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\img\\18.jpg",
+      "PackagePath": "staticwebassets\\img\\18.jpg"
+    },
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\img\\19.jpg",
+      "PackagePath": "staticwebassets\\img\\19.jpg"
+    },
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\img\\2.jpeg",
+      "PackagePath": "staticwebassets\\img\\2.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\img\\3.jpg",
+      "PackagePath": "staticwebassets\\img\\3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\img\\4.jpg",
+      "PackagePath": "staticwebassets\\img\\4.jpg"
+    },
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\img\\5.jpg",
+      "PackagePath": "staticwebassets\\img\\5.jpg"
+    },
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\img\\6.jpg",
+      "PackagePath": "staticwebassets\\img\\6.jpg"
+    },
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\img\\7.jpg",
+      "PackagePath": "staticwebassets\\img\\7.jpg"
+    },
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\img\\8.jpg",
+      "PackagePath": "staticwebassets\\img\\8.jpg"
+    },
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\img\\9.jpg",
+      "PackagePath": "staticwebassets\\img\\9.jpg"
+    },
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\img\\f-1.jpg",
+      "PackagePath": "staticwebassets\\img\\f-1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\img\\f-2.jpg",
+      "PackagePath": "staticwebassets\\img\\f-2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\img\\f-t-1.png",
+      "PackagePath": "staticwebassets\\img\\f-t-1.png"
+    },
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\img\\f-t-2.png",
+      "PackagePath": "staticwebassets\\img\\f-t-2.png"
+    },
+    {
+      "Id": "C:\\Users\\simon\\Documents\\Semester 6\\SEP6\\BestMovies\\PresentationTier\\wwwroot\\img\\profile.jpg",
+      "PackagePath": "staticwebassets\\img\\profile.jpg"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.PresentationTier.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.build.PresentationTier.props",
+      "PackagePath": "build\\PresentationTier.props"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.buildMultiTargeting.PresentationTier.props",
+      "PackagePath": "buildMultiTargeting\\PresentationTier.props"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.buildTransitive.PresentationTier.props",
+      "PackagePath": "buildTransitive\\PresentationTier.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
