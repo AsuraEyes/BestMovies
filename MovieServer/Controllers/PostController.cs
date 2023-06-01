@@ -78,5 +78,16 @@ namespace MovieServer.Controllers
             return post;
         }
 
+        //[HttpGet("user/{id}")]
+        //public async Task<ActionResult<Post>> GetPostByUserId(string id)
+        //{
+        //    var email = await postMiddlePoint.GetPostByUserId(id);
+        //    if (email == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return email;
+        //}
     }
 }

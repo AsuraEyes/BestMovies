@@ -157,6 +157,7 @@
 </style>
 
 <div class="container">
+
     <div class="left-column">
         <div class="editor">
 
@@ -164,7 +165,9 @@
             <div class="form-label">@currentUser.Email</div>
             <InputText @bind-Value="@newPost.Title" rows="3" DisplayName="Title"></InputText>
             <InputTextArea @bind-Value="@newPost.Content" rows="3" DisplayName="Content"></InputTextArea>
-            <button class="btn btn-primary" @onclick="CreatePost">Post</button>
+            <button class="btn btn-primary" @onclick="CreatePost">Post</button>       
+            <button class="btn btn-primary" @onclick="Logout">Log Out</button>
+
         </div>
 
         <div class="post-list">
@@ -188,7 +191,7 @@
     </div>
     <div class="right-column">
         <div class="trending-section">
-            <h1>#Trending</h1>
+            <h1>Trending top 5 posts</h1>
             @foreach (var post in topPosts)
             {
                 <div class="trending-card">
@@ -200,7 +203,6 @@
                 </div>
             }
         </div>
-        <button class="btn btn-primary" @onclick="Logout">Log Out</button>
 
     </div>
 </div>
@@ -251,7 +253,6 @@
                 Picture = user.Profile,
                 Username = user.Username,
                 NumberOfLikes = newPost.NumberOfLikes
-
             };
 
         // Save the post
@@ -282,7 +283,6 @@
     {
         // Sorting the posts by the number of likes in descending order
             var sortedPosts = posts.OrderByDescending(p => p.NumberOfLikes);
-
         // Take the top 'count' number of posts
         var topPosts = sortedPosts.Take(count).ToList();
 

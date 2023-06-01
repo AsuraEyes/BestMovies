@@ -68,19 +68,6 @@ namespace PresentationTier.Data
             await client.PostAsync(uri + "/Register", content);
         }
 
-        // Edit user details
-        public async Task EditUser(User user)
-        {
-            try
-            {
-                //ToDo
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error updating user: {ex.Message}");
-                throw;
-            }
-        }
 
         // Get logged-in user details
         public async Task<User> GetLoggedInUser(string email)

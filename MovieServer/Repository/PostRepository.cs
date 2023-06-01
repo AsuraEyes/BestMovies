@@ -59,5 +59,17 @@ namespace MovieServer.Repository
             var filter = Builders<Post>.Filter.Eq("_id", objectId);
             return await posts.Find(filter).FirstOrDefaultAsync();
         }
+        // public async Task<Post> GetPostByUserId(string email)
+        //{
+        //    if (!ObjectId.TryParse(email, out ObjectId objectId))
+        //    {
+        //        return null;
+        //    }
+
+        //    var filter = Builders<Post>.Filter.Eq("postedBy", objectId);
+        //    return await posts.Find(filter).FirstOrDefaultAsync();
+        //}
+
+        
     }
 }

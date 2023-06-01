@@ -8,5 +8,6 @@ namespace MovieServer.Repository
         Task<List<Post>> GetAllPostsAsync();
         Task UpdatePostAsync(Post post);
         Task<Post> GetPostByIdAsync(string postId);
+      //  Task<Post> GetPostByUserId(string email);
     }
 }
