@@ -25,8 +25,7 @@ namespace PresentationTier.Data
         }
 
         // API endpoints
-        private const string uri1 = "https://bestmoviesapi.azurewebsites.net";
-        private const string apiUrl = "https://localhost:7254";
+        private const string uri = "https://bestmoviesapi.azurewebsites.net";
 
         // Save a new post
         public async Task SavePost(Post post)
@@ -42,7 +41,7 @@ namespace PresentationTier.Data
                 post.PostedBy = email;
 
                 var content = new StringContent(postAsJson, Encoding.UTF8, "application/json");
-                var response = await client.PostAsync($"{apiUrl}/CreatePost", content);
+                var response = await client.PostAsync($"{uri}/CreatePost", content);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -65,7 +64,7 @@ namespace PresentationTier.Data
         {
             try
             {
-                var response = await client.GetAsync($"{apiUrl}/GetAllPosts");
+                var response = await client.GetAsync($"{uri}/GetAllPosts");
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -154,7 +153,7 @@ namespace PresentationTier.Data
             try
             {
                 var content = new StringContent(post.NumberOfLikes.ToString(), Encoding.UTF8, "application/json");
-                var response = await client.PutAsync($"{apiUrl}/UpdatePost/{post.Id}", content);
+                var response = await client.PutAsync($"{uri}/UpdatePost/{post.Id}", content);
 
                 if (!response.IsSuccessStatusCode)
                 {

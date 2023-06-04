@@ -67,22 +67,7 @@
 /Users/sura/Documents/Documents - Timothy’s MacBook Pro/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/bin/Debug/net6.0/PresentationTier.runtimeconfig.json
 /Users/sura/Documents/Documents - Timothy’s MacBook Pro/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/bin/Debug/net6.0/PresentationTier.dll
 /Users/sura/Documents/Documents - Timothy’s MacBook Pro/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/bin/Debug/net6.0/PresentationTier.pdb
-/Users/sura/Documents/Documents - Timothy’s MacBook Pro/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/bin/Debug/net6.0/Blazored.Modal.dll
-/Users/sura/Documents/Documents - Timothy’s MacBook Pro/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/bin/Debug/net6.0/Microsoft.AspNetCore.Authorization.dll
-/Users/sura/Documents/Documents - Timothy’s MacBook Pro/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/bin/Debug/net6.0/Microsoft.AspNetCore.Components.dll
-/Users/sura/Documents/Documents - Timothy’s MacBook Pro/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/bin/Debug/net6.0/Microsoft.AspNetCore.Components.Forms.dll
-/Users/sura/Documents/Documents - Timothy’s MacBook Pro/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/bin/Debug/net6.0/Microsoft.AspNetCore.Components.Web.dll
-/Users/sura/Documents/Documents - Timothy’s MacBook Pro/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/bin/Debug/net6.0/Microsoft.AspNetCore.Metadata.dll
-/Users/sura/Documents/Documents - Timothy’s MacBook Pro/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/bin/Debug/net6.0/Microsoft.Extensions.Logging.Abstractions.dll
-/Users/sura/Documents/Documents - Timothy’s MacBook Pro/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/bin/Debug/net6.0/Microsoft.JSInterop.dll
-/Users/sura/Documents/Documents - Timothy’s MacBook Pro/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/bin/Debug/net6.0/Microsoft.JSInterop.WebAssembly.dll
-/Users/sura/Documents/Documents - Timothy’s MacBook Pro/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/bin/Debug/net6.0/Newtonsoft.Json.dll
 /Users/sura/Documents/Documents - Timothy’s MacBook Pro/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/bin/Debug/net6.0/Radzen.Blazor.dll
-/Users/sura/Documents/Documents - Timothy’s MacBook Pro/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/bin/Debug/net6.0/Syncfusion.Blazor.dll
-/Users/sura/Documents/Documents - Timothy’s MacBook Pro/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/bin/Debug/net6.0/Syncfusion.ExcelExport.Net.dll
-/Users/sura/Documents/Documents - Timothy’s MacBook Pro/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/bin/Debug/net6.0/Syncfusion.Licensing.dll
-/Users/sura/Documents/Documents - Timothy’s MacBook Pro/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/bin/Debug/net6.0/Syncfusion.PdfExport.Net.dll
-/Users/sura/Documents/Documents - Timothy’s MacBook Pro/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/bin/Debug/net6.0/System.IO.Pipelines.dll
 /Users/sura/Documents/Documents - Timothy’s MacBook Pro/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/bin/Debug/net6.0/System.Linq.Dynamic.Core.dll
 /Users/sura/Documents/Documents - Timothy’s MacBook Pro/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/obj/Debug/net6.0/PresentationTier.csproj.AssemblyReference.cache
 /Users/sura/Documents/Documents - Timothy’s MacBook Pro/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/obj/Debug/net6.0/PresentationTier.GeneratedMSBuildEditorConfig.editorconfig
@@ -109,48 +94,4 @@
 /Users/sura/Documents/Documents - Timothy’s MacBook Pro/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/obj/Debug/net6.0/PresentationTier.pdb
 /Users/sura/Documents/Documents - Timothy’s MacBook Pro/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/obj/Debug/net6.0/PresentationTier.genruntimeconfig.cache
 /Users/sura/Documents/Documents - Timothy’s MacBook Pro/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/obj/Debug/net6.0/ref/PresentationTier.dll
-C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\obj\Debug\net6.0\PresentationTier.csproj.AssemblyReference.cache
-C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\obj\Debug\net6.0\PresentationTier.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\obj\Debug\net6.0\PresentationTier.AssemblyInfoInputs.cache
-C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\obj\Debug\net6.0\PresentationTier.AssemblyInfo.cs
-C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\obj\Debug\net6.0\PresentationTier.csproj.CoreCompileInputs.cache
-C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\obj\Debug\net6.0\PresentationTier.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\obj\Debug\net6.0\PresentationTier.RazorAssemblyInfo.cache
-C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\obj\Debug\net6.0\PresentationTier.RazorAssemblyInfo.cs
-C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\bin\Debug\net6.0\appsettings.Development.json
-C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\bin\Debug\net6.0\appsettings.json
-C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\bin\Debug\net6.0\PresentationTier.staticwebassets.runtime.json
-C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\bin\Debug\net6.0\PresentationTier.exe
-C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\bin\Debug\net6.0\PresentationTier.deps.json
-C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\bin\Debug\net6.0\PresentationTier.runtimeconfig.json
-C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\bin\Debug\net6.0\PresentationTier.dll
-C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\bin\Debug\net6.0\PresentationTier.pdb
-C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\bin\Debug\net6.0\Blazored.Modal.dll
-C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\bin\Debug\net6.0\Microsoft.AspNetCore.Authorization.dll
-C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\bin\Debug\net6.0\Microsoft.AspNetCore.Components.dll
-C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\bin\Debug\net6.0\Microsoft.AspNetCore.Components.Forms.dll
-C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\bin\Debug\net6.0\Microsoft.AspNetCore.Components.Web.dll
-C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\bin\Debug\net6.0\Microsoft.AspNetCore.Metadata.dll
-C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
-C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\bin\Debug\net6.0\Microsoft.JSInterop.dll
-C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\bin\Debug\net6.0\Microsoft.JSInterop.WebAssembly.dll
-C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\bin\Debug\net6.0\Newtonsoft.Json.dll
-C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\bin\Debug\net6.0\Radzen.Blazor.dll
-C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\bin\Debug\net6.0\Syncfusion.Blazor.dll
-C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\bin\Debug\net6.0\Syncfusion.ExcelExport.Net.dll
-C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\bin\Debug\net6.0\Syncfusion.Licensing.dll
-C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\bin\Debug\net6.0\Syncfusion.PdfExport.Net.dll
-C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\bin\Debug\net6.0\System.IO.Pipelines.dll
-C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\bin\Debug\net6.0\System.Linq.Dynamic.Core.dll
-C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\obj\Debug\net6.0\staticwebassets.build.json
-C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\obj\Debug\net6.0\staticwebassets.development.json
-C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\obj\Debug\net6.0\scopedcss\Shared\MainLayout.razor.rz.scp.css
-C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\obj\Debug\net6.0\scopedcss\Shared\NavMenu.razor.rz.scp.css
-C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\obj\Debug\net6.0\scopedcss\bundle\PresentationTier.styles.css
-C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\obj\Debug\net6.0\scopedcss\projectbundle\PresentationTier.bundle.scp.css
-C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\obj\Debug\net6.0\PresentationTier.csproj.CopyComplete
-C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\obj\Debug\net6.0\PresentationTier.dll
-C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\obj\Debug\net6.0\refint\PresentationTier.dll
-C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\obj\Debug\net6.0\PresentationTier.pdb
-C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\obj\Debug\net6.0\PresentationTier.genruntimeconfig.cache
-C:\Users\simon\Documents\Semester 6\SEP6\BestMovies\PresentationTier\obj\Debug\net6.0\ref\PresentationTier.dll
+/Users/sura/Documents/Documents - Timothy’s MacBook Pro/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/bin/Debug/net6.0/MongoDB.Bson.dll
