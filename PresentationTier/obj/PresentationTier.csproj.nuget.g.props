@@ -18,9 +18,4 @@
     <Import Project="$(NuGetPackageRoot)nunit/3.13.3/build/NUnit.props" Condition="Exists('$(NuGetPackageRoot)nunit/3.13.3/build/NUnit.props')" />
     <Import Project="$(NuGetPackageRoot)blazorise/1.2.3/buildTransitive/Blazorise.props" Condition="Exists('$(NuGetPackageRoot)blazorise/1.2.3/buildTransitive/Blazorise.props')" />
   </ImportGroup>
-  <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <PkgMicrosoft_Extensions_ApiDescription_Server Condition=" '$(PkgMicrosoft_Extensions_ApiDescription_Server)' == '' ">/Users/sura/.nuget/packages/microsoft.extensions.apidescription.server/6.0.5</PkgMicrosoft_Extensions_ApiDescription_Server>
-    <PkgAWSSDK_Core Condition=" '$(PkgAWSSDK_Core)' == '' ">/Users/sura/.nuget/packages/awssdk.core/3.7.100.14</PkgAWSSDK_Core>
-    <PkgAWSSDK_SecurityToken Condition=" '$(PkgAWSSDK_SecurityToken)' == '' ">/Users/sura/.nuget/packages/awssdk.securitytoken/3.7.100.14</PkgAWSSDK_SecurityToken>
-  </PropertyGroup>
 </Project>
