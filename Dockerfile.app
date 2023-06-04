@@ -7,7 +7,7 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["PresentationTier.csproj", "PresentationTier/"]
 RUN dotnet restore "PresentationTier/PresentationTier.csproj"
-COPY . .
+COPY . PresentationTier/
 WORKDIR "/src/PresentationTier"
 RUN dotnet build "PresentationTier.csproj" -c Release -o /app/build
 
