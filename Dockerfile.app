@@ -9,12 +9,12 @@ COPY ["PresentationTier.csproj", "PresentationTier/"]
 RUN dotnet restore "PresentationTier/PresentationTier.csproj"
 COPY . PresentationTier/
 WORKDIR "/src/PresentationTier"
-RUN dotnet build "PresentationTier.csproj" -c Release -o /app/build
+RUN dotnet build "PresentationTier.csproj" -c Release -o /app
 
 FROM build AS publish
-RUN dotnet publish "PresentationTier.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "PresentationTier.csproj" -c Release -o /app
 
 FROM base AS final
 WORKDIR /app
-COPY --from=publish /app/publish .
+COPY --from=publish /app .
 ENTRYPOINT ["dotnet", "PresentationTier.dll"]
