@@ -1225,6 +1225,7 @@
           "Blazorise.Icons.FontAwesome": "1.2.3",
           "ISO.3166.CountryCodes": "1.0.3",
           "Magick.NET-Q16-AnyCPU": "13.1.2",
+          "MovieServer": "1.0.0",
           "NUnit": "3.13.3",
           "Radzen.Blazor": "4.10.1",
           "SixLabors.ImageSharp": "3.0.1"

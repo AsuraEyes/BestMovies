@@ -470,6 +470,16 @@
         "build": {
           "buildTransitive/netcoreapp3.1/_._": {}
         }
+      },
+      "MovieServer/1.0.0": {
+        "type": "project",
+        "framework": "Unsupported,Version=v0.0",
+        "compile": {
+          "bin/placeholder/MovieServer.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/MovieServer.dll": {}
+        }
       }
     }
   },
@@ -1288,6 +1298,11 @@
         "system.runtime.compilerservices.unsafe.nuspec",
         "useSharedDesignerContext.txt"
       ]
+    },
+    "MovieServer/1.0.0": {
+      "type": "project",
+      "path": "../MovieServer/MovieServer.csproj",
+      "msbuildProject": "../MovieServer/MovieServer.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -1295,6 +1310,7 @@
       "Blazorise.Icons.FontAwesome >= 1.2.3",
       "ISO.3166.CountryCodes >= 1.0.3",
       "Magick.NET-Q16-AnyCPU >= 13.1.2",
+      "MovieServer >= 1.0.0",
       "NUnit >= 3.13.3",
       "Radzen.Blazor >= 4.10.1",
       "SixLabors.ImageSharp >= 3.0.1"
@@ -1326,7 +1342,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "/Users/sura/Documents/Documents - Timothy’s MacBook Pro/VIA/6TH SEMESTER/SEP/BestMovies/MovieServer/MovieServer.csproj": {
+              "projectPath": "/Users/sura/Documents/Documents - Timothy’s MacBook Pro/VIA/6TH SEMESTER/SEP/BestMovies/MovieServer/MovieServer.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -1386,5 +1406,16 @@
         "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.302/RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1201",
+      "level": "Error",
+      "message": "Project MovieServer is not compatible with net6.0 (.NETCoreApp,Version=v6.0). Project MovieServer supports: net7.0 (.NETCoreApp,Version=v7.0)",
+      "libraryId": "MovieServer",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    }
+  ]
 }

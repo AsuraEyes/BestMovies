@@ -103,7 +103,11 @@
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "/Users/sura/Documents/Documents - Timothy’s MacBook Pro/VIA/6TH SEMESTER/SEP/BestMovies/MovieServer/MovieServer.csproj": {
+                "projectPath": "/Users/sura/Documents/Documents - Timothy’s MacBook Pro/VIA/6TH SEMESTER/SEP/BestMovies/MovieServer/MovieServer.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "dgSpecHash": "QYTbHOGfpd7Afu8m61ROlcAfkZZPd1HOWDHSVAF7DkQOJXhzuf9glPStKJKFzz++imYqL3tZXhYfF4J/+bKgxg==",
-  "success": true,
+  "dgSpecHash": "Q8TEpq/GiYFcrmolT5qLkBNLcIUsc3qAkfjg6/k2qu6rb/SJjFt1SywJyF0+g+IRE0qdQpZJUVg4b/96dOZDzw==",
+  "success": false,
   "projectFilePath": "/Users/sura/Documents/Documents - Timothy’s MacBook Pro/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/PresentationTier.csproj",
   "expectedPackageFiles": [
     "/Users/sura/.nuget/packages/blazorise/1.2.3/blazorise.1.2.3.nupkg.sha512",
@@ -33,5 +33,15 @@
     "/Users/sura/.nuget/packages/system.linq.dynamic.core/1.2.22/system.linq.dynamic.core.1.2.22.nupkg.sha512",
     "/Users/sura/.nuget/packages/system.runtime.compilerservices.unsafe/6.0.0/system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1201",
+      "level": "Error",
+      "message": "Project MovieServer is not compatible with net6.0 (.NETCoreApp,Version=v6.0). Project MovieServer supports: net7.0 (.NETCoreApp,Version=v7.0)",
+      "libraryId": "MovieServer",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    }
+  ]
 }
