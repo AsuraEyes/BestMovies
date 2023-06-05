@@ -1,4 +1,3 @@
-using MovieServer.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace PresentationTier.Models;

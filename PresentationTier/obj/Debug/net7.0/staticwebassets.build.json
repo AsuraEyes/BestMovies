@@ -1,23 +1,11 @@
 {
   "Version": 1,
-  "Hash": "vjNa0DIh3RWytXey2k+/SCPGYwwmuEkqvD4QDaa5OG8=",
+  "Hash": "fEpNTolTFFyPxiA0Jrb2z/irmk9GY+10pDPmQE/Lw28=",
   "Source": "PresentationTier",
   "BasePath": "_content/PresentationTier",
   "Mode": "Default",
   "ManifestType": "Build",
-  "ReferencedProjectsConfiguration": [
-    {
-      "Identity": "/Users/sura/Documents/Documents - Timothy’s MacBook Pro/VIA/6TH SEMESTER/SEP/BestMovies/MovieServer/MovieServer.csproj",
-      "Version": 2,
-      "Source": "MovieServer",
-      "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",
-      "AdditionalPublishProperties": "",
-      "AdditionalPublishPropertiesToRemove": "WebPublishProfileFile;TargetFramework",
-      "GetBuildAssetsTargets": "GetCurrentProjectBuildStaticWebAssetItems",
-      "AdditionalBuildProperties": "",
-      "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework"
-    }
-  ],
+  "ReferencedProjectsConfiguration": [],
   "DiscoveryPatterns": [
     {
       "Name": "PresentationTier/wwwroot",

@@ -1,5 +1,7 @@
 ﻿@inherits LayoutComponentBase
 
+@inject NavigationManager navigationManager
+
 @using LoginComponent
 
 <PageTitle>PresentationTier</PageTitle>
@@ -11,6 +13,7 @@
 
     <main>
         <div class="top-row px-4">
+            @* <RadzenButton Text="Log in" Click="LogIn"/> *@
             <LoginPage/>
             <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
         </div>
@@ -20,3 +23,12 @@
         </article>
     </main>
 </div>
+
+@code
+{
+    private void LogIn()
+    {
+    // Redirect to the cancel page or navigate to another route
+        navigationManager.NavigateTo("/login");
+    }
+}
