@@ -25,6 +25,7 @@ builder.Services.AddScoped<IPostRepository, PostRepository>();
 builder.Services.AddScoped<ICollectionService, CollectionService>();
 builder.Services.AddScoped<IMediaService, MediaService>();
 builder.Services.AddScoped<IMovieService, MovieService>();
+builder.Services.AddScoped<IPersonService, PersonService>();
 builder.Services.AddScoped<ITVService, TVService>();
 
 //MiddlePoint
@@ -35,6 +36,7 @@ builder.Services.AddScoped<IReviewMiddlePoint, ReviewMiddlePoint>();
 builder.Services.AddScoped<ITVMiddlePoint, TVMiddlePoint>();
 builder.Services.AddScoped<IUserMiddlePoint, UserMiddlePoint>();
 builder.Services.AddScoped<IPostMiddlePoint, PostMiddlePoint>();
+builder.Services.AddScoped<IPersonService, PersonService>();
 
 
 var app = builder.Build();
