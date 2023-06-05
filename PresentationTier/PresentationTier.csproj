@@ -7,6 +7,10 @@
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Blazorise.Icons.FontAwesome" Version="1.2.3" />
     <PackageReference Include="ISO.3166.CountryCodes" Version="1.0.3" />
