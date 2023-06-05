@@ -12,11 +12,11 @@ public class CustomAuthenticationStateProvider : AuthenticationStateProvider {
     private readonly IUserService userService;
 
     private User cachedUser;
-    public User CachedUser { get; private set; }
 
     public CustomAuthenticationStateProvider(IJSRuntime jsRuntime, IUserService userService) {
         this.jsRuntime = jsRuntime;
         this.userService = userService;
+        cachedUser = null;
     }
 
     public override async Task<AuthenticationState> GetAuthenticationStateAsync() {
@@ -39,17 +39,12 @@ public class CustomAuthenticationStateProvider : AuthenticationStateProvider {
         if (string.IsNullOrEmpty(email)) throw new Exception("Enter username");
         if (string.IsNullOrEmpty(password)) throw new Exception("Enter password");
 
-        var identity = new ClaimsIdentity();
-        try {
-            var user = await userService.ValidateUser(email, password);
-            identity = SetupClaimsForUser(user);
-            var serialisedData = JsonSerializer.Serialize(user);
-            jsRuntime.InvokeVoidAsync("sessionStorage.setItem", "currentUser", serialisedData);
-            cachedUser = user;
-            
-        } catch (Exception e) {
-            throw e;
-        }
+        ClaimsIdentity identity;
+        var user = await userService.ValidateUser(email, password);
+        identity = SetupClaimsForUser(user);
+        var serialisedData = JsonSerializer.Serialize(user);
+        await jsRuntime.InvokeVoidAsync("sessionStorage.setItem", "currentUser", serialisedData);
+        cachedUser = user;
 
         NotifyAuthenticationStateChanged(
             Task.FromResult(new AuthenticationState(new ClaimsPrincipal(identity))));
@@ -58,11 +53,11 @@ public class CustomAuthenticationStateProvider : AuthenticationStateProvider {
     public async Task Logout() {
         cachedUser = null;
         var user = new ClaimsPrincipal(new ClaimsIdentity());
-        jsRuntime.InvokeVoidAsync("sessionStorage.setItem", "currentUser", "");
+        await jsRuntime.InvokeVoidAsync("sessionStorage.setItem", "currentUser", "");
         NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(user)));
     }
 
-    private ClaimsIdentity SetupClaimsForUser(Models.User user) {
+    private ClaimsIdentity SetupClaimsForUser(User user) {
         var claims = new List<Claim>
         {
             new (ClaimTypes.Email, user.Email),

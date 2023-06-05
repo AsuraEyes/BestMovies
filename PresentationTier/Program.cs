@@ -1,7 +1,4 @@
 using Microsoft.AspNetCore.Components.Authorization;
-using MovieServer.Controllers;
-using MovieServer.MiddlePoints;
-using MovieServer.Repository;
 using PresentationTier.Authorization;
 using PresentationTier.Data;
 using PresentationTier.Data.Media;
@@ -18,9 +15,6 @@ builder.Services.AddScoped<DialogService>();
 builder.Services.AddScoped<NotificationService>();
 builder.Services.AddScoped<TooltipService>();
 builder.Services.AddScoped<ContextMenuService>();
-builder.Services.AddScoped<CustomAuthenticationStateProvider>();
-// Add HttpContextAccessor
-builder.Services.AddHttpContextAccessor();
 
 //Services
 builder.Services.AddScoped<ICollectionService, CollectionService>();
@@ -29,10 +23,7 @@ builder.Services.AddScoped<IMovieService, MovieService>();
 builder.Services.AddScoped<ITVService, TVService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IPostService, PostService>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IPostRepository, PostRepository>();
-builder.Services.AddScoped<IUserMiddlePoint, UserMiddlePoint>();
-builder.Services.AddScoped<IPostMiddlePoint, PostMiddlePoint>();
+
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
 builder.Services.AddAuthorization(options =>
 {

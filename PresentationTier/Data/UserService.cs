@@ -1,4 +1,5 @@
 using System.Text;
+using System.Net.Http;
 using PresentationTier.Models;
 using Microsoft.AspNetCore.Components.Forms;
 using Newtonsoft.Json;
@@ -12,9 +13,9 @@ namespace PresentationTier.Data
         // API endpoints
         private const string uri = "https://bestmoviesapi.azurewebsites.net";
 
-        public UserService(HttpClient httpClient)
+        public UserService()
         {
-            client = httpClient;
+            client = new HttpClient();
         }
 
         // Validate user credentials
@@ -51,7 +52,6 @@ namespace PresentationTier.Data
             user.Role = "Reviewer";
             var userAsJson = JsonConvert.SerializeObject(user);
             HttpContent content = new StringContent(userAsJson, Encoding.UTF8, "application/json");
-            var test = JsonConvert.DeserializeObject<User>(userAsJson);
             await client.PostAsync(uri + "/Register", content);
         }
 

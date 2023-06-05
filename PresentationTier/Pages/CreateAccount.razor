@@ -82,7 +82,7 @@
 </div>
 
 @code {
-    private User user = new User()
+    private User user = new ()
         {
             DateOfBirth = DateTime.Now.Date
         };
@@ -92,11 +92,6 @@
 
     private string selectedCountry;
     private Dictionary<string, string> callingCodes = CountryCallingCodes.CallingCodes;
-
-    // Create a computed property to get the calling code based on the selected country
-    private string SelectedCountryCallingCode => callingCodes.ContainsKey(selectedCountry) ? callingCodes[selectedCountry] : string.Empty;
-
-
 
     private async Task HandleBackdropPictureSelection(InputFileChangeEventArgs e)
     {

@@ -1,14 +1,5 @@
 ﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using PresentationTier.Data;
-using Moq;
-using Microsoft.AspNetCore.Http;
-using MovieServer.MiddlePoints;
-using PresentationTier.Models;
 
 namespace TestProject.Data.UserServices
 {
@@ -23,8 +14,7 @@ namespace TestProject.Data.UserServices
             var userEmail = "";
             try
             {
-                var mockHttpClient = new Mock<HttpClient>();
-                var userService = new UserService(mockHttpClient.Object);
+                var userService = new UserService();
 
                 var expectedPassword = "test";
                 var user = await userService.ValidateUser(expectedEmail, expectedPassword);

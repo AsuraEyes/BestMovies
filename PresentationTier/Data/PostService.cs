@@ -1,27 +1,16 @@
-﻿using System.Text.Json;
-using System.Text;
-using System;
+﻿using System.Text;
 using PresentationTier.Models;
-using Amazon.Runtime.Internal.Endpoints.StandardLibrary;
-using Blazorise;
-using PresentationTier.Authorization;
-using Microsoft.AspNetCore.Components.Authorization;
-using System.Security.Claims;
 using Newtonsoft.Json;
-using MongoDB.Driver;
-using PresentationTier.Pages;
 
 namespace PresentationTier.Data
 {
     public class PostService : IPostService
     {
         private readonly HttpClient client;
-        private readonly AuthenticationStateProvider authenticationStateProvider;
 
-        public PostService(HttpClient httpClient, AuthenticationStateProvider authStateProvider)
+        public PostService()
         {
-            client = httpClient;
-            authenticationStateProvider = authStateProvider;
+            client = new HttpClient();
         }
 
         // API endpoints
@@ -35,7 +24,7 @@ namespace PresentationTier.Data
                 var postAsJson = JsonConvert.SerializeObject(post);
 
                 // Retrieve the logged-in user's email using the CustomAuthenticationStateProvider
-                string email = GetLoggedInUserEmail();
+                var email = GetLoggedInUserEmail();
 
                 // Modify the post object to include the logged-in user's email
                 post.PostedBy = email;
@@ -46,7 +35,7 @@ namespace PresentationTier.Data
                 if (response.IsSuccessStatusCode)
                 {
                     var responseContent = await response.Content.ReadAsStringAsync();
-                    var createdPost = JsonConvert.DeserializeObject<Post>(responseContent);
+                    JsonConvert.DeserializeObject<Post>(responseContent);
                 }
                 else
                 {
@@ -87,10 +76,10 @@ namespace PresentationTier.Data
         private string GetLoggedInUserEmail()
         {
             // Get the authentication state using the CustomAuthenticationStateProvider
-            var authState = authenticationStateProvider.GetAuthenticationStateAsync().Result;
+            //var authState = authenticationStateProvider.GetAuthenticationStateAsync().Result;
 
             // Retrieve the user's email from the authentication state
-            string email = authState.User.FindFirstValue(ClaimTypes.Email);
+            string email = "authState.User.FindFirstValue(ClaimTypes.Email)";
 
             return email;
         }
