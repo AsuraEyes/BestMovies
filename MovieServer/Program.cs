@@ -36,7 +36,7 @@ builder.Services.AddScoped<IReviewMiddlePoint, ReviewMiddlePoint>();
 builder.Services.AddScoped<ITVMiddlePoint, TVMiddlePoint>();
 builder.Services.AddScoped<IUserMiddlePoint, UserMiddlePoint>();
 builder.Services.AddScoped<IPostMiddlePoint, PostMiddlePoint>();
-builder.Services.AddScoped<IPersonService, PersonService>();
+builder.Services.AddScoped<IPersonMiddlePoint, PersonMiddlePoint>();
 
 
 var app = builder.Build();
