@@ -23,31 +23,3 @@ stages:
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile.api'
         tags: '$(TAG)'
-
-- stage: DeployApi
-  jobs: 
-   - job: DeployApi
-     steps:
-     - task: AzureRmWebAppDeployment@4
-       inputs:
-         ConnectionType: 'AzureRM'
-         azureSubscription: 'AzureRM'
-         appType: 'webAppContainer'
-         WebAppName: 'bestmoviesapi'
-         DockerNamespace: 'bestmoviesdb.azurecr.io'
-         DockerRepository: 'bestmoviesapi'
-         DockerImageTag: '$(TAG)'
-
-- stage: DeployApp
-  jobs: 
-   - job: DeployApp
-     steps:
-     - task: AzureRmWebAppDeployment@4
-       inputs:
-         ConnectionType: 'AzureRM'
-         azureSubscription: 'AzureRM'
-         appType: 'webAppContainer'
-         WebAppName: 'bestmoviesdb'
-         DockerNamespace: 'bestmoviesdb.azurecr.io'
-         DockerRepository: 'bestmoviesapp'
-         DockerImageTag: '$(TAG)'
