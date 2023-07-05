@@ -31,7 +31,7 @@ jobs:
       with:
         push: true
         tags: bestmovies.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_951058ae21694fd49e9cf5ceda130d50 }}/bestmoviesapi:${{ github.sha }}
-        file: ./Dockerfile
+        file: ./Dockerfile.api
 
   deploy:
     runs-on: ubuntu-latest
