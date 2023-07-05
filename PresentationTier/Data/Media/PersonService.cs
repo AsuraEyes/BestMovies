@@ -6,7 +6,7 @@ namespace PresentationTier.Data.Media;
 public class PersonService : IPersonService
 {
     private readonly HttpClient client;
-    private const string uri = "https://bestmoviesapi.azurewebsites.net/Person";
+    private const string uri = "https://newbestmoviesapi.azurewebsites.net/Person";
     
     public PersonService()
     {
