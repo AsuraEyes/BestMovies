@@ -38,6 +38,11 @@ namespace PresentationTier.Data
                     user.Profile = memoryStream.ToArray();
                 }
             }
+            else
+            {
+                // Set profile image to null if not provided
+                user.Profile = new byte[0];
+            }
 
             if (backdropImage != null)
             {
@@ -48,12 +53,19 @@ namespace PresentationTier.Data
                     user.Backdrop = memoryStream.ToArray();
                 }
             }
+            else
+            {
+                // Set backdrop image to null if not provided
+                user.Backdrop = new byte[0];
+            }
 
             user.Role = "Reviewer";
             var userAsJson = JsonConvert.SerializeObject(user);
             HttpContent content = new StringContent(userAsJson, Encoding.UTF8, "application/json");
             await client.PostAsync(uri + "/Register", content);
         }
+
+
 
 
         // Get logged-in user details
