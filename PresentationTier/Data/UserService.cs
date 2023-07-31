@@ -11,7 +11,8 @@ namespace PresentationTier.Data
         private readonly HttpClient client;
 
         // API endpoints
-        private const string uri = "https://newbestmoviesapi.azurewebsites.net";
+      //  private const string uri = "https://newbestmoviesapi.azurewebsites.net";
+        private const string uri = "https://localhost:7254";
 
         public UserService()
         {

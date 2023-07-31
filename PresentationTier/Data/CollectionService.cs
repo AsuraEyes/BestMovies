@@ -6,7 +6,9 @@ namespace PresentationTier.Data;
 public class CollectionService : ICollectionService
 {
     private readonly HttpClient client;
-    private const string uri = "https://bestmoviesapi.azurewebsites.net/Collection";
+    //private const string uri = "https://bestmoviesapi.azurewebsites.net/Collection";
+    private const string uri = "https://localhost:7254";
+
 
     public CollectionService()
     {

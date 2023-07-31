@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Components;
+using MongoDB.Driver.Linq;
+using MongoDB.Driver;
 using MovieServer.DAO;
 using MovieServer.Data;
 using MovieServer.Data.Media;
@@ -37,6 +39,8 @@ builder.Services.AddScoped<ITVMiddlePoint, TVMiddlePoint>();
 builder.Services.AddScoped<IUserMiddlePoint, UserMiddlePoint>();
 builder.Services.AddScoped<IPostMiddlePoint, PostMiddlePoint>();
 builder.Services.AddScoped<IPersonMiddlePoint, PersonMiddlePoint>();
+
+//MongoDB
 
 
 var app = builder.Build();

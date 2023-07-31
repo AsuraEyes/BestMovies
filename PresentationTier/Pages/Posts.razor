@@ -81,55 +81,57 @@
         margin-bottom: 10px;
         color: #1A3AA4;
     }
-        .post-card .profile-info {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
+
+    .post-card .profile-info {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+        .post-card .profile-info .profile-pic {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 10px;
         }
 
-            .post-card .profile-info .profile-pic {
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
-                object-fit: cover;
-                margin-right: 10px;
-            }
-
-        .post-card .content {
-            margin-bottom: 10px;
-           font-size: 18px;
+    .post-card .content {
+        margin-bottom: 10px;
+        font-size: 18px;
         color: #A4841A;
-        }
+    }
 
-        .post-card .icons {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    .post-card .icons {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 
-            .post-card .icons img {
-                width: 24px;
-                height: 24px;
-                cursor: pointer;
-                margin-right: 10px;
-            }
+        .post-card .icons img {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
 
     .post-card .likes {
         font-size: 14px;
-        color: #888888; 
+        color: #888888;
         margin-top: 10px;
     }
+
     .trending-section {
         background-color: white;
         padding: 20px;
         border-radius: 5px;
         box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.1);
-    }
+        .trending-section h1
 
-        .trending-section h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
+    {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
 
     .trending-card {
         display: flex;
@@ -158,14 +160,12 @@
 
     <div class="left-column">
         <div class="editor">
-
-       <h1>Create a Post</h1>
+            <h1>Create a Post</h1>
             <div class="form-label">@currentUser.Email</div>
             <InputText @bind-Value="@newPost.Title" rows="3" DisplayName="Title"></InputText>
             <InputTextArea @bind-Value="@newPost.Content" rows="3" DisplayName="Content"></InputTextArea>
-            <button class="btn btn-primary" @onclick="CreatePost">Post</button>       
+            <button class="btn btn-primary" @onclick="CreatePost">Post</button>
             <button class="btn btn-primary" @onclick="Logout">Log Out</button>
-
         </div>
 
         <div class="post-list">
@@ -183,6 +183,7 @@
                         <img id="dislikeIcon" src="/images/icons/thumbs-down-solid.svg" alt="Dislike" @onclick="() => DisLikePost(post)" />
                     </div>
                     <div class="likes">Likes: @post.NumberOfLikes</div>
+                    <div class="likes">Dislikes: @post.NumberOfDislikes</div>
                 </div>
             }
         </div>
@@ -210,12 +211,11 @@
     private List<Post> posts = new List<Post>();
     private List<Post> topPosts = new List<Post>();
 
-
     protected override async Task OnInitializedAsync()
     {
-        var email = ((CustomAuthenticationStateProvider)authenticationStateProvider).
-        GetAuthenticationStateAsync().Result.User.FindFirst(claim => claim.Type.Equals(ClaimTypes.Email))?.Value;
-        
+        var email = ((CustomAuthenticationStateProvider)authenticationStateProvider)
+            .GetAuthenticationStateAsync().Result.User.FindFirst(claim => claim.Type.Equals(ClaimTypes.Email))?.Value;
+
         if (!string.IsNullOrEmpty(email))
         {
             currentUser = await userService.GetLoggedInUser(email);
@@ -223,22 +223,21 @@
 
         // Fetch all posts
         posts = await postService.GetAllPosts();
-       
-        // Get the top 5 posts based on the number of likes
+
+        // Getthe top 5 posts based on the number of likes
         topPosts = GetTopPosts(5);
+
+       
 
         // Call the base OnInitializedAsync method
         await base.OnInitializedAsync();
     }
 
-  
+
     private async Task CreatePost()
     {
-        string userEmail = currentUser.Email;
-        string password = currentUser.Password;
-
         // Call the ValidateUser method to validate the user and retrieve the user object
-        User user = await userService.ValidateUser(userEmail, password);
+        User user = await userService.ValidateUser(currentUser.Email, currentUser.Password);
 
         // Create the post object with the necessary details
         var post = new Post
@@ -250,7 +249,8 @@
                 PostedBy = user.Email,
                 Picture = user.Profile,
                 Username = user.Username,
-                NumberOfLikes = newPost.NumberOfLikes
+                NumberOfLikes = newPost.NumberOfLikes,
+                NumberOfDislikes = newPost.NumberOfDislikes
             };
 
         // Save the post
@@ -258,29 +258,28 @@
 
         // Reset the post creation form
         newPost = new Post();
+        navigationManager.NavigateTo(navigationManager.Uri, forceLoad: true);
+
+ 
     }
 
     private async Task LikePost(Post post)
     {
-        string userId = currentUser.Email;
-
-        await postService.LikePost(post,userId);
-        await postService.UpdatePostAsync(post);
-
+        await postService.LikePost(post, currentUser.Email);
+        await postService.UpdatePostAsync(post);       
     }
 
     private async Task DisLikePost(Post post)
     {
-        string userId = currentUser.Email;
-
-        await postService.DisLikePost(post, userId);
+        await postService.DisLikePost(post, currentUser.Email);
         await postService.UpdatePostAsync(post);
     }
 
     private List<Post> GetTopPosts(int count)
     {
         // Sorting the posts by the number of likes in descending order
-            var sortedPosts = posts.OrderByDescending(p => p.NumberOfLikes);
+        var sortedPosts = posts.OrderByDescending(p => p.NumberOfLikes);
+
         // Take the top 'count' number of posts
         var topPosts = sortedPosts.Take(count).ToList();
 
@@ -295,5 +294,4 @@
         // Redirect the user to the home page or any desired page after logout
         navigationManager.NavigateTo("/");
     }
-
 }

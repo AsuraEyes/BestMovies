@@ -48,9 +48,9 @@ namespace MovieServer.Controllers
             }
         }
 
-        //   [HttpPut("{id}")]
-        [HttpPut("/UpdatePost/{id}")]
-        public async Task<IActionResult> UpdatePost(string id, [FromBody] int numberOfLikes)
+        [HttpPost]
+        [Route(("/UpdatePost/{id}"))]
+        public async Task<IActionResult> UpdatePost(string id, [FromBody] Post updatedPost)
         {
             var existingPost = await postMiddlePoint.GetPostByIdAsync(id);
             if (existingPost == null)
@@ -58,13 +58,17 @@ namespace MovieServer.Controllers
                 return NotFound();
             }
 
-            // Update the NumberOfLikes property of the existing post
-            existingPost.NumberOfLikes = numberOfLikes;
+            // Update the NumberOfLikes and LikedByUsers properties of the existing post
+            existingPost.NumberOfLikes = updatedPost.NumberOfLikes;
+            existingPost.LikedByUsers = updatedPost.LikedByUsers;
+            existingPost.DisLikedByUsers = updatedPost.DisLikedByUsers;
 
             await postMiddlePoint.UpdatePostAsync(existingPost);
 
             return NoContent();
         }
+
+     
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Post>> GetPostById(string id)

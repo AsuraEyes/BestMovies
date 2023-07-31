@@ -11,7 +11,8 @@ namespace MovieServer.Repository
         private IMongoDatabase database;
         private IMongoCollection<Post> posts;
 
-        private const string Connection = "mongodb://newbestmovies:B48gCrdEoKZ6qoDtvsGCVZ1s4aG86BerK9IagWEXvFEyFj4qOGqT8PZeXMSWYNtOHGUNJKp1wtY6ACDbDYb9rg==@newbestmovies.mongo.cosmos.azure.com:10255/?ssl=true&retrywrites=false&replicaSet=globaldb&maxIdleTimeMS=120000&appName=@newbestmovies@";
+        //private const string Connection = "mongodb://newbestmovies:B48gCrdEoKZ6qoDtvsGCVZ1s4aG86BerK9IagWEXvFEyFj4qOGqT8PZeXMSWYNtOHGUNJKp1wtY6ACDbDYb9rg==@newbestmovies.mongo.cosmos.azure.com:10255/?ssl=true&retrywrites=false&replicaSet=globaldb&maxIdleTimeMS=120000&appName=@newbestmovies@";
+        private const string Connection = "mongodb://localhost:27017";
 
         public PostRepository()
         {
@@ -41,12 +42,15 @@ namespace MovieServer.Repository
         // Update a post by finding it based on the postId and updating its NumberOfLikes
         public async Task UpdatePostAsync(Post post)
         {
-            var filter = Builders<Post>.Filter.Eq("_id", post.Id);
+            var filter = Builders<Post>.Filter.Where(x=> x.Id == post.Id);
             var update = Builders<Post>.Update
-                .Set(p => p.NumberOfLikes, post.NumberOfLikes);
+                .Set(p => p.NumberOfLikes, post.NumberOfLikes)
+               // .Set(p => p.LikedByUsers, post.LikedByUsers)
+                .Set(p => p.DisLikedByUsers, post.DisLikedByUsers);
 
             await posts.UpdateOneAsync(filter, update);
         }
+
 
         // Retrieve a post by its postId
         public async Task<Post> GetPostByIdAsync(string postId)
