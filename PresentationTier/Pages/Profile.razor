@@ -140,7 +140,7 @@
 
         if (!string.IsNullOrEmpty(email))
         {
-            currentUser = await userService.GetLoggedInUser(email);
+            currentUser = await userService.GetUserInfo(email);
         }
 
         // Fetch all posts

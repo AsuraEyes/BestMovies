@@ -49,7 +49,7 @@ public class CustomAuthenticationStateProvider : AuthenticationStateProvider {
         NotifyAuthenticationStateChanged(
             Task.FromResult(new AuthenticationState(new ClaimsPrincipal(identity))));
     }
-
+   
     public async Task Logout() {
         cachedUser = null;
         var user = new ClaimsPrincipal(new ClaimsIdentity());
