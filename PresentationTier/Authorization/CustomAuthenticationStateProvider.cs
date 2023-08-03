@@ -58,13 +58,18 @@ public class CustomAuthenticationStateProvider : AuthenticationStateProvider {
     }
 
     private ClaimsIdentity SetupClaimsForUser(User user) {
-        var claims = new List<Claim>
+      if(user != null) {
+
+            var claims = new List<Claim>
         {
             new (ClaimTypes.Email, user.Email),
             new ("Level", user.Role)
         };
 
-        var identity = new ClaimsIdentity(claims, "apiauth_type");
-        return identity;
+            var identity = new ClaimsIdentity(claims, "apiauth_type");
+            return identity;
+
+        }
+        return null;
     }
 }

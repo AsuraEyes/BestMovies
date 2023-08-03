@@ -105,63 +105,52 @@
 
     private async Task SaveAccount()
     {
+        if (!ValidateUserInput())
+        {
+            return;
+        }
+
         try
         {
-            if (string.IsNullOrWhiteSpace(user.Email) ||
-           string.IsNullOrWhiteSpace(user.Username) ||
-           string.IsNullOrWhiteSpace(user.Password) ||
-           string.IsNullOrWhiteSpace(user.PhoneNumber.ToString()) ||
-           string.IsNullOrEmpty(user.DateOfBirth.ToString()) ||
-           string.IsNullOrEmpty(user.CountryCallingCode.ToString()))
+            if (profileImage != null && profileImage.Size > 512000)
             {
-                notificationService.Notify(NotificationSeverity.Error, "Error creating user", "Please fill in all required fields.");
+                notificationService.Notify(NotificationSeverity.Error, "Error creating user, profile image cannot be larger than 500 KB");
                 return;
             }
-            // Check if images are selected
-            if (backdropImage != null && profileImage != null)
+
+            if (backdropImage != null && backdropImage.Size > 512000)
             {
-                // Call the user service with both images
-                await userService.SaveAccount(user, profileImage, backdropImage);
+                notificationService.Notify(NotificationSeverity.Error, "Error creating user, backdrop image cannot be larger than 500 KB");
+                return;
             }
-            else if (backdropImage != null)
-            {
-                // Call the user service with only backdrop image
-                await userService.SaveAccount(user, null, backdropImage);
-            }
-            else if (profileImage != null)
-            {
-                // Call the user service with only profile image
-                await userService.SaveAccount(user, profileImage, null);
-            }
-            else
-            {
-                // Call the user service with no images
-                await userService.SaveAccount(user, null, null);
-            }
-        
+
+            // Call the user service with the appropriate images
+            await userService.SaveAccount(user, profileImage, backdropImage);
         }
         catch (Exception ex)
         {
-
-            if (profileImage.Size > 512000)
-            {
-                notificationService.Notify(NotificationSeverity.Error, "Error creating user, profile image can not be larger than 500 KB");
-
-            }
-            else if (backdropImage.Size > 512000)
-            {
-                notificationService.Notify(NotificationSeverity.Error, "Error creating user, backdrop image can not be larger than 500 KB");
-
-            }
-            else
-            {
-                notificationService.Notify(NotificationSeverity.Error, "Error creating user", ex.Message);
-
-            }
+            notificationService.Notify(NotificationSeverity.Error, "Error creating user", ex.Message);
         }
-        navigationManager.NavigateTo("/");
 
+        navigationManager.NavigateTo("/Login");
     }
+
+    private bool ValidateUserInput()
+    {
+        if (string.IsNullOrWhiteSpace(user.Email) ||
+            string.IsNullOrWhiteSpace(user.Username) ||
+            string.IsNullOrWhiteSpace(user.Password) ||
+            string.IsNullOrWhiteSpace(user.PhoneNumber.ToString()) ||
+            string.IsNullOrEmpty(user.DateOfBirth.ToString()) ||
+            string.IsNullOrEmpty(user.CountryCallingCode.ToString()))
+        {
+            notificationService.Notify(NotificationSeverity.Error, "Error creating user", "Please fill in all required fields.");
+            return false;
+        }
+
+        return true;
+    }
+
 
     private void Cancel()
     {

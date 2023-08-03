@@ -76,12 +76,13 @@
             await ((CustomAuthenticationStateProvider)stateProvider).ValidateLogin(email, password);
             email = "";
             password = "";
+            navigationManager.NavigateTo("/Posts");
+
         }
         catch (Exception e)
         {
-            errorMessage = e.Message;
+            errorMessage = "Login failed. Please check your credentials and try again.";
         }
-        navigationManager.NavigateTo("/Posts");
     }
 
     private async Task PerformLogout()

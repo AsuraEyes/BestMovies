@@ -45,7 +45,7 @@ namespace MovieServer.Repository
             var filter = Builders<Post>.Filter.Where(x=> x.Id == post.Id);
             var update = Builders<Post>.Update
                 .Set(p => p.NumberOfLikes, post.NumberOfLikes)
-               // .Set(p => p.LikedByUsers, post.LikedByUsers)
+                .Set(p => p.LikedByUsers, post.LikedByUsers)
                 .Set(p => p.DisLikedByUsers, post.DisLikedByUsers);
 
             await posts.UpdateOneAsync(filter, update);
@@ -63,16 +63,7 @@ namespace MovieServer.Repository
             var filter = Builders<Post>.Filter.Eq("_id", objectId);
             return await posts.Find(filter).FirstOrDefaultAsync();
         }
-        // public async Task<Post> GetPostByUserId(string email)
-        //{
-        //    if (!ObjectId.TryParse(email, out ObjectId objectId))
-        //    {
-        //        return null;
-        //    }
 
-        //    var filter = Builders<Post>.Filter.Eq("postedBy", objectId);
-        //    return await posts.Find(filter).FirstOrDefaultAsync();
-        //}
 
         
     }

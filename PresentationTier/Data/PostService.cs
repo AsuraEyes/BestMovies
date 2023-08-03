@@ -27,8 +27,11 @@ namespace PresentationTier.Data
                 // Retrieve the logged-in user's email using the CustomAuthenticationStateProvider
                 var email = GetLoggedInUserEmail();
 
+
+                var username = GetLoggedInUserUsername();
+
                 // Modify the post object to include the logged-in user's email
-                post.PostedBy = email;
+                post.PostedBy = username;
 
                 var content = new StringContent(postAsJson, Encoding.UTF8, "application/json");
                 var response = await client.PostAsync($"{uri}/CreatePost", content);
@@ -83,6 +86,18 @@ namespace PresentationTier.Data
             string email = "authState.User.FindFirstValue(ClaimTypes.Email)";
 
             return email;
+        }
+
+        // Get the username of the currently logged-in user
+        private string GetLoggedInUserUsername()
+        {
+            // Get the authentication state using the CustomAuthenticationStateProvider
+            //var authState = authenticationStateProvider.GetAuthenticationStateAsync().Result;
+
+            // Retrieve the user's email from the authentication state
+            string username = "authState.User.FindFirstValue(ClaimTypes.Username)";
+
+            return username;
         }
 
         // Like a post
