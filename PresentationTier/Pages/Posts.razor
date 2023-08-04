@@ -128,7 +128,7 @@
         padding: 20px;
         border-radius: 5px;
         box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.1);
-        .trending-section h1
+        .trending-section h1;
 
     {
         font-size: 24px;
@@ -219,13 +219,6 @@
             }
         </div>
 
-
-
-
-
-
-
-
     </div>
     <div class="trending-section">
         <h1>Trending top 5 posts</h1>
@@ -298,9 +291,7 @@
         newPost = new Post();
         await base.OnInitializedAsync();
 
-      //  navigationManager.NavigateTo(navigationManager.Uri, forceLoad: true);
-
- 
+        navigationManager.NavigateTo(navigationManager.Uri, forceLoad: true);
     }
 
     private async Task LikePost(Post post)
