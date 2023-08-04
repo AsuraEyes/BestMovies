@@ -10,12 +10,12 @@ namespace MovieServer.Controllers
     {
         private readonly IPostRepository postRepository;
         private readonly IPostMiddlePoint postMiddlePoint;
-        public PostController( IPostMiddlePoint postMiddlePoint, IPostRepository postRepository)
+        public PostController(IPostMiddlePoint postMiddlePoint, IPostRepository postRepository)
         {
             this.postMiddlePoint = postMiddlePoint;
-               this.postRepository = postRepository;
+            this.postRepository = postRepository;
         }
-   
+
         [HttpPost]
         [Route("/CreatePost")]
         public async Task<ActionResult> CreatePost([FromBody] Post post)
@@ -48,9 +48,9 @@ namespace MovieServer.Controllers
             }
         }
 
-        //   [HttpPut("{id}")]
-        [HttpPut("/UpdatePost/{id}")]
-        public async Task<IActionResult> UpdatePost(string id, [FromBody] int numberOfLikes)
+        [HttpPost]
+        [Route(("/UpdatePost/{id}"))]
+        public async Task<IActionResult> UpdatePost(string id, [FromBody] Post updatedPost)
         {
             var existingPost = await postMiddlePoint.GetPostByIdAsync(id);
             if (existingPost == null)
@@ -58,13 +58,17 @@ namespace MovieServer.Controllers
                 return NotFound();
             }
 
-            // Update the NumberOfLikes property of the existing post
-            existingPost.NumberOfLikes = numberOfLikes;
+            // Update the NumberOfLikes and LikedByUsers properties of the existing post
+            existingPost.NumberOfLikes = updatedPost.NumberOfLikes;
+            existingPost.LikedByUsers = updatedPost.LikedByUsers;
+            existingPost.DisLikedByUsers = updatedPost.DisLikedByUsers;
 
             await postMiddlePoint.UpdatePostAsync(existingPost);
 
             return NoContent();
         }
+
+
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Post>> GetPostById(string id)
@@ -78,16 +82,5 @@ namespace MovieServer.Controllers
             return post;
         }
 
-        //[HttpGet("user/{id}")]
-        //public async Task<ActionResult<Post>> GetPostByUserId(string id)
-        //{
-        //    var email = await postMiddlePoint.GetPostByUserId(id);
-        //    if (email == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return email;
-        //}
     }
 }

@@ -14,7 +14,8 @@ namespace PresentationTier.Data
         }
 
         // API endpoints
-        private const string uri = "https://newbestmoviesapi.azurewebsites.net";
+        //  private const string uri = "https://newbestmoviesapi.azurewebsites.net";
+        private const string uri = "https://localhost:7254";
 
         // Save a new post
         public async Task SavePost(Post post)
@@ -26,8 +27,11 @@ namespace PresentationTier.Data
                 // Retrieve the logged-in user's email using the CustomAuthenticationStateProvider
                 var email = GetLoggedInUserEmail();
 
+
+                var username = GetLoggedInUserUsername();
+
                 // Modify the post object to include the logged-in user's email
-                post.PostedBy = email;
+                post.PostedBy = username;
 
                 var content = new StringContent(postAsJson, Encoding.UTF8, "application/json");
                 var response = await client.PostAsync($"{uri}/CreatePost", content);
@@ -36,6 +40,7 @@ namespace PresentationTier.Data
                 {
                     var responseContent = await response.Content.ReadAsStringAsync();
                     JsonConvert.DeserializeObject<Post>(responseContent);
+
                 }
                 else
                 {
@@ -84,27 +89,45 @@ namespace PresentationTier.Data
             return email;
         }
 
+        // Get the username of the currently logged-in user
+        private string GetLoggedInUserUsername()
+        {
+            // Get the authentication state using the CustomAuthenticationStateProvider
+            //var authState = authenticationStateProvider.GetAuthenticationStateAsync().Result;
+
+            // Retrieve the user's email from the authentication state
+            string username = "authState.User.FindFirstValue(ClaimTypes.Username)";
+
+            return username;
+        }
+
         // Like a post
         public async Task LikePost(Post post, string userId)
         {
-            // Initialize the LikedByUsers property if it is null
-            if (post.LikedByUsers == null)
-            {
-                post.LikedByUsers = new List<string>();
-            }
-
             // Check if the user has already liked the post
-            if (post.LikedByUsers.Contains(userId))
+            if (post.LikedByUsers != null && post.LikedByUsers.Contains(userId))
             {
-                // User has already liked the post, handle accordingly
-                return;
+                // User has already liked the post, remove the like
+                post.LikedByUsers.Remove(userId);
+                post.NumberOfLikes--;
             }
+            else
+            {
+                // User hasn't liked the post, remove the dislike (if exists) and add the like
+                if (post.DisLikedByUsers != null && post.DisLikedByUsers.Contains(userId))
+                {
+                    post.DisLikedByUsers.Remove(userId);
+                    post.NumberOfDislikes--;
+                }
 
-            // Add the user ID to the LikedByUsers collection
-            post.LikedByUsers.Add(userId);
-
-            // Increment the number of likes
-            post.NumberOfLikes++;
+                // Add the user ID to the LikedByUsers collection
+                if (post.LikedByUsers == null)
+                {
+                    post.LikedByUsers = new List<string>();
+                }
+                post.LikedByUsers.Add(userId);
+                post.NumberOfLikes++;
+            }
 
             // Update the post in the database
             await UpdatePostAsync(post);
@@ -113,24 +136,30 @@ namespace PresentationTier.Data
         // Dislike a post
         public async Task DisLikePost(Post post, string userId)
         {
-            // Initialize the DisLikedByUsers property if it is null
-            if (post.DisLikedByUsers == null)
-            {
-                post.DisLikedByUsers = new List<string>();
-            }
-
             // Check if the user has already disliked the post
-            if (post.DisLikedByUsers.Contains(userId))
+            if (post.DisLikedByUsers != null && post.DisLikedByUsers.Contains(userId))
             {
-                // User has already disliked the post, handle accordingly
-                return;
+                // User has already disliked the post, remove the dislike
+                post.DisLikedByUsers.Remove(userId);
+                post.NumberOfDislikes--;
             }
+            else
+            {
+                // User hasn't disliked the post, remove the like (if exists) and add the dislike
+                if (post.LikedByUsers != null && post.LikedByUsers.Contains(userId))
+                {
+                    post.LikedByUsers.Remove(userId);
+                    post.NumberOfLikes--;
+                }
 
-            // Add the user ID to the DisLikedByUsers collection
-            post.DisLikedByUsers.Add(userId);
-
-            // Decrement the number of likes
-            post.NumberOfLikes--;
+                // Add the user ID to the DisLikedByUsers collection
+                if (post.DisLikedByUsers == null)
+                {
+                    post.DisLikedByUsers = new List<string>();
+                }
+                post.DisLikedByUsers.Add(userId);
+                post.NumberOfDislikes++;
+            }
 
             // Update the post in the database
             await UpdatePostAsync(post);
@@ -141,8 +170,23 @@ namespace PresentationTier.Data
         {
             try
             {
-                var content = new StringContent(post.NumberOfLikes.ToString(), Encoding.UTF8, "application/json");
-                var response = await client.PutAsync($"{uri}/UpdatePost/{post.Id}", content);
+                // Create a JSON object representing the post data including LikedByUsers and DisLikedByUsers properties
+                var postData = new
+                {
+                    post.NumberOfLikes,
+                    post.NumberOfDislikes,
+                    LikedByUsers = post.LikedByUsers ?? new List<string>(),
+                    DisLikedByUsers = post.DisLikedByUsers ?? new List<string>()
+                };
+
+                // Serialize the post data to JSON
+                var jsonData = JsonConvert.SerializeObject(postData);
+
+                // Create the request content with the JSON data
+                var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+
+                // Send a PUT request to update the post
+                var response = await client.PostAsync($"{uri}/UpdatePost/{post.Id}", content);
 
                 if (!response.IsSuccessStatusCode)
                 {
@@ -154,6 +198,8 @@ namespace PresentationTier.Data
                 throw new Exception("An error occurred while updating the post.", ex);
             }
         }
+
+
 
         //Get post by id
 

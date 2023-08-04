@@ -28,6 +28,10 @@ namespace MovieServer.Models
 
         [BsonElement("numberOfLikes")]
         public int NumberOfLikes { get; set; }
+        [BsonElement("numberOfDislikes")]
+
+        public int NumberOfDislikes { get; set; }
+
 
         [BsonElement("likedByUsers")]
         public List<string> LikedByUsers { get; set; }

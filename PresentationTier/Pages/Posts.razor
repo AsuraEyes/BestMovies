@@ -9,6 +9,8 @@
 @inject IUserService userService
 @inject NavigationManager navigationManager
 @inject AuthenticationStateProvider authenticationStateProvider
+@inject NotificationService notificationService
+
 <style>
     .container {
         display: flex;
@@ -81,55 +83,57 @@
         margin-bottom: 10px;
         color: #1A3AA4;
     }
-        .post-card .profile-info {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
+
+    .post-card .profile-info {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+        .post-card .profile-info .profile-pic {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 10px;
         }
 
-            .post-card .profile-info .profile-pic {
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
-                object-fit: cover;
-                margin-right: 10px;
-            }
-
-        .post-card .content {
-            margin-bottom: 10px;
-           font-size: 18px;
+    .post-card .content {
+        margin-bottom: 10px;
+        font-size: 18px;
         color: #A4841A;
-        }
+    }
 
-        .post-card .icons {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    .post-card .icons {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 
-            .post-card .icons img {
-                width: 24px;
-                height: 24px;
-                cursor: pointer;
-                margin-right: 10px;
-            }
+        .post-card .icons img {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
 
     .post-card .likes {
         font-size: 14px;
-        color: #888888; 
+        color: #888888;
         margin-top: 10px;
     }
+
     .trending-section {
         background-color: white;
         padding: 20px;
         border-radius: 5px;
         box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.1);
-    }
+        .trending-section h1;
 
-        .trending-section h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
+    {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
 
     .trending-card {
         display: flex;
@@ -152,20 +156,43 @@
                 color: #6B7280;
             }
 
+    .post-card {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .icons {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 10px;
+    }
+
+    .like-dislike-container {
+        display: flex;
+        align-items: center;
+    }
+
+        .like-dislike-container img {
+            margin-right: 5px;
+        }
+
+    .icon-label {
+        font-size: 14px;
+    }
+
 </style>
 
 <div class="container">
 
     <div class="left-column">
         <div class="editor">
-
-       <h1>Create a Post</h1>
+            <h1>Create a Post</h1>
             <div class="form-label">@currentUser.Email</div>
             <InputText @bind-Value="@newPost.Title" rows="3" DisplayName="Title"></InputText>
             <InputTextArea @bind-Value="@newPost.Content" rows="3" DisplayName="Content"></InputTextArea>
-            <button class="btn btn-primary" @onclick="CreatePost">Post</button>       
+            <button class="btn btn-primary" @onclick="CreatePost">Post</button>
             <button class="btn btn-primary" @onclick="Logout">Log Out</button>
-
         </div>
 
         <div class="post-list">
@@ -179,29 +206,34 @@
                     <div class="title">@post.Title</div>
                     <div class="content">@post.Content</div>
                     <div class="icons">
-                        <img id="likeIcon" src="/images/icons/thumbs-up-solid.svg" alt="Like" @onclick="() => LikePost(post)" />
-                        <img id="dislikeIcon" src="/images/icons/thumbs-down-solid.svg" alt="Dislike" @onclick="() => DisLikePost(post)" />
-                    </div>
-                    <div class="likes">Likes: @post.NumberOfLikes</div>
-                </div>
-            }
-        </div>
-    </div>
-    <div class="right-column">
-        <div class="trending-section">
-            <h1>Trending top 5 posts</h1>
-            @foreach (var post in topPosts)
-            {
-                <div class="trending-card">
-                    <div class="post-info">
-                        <div class="post-title">@post.Title</div>
-                        <div class="post-poster">@post.Username</div>
-                        <div class="post-likes">@post.NumberOfLikes.ToString()</div>
+                        <div class="like-dislike-container">
+                            <img id="likeIcon" src="/images/icons/thumbs-up-solid.svg" alt="Like" @onclick="() => LikePost(post)" />
+                            <div class="icon-label">Likes: @post.NumberOfLikes</div>
+                        </div>
+                        <div class="like-dislike-container">
+                            <img id="dislikeIcon" src="/images/icons/thumbs-down-solid.svg" alt="Dislike" @onclick="() => DisLikePost(post)" />
+                            <div class="icon-label">Dislikes: @post.NumberOfDislikes</div>
+                        </div>
                     </div>
                 </div>
             }
         </div>
 
+    </div>
+    <div class="trending-section">
+        <h1>Trending top 5 posts</h1>
+        @foreach (var post in topPosts)
+        {
+            <div class="trending-card">
+                <div class="post-info">
+                    <div class="post-title">@post.Title</div>
+                    <div class="post-meta">
+                        by <span class="post-poster">@post.Username</span> | Likes: <span class="post-likes">@post.NumberOfLikes</span>
+                    </div>
+                    <div class="post-content">@post.Content</div>
+                </div>
+            </div>
+        }
     </div>
 </div>
 @code {
@@ -210,35 +242,33 @@
     private List<Post> posts = new List<Post>();
     private List<Post> topPosts = new List<Post>();
 
-
     protected override async Task OnInitializedAsync()
     {
-        var email = ((CustomAuthenticationStateProvider)authenticationStateProvider).
-        GetAuthenticationStateAsync().Result.User.FindFirst(claim => claim.Type.Equals(ClaimTypes.Email))?.Value;
-        
+        var email = ((CustomAuthenticationStateProvider)authenticationStateProvider)
+            .GetAuthenticationStateAsync().Result.User.FindFirst(claim => claim.Type.Equals(ClaimTypes.Email))?.Value;
+
         if (!string.IsNullOrEmpty(email))
         {
-            currentUser = await userService.GetLoggedInUser(email);
+            currentUser = await userService.GetUserInfo(email);
         }
 
         // Fetch all posts
         posts = await postService.GetAllPosts();
-       
-        // Get the top 5 posts based on the number of likes
+
+        // Getthe top 5 posts based on the number of likes
         topPosts = GetTopPosts(5);
+
+
 
         // Call the base OnInitializedAsync method
         await base.OnInitializedAsync();
     }
 
-  
+
     private async Task CreatePost()
     {
-        string userEmail = currentUser.Email;
-        string password = currentUser.Password;
-
         // Call the ValidateUser method to validate the user and retrieve the user object
-        User user = await userService.ValidateUser(userEmail, password);
+        User user = await userService.ValidateUser(currentUser.Email, currentUser.Password);
 
         // Create the post object with the necessary details
         var post = new Post
@@ -247,10 +277,11 @@
                 Title = newPost.Title,
                 Content = newPost.Content,
                 PostedDate = DateTime.Now,
-                PostedBy = user.Email,
+                PostedBy = user.Username,
                 Picture = user.Profile,
                 Username = user.Username,
-                NumberOfLikes = newPost.NumberOfLikes
+                NumberOfLikes = newPost.NumberOfLikes,
+                NumberOfDislikes = newPost.NumberOfDislikes
             };
 
         // Save the post
@@ -258,29 +289,28 @@
 
         // Reset the post creation form
         newPost = new Post();
+        await base.OnInitializedAsync();
+
+        navigationManager.NavigateTo(navigationManager.Uri, forceLoad: true);
     }
 
     private async Task LikePost(Post post)
     {
-        string userId = currentUser.Email;
-
-        await postService.LikePost(post,userId);
+        await postService.LikePost(post, currentUser.Email);
         await postService.UpdatePostAsync(post);
-
     }
 
     private async Task DisLikePost(Post post)
     {
-        string userId = currentUser.Email;
-
-        await postService.DisLikePost(post, userId);
+        await postService.DisLikePost(post, currentUser.Email);
         await postService.UpdatePostAsync(post);
     }
 
     private List<Post> GetTopPosts(int count)
     {
         // Sorting the posts by the number of likes in descending order
-            var sortedPosts = posts.OrderByDescending(p => p.NumberOfLikes);
+        var sortedPosts = posts.OrderByDescending(p => p.NumberOfLikes);
+
         // Take the top 'count' number of posts
         var topPosts = sortedPosts.Take(count).ToList();
 
@@ -295,5 +325,4 @@
         // Redirect the user to the home page or any desired page after logout
         navigationManager.NavigateTo("/");
     }
-
 }

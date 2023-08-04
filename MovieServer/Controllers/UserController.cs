@@ -21,7 +21,7 @@ public class UserController : Controller
     [HttpPost]
     [Route("/Register")]
 
-    public async Task<ActionResult> CreateUserAsync([FromBody]User user)
+    public async Task<ActionResult> CreateUserAsync([FromBody] User user)
     {
         try
         {

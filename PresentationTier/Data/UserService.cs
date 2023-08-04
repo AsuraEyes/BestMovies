@@ -3,6 +3,7 @@ using System.Net.Http;
 using PresentationTier.Models;
 using Microsoft.AspNetCore.Components.Forms;
 using Newtonsoft.Json;
+using PresentationTier.Authorization;
 
 namespace PresentationTier.Data
 {
@@ -10,8 +11,10 @@ namespace PresentationTier.Data
     {
         private readonly HttpClient client;
 
+
         // API endpoints
-        private const string uri = "https://newbestmoviesapi.azurewebsites.net";
+        //  private const string uri = "https://newbestmoviesapi.azurewebsites.net";
+        private const string uri = "https://localhost:7254";
 
         public UserService()
         {
@@ -65,11 +68,8 @@ namespace PresentationTier.Data
             await client.PostAsync(uri + "/Register", content);
         }
 
-
-
-
         // Get logged-in user details
-        public async Task<User> GetLoggedInUser(string email)
+        public async Task<User> GetUserInfo(string email)
         {
             try
             {
@@ -79,6 +79,7 @@ namespace PresentationTier.Data
                 {
                     var content = await response.Content.ReadAsStringAsync();
                     var user = JsonConvert.DeserializeObject<User>(content);
+
                     return user;
                 }
                 else

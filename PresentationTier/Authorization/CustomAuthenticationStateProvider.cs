@@ -7,27 +7,34 @@ using PresentationTier.Models;
 
 namespace PresentationTier.Authorization;
 
-public class CustomAuthenticationStateProvider : AuthenticationStateProvider {
+public class CustomAuthenticationStateProvider : AuthenticationStateProvider
+{
     private readonly IJSRuntime jsRuntime;
     private readonly IUserService userService;
 
     private User cachedUser;
 
-    public CustomAuthenticationStateProvider(IJSRuntime jsRuntime, IUserService userService) {
+    public CustomAuthenticationStateProvider(IJSRuntime jsRuntime, IUserService userService)
+    {
         this.jsRuntime = jsRuntime;
         this.userService = userService;
         cachedUser = null;
     }
 
-    public override async Task<AuthenticationState> GetAuthenticationStateAsync() {
+    public override async Task<AuthenticationState> GetAuthenticationStateAsync()
+    {
         var identity = new ClaimsIdentity();
-        if (cachedUser == null) {
+        if (cachedUser == null)
+        {
             var userAsJson = await jsRuntime.InvokeAsync<string>("sessionStorage.getItem", "currentUser");
-            if (!string.IsNullOrEmpty(userAsJson)) {
+            if (!string.IsNullOrEmpty(userAsJson))
+            {
                 var tmp = JsonSerializer.Deserialize<Models.User>(userAsJson);
                 await ValidateLogin(tmp.Email, tmp.Password);
             }
-        } else {
+        }
+        else
+        {
             identity = SetupClaimsForUser(cachedUser);
         }
 
@@ -35,7 +42,8 @@ public class CustomAuthenticationStateProvider : AuthenticationStateProvider {
         return await Task.FromResult(new AuthenticationState(cachedClaimsPrincipal));
     }
 
-    public async Task ValidateLogin(string email, string password) {
+    public async Task ValidateLogin(string email, string password)
+    {
         if (string.IsNullOrEmpty(email)) throw new Exception("Enter username");
         if (string.IsNullOrEmpty(password)) throw new Exception("Enter password");
 
@@ -50,21 +58,29 @@ public class CustomAuthenticationStateProvider : AuthenticationStateProvider {
             Task.FromResult(new AuthenticationState(new ClaimsPrincipal(identity))));
     }
 
-    public async Task Logout() {
+    public async Task Logout()
+    {
         cachedUser = null;
         var user = new ClaimsPrincipal(new ClaimsIdentity());
         await jsRuntime.InvokeVoidAsync("sessionStorage.setItem", "currentUser", "");
         NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(user)));
     }
 
-    private ClaimsIdentity SetupClaimsForUser(User user) {
-        var claims = new List<Claim>
+    private ClaimsIdentity SetupClaimsForUser(User user)
+    {
+        if (user != null)
+        {
+
+            var claims = new List<Claim>
         {
             new (ClaimTypes.Email, user.Email),
             new ("Level", user.Role)
         };
 
-        var identity = new ClaimsIdentity(claims, "apiauth_type");
-        return identity;
+            var identity = new ClaimsIdentity(claims, "apiauth_type");
+            return identity;
+
+        }
+        return null;
     }
 }
