@@ -18,6 +18,11 @@
             </RadzenStack>
         </RadzenStack>
     </RadzenStack>
+    
+    <RadzenStack Orientation="Orientation.Horizontal" Gap="0" Style="position: relative" JustifyContent="Radzen.JustifyContent.Center">
+        <RadzenTextBox Placeholder="Search..." @bind-Value="@search" Style="border-radius: 25px 0 0 25px; border: 1px solid rgb(33, 33, 33); width: 500px"/>
+        <RadzenButton Style="border-radius: 0 25px 25px 0;" ButtonStyle="ButtonStyle.Dark" Icon="search" Variant="Variant.Outlined" Click="SearchMedia"/>
+    </RadzenStack>
 
     <RadzenStack Style="width: 1320px; position: relative" Gap="0">
         <RadzenText TextStyle="TextStyle.H5">Trending</RadzenText>
@@ -82,12 +87,17 @@
     private Media[] media = {};
     private Media[] movies = {};
     private Media[] shows = {};
+    private string search = "";
 
     protected override async Task OnInitializedAsync()
     {
         media = await MediaService.GetTrendingAsync();
         movies = await MediaService.GetMoviesAsync();
         shows = await MediaService.GetTVShowsAsync();
+    }
+    private void SearchMedia()
+    {
+        NavigationManager.NavigateTo($"search?query={search}");
     }
     
     private void NavigateToMovie(int id)

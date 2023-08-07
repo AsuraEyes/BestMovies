@@ -22,9 +22,12 @@ public class TVMiddlePoint : ITVMiddlePoint
     {
         tv = await tvService.GetTVAsync(id);
         tv.Trailer = SetTrailer();
-        tv.Poster = SetPoster(tv.Poster);
-        tv.Backdrop = SetPoster(tv.Backdrop);
-        tv.Credits.Cast = SetCast();
+        tv.Poster = SetImage(tv.Poster);
+        tv.Backdrop = SetImage(tv.Backdrop);
+        tv.Credits.TopCast = SetCast();
+        tv.Credits.Cast = SetPeople(tv.Credits.Cast);
+        tv.Credits.Crew = SetPeople(tv.Credits.Crew);
+        tv.Language = SetLanguage();
 
         return tv;
     }
@@ -39,7 +42,7 @@ public class TVMiddlePoint : ITVMiddlePoint
 
         foreach (var m in tv.ListOfMedia)
         {
-            m.Poster = SetPoster(m.Poster);
+            m.Poster = SetImage(m.Poster);
         }
         return tv;
     }
@@ -79,19 +82,43 @@ public class TVMiddlePoint : ITVMiddlePoint
         return tv.Trailer;
     }
 
-    private string SetPoster(string img)
+    private string SetImage(string img)
     {
         return img.Insert(0, Image);
     }
     
+    private Person[] SetPeople(Person[] people)
+    {
+        foreach (var person in people)
+        {
+            person.Picture = SetImage(person.Picture);
+        }
+        return people;
+    }
+    
     private Person[] SetCast()
     {
-        foreach (var person in tv.Credits.Cast)
+        IList<Person> people = new List<Person>();
+        
+        for (var i = 0; i < 9; i++)
         {
-            var img = Image + person.Picture;
-            person.Picture = img;
+            people.Add(tv.Credits.Cast[i]);
+            people[i].Picture = SetImage(tv.Credits.Cast[i].Picture);
         }
-    
-        return tv.Credits.Cast;
+
+        return people.ToArray();
+    }
+
+    private string SetLanguage()
+    {
+        foreach (var sl in tv.SpokenLanguages)
+        {
+            if (sl.iso_639_1.Equals(tv.Language))
+            {
+                tv.Language = sl.Name;
+            }
+        }
+
+        return tv.Language;
     }
 }

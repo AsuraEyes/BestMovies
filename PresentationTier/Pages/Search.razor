@@ -1,31 +1,50 @@
-@page "/movie/search"
+@page "/search"
 @using PresentationTier.Data.Media
 @using PresentationTier.Models
 @using Orientation = Radzen.Orientation
-@using Microsoft.AspNetCore.WebUtilities
-@using Microsoft.AspNetCore.Mvc
 
 @inject NavigationManager NavigationManager
 
-@inject IMovieService MovieService
+@inject IMediaService MediaService
 
-<PageTitle>Movies</PageTitle>
+<PageTitle>TV Shows</PageTitle>
 <RadzenRow Style="width: 1720px">
     <RadzenStack Style="margin: 45px 160px; width: 1600px">
-        <RadzenText Text="Movies" TextStyle="TextStyle.DisplayH4"/>
+        <RadzenText Text="Search" TextStyle="TextStyle.DisplayH4"/>
         <RadzenStack Orientation="Orientation.Horizontal" Gap="0" Style="position: relative" JustifyContent="JustifyContent.Center">
                 <RadzenTextBox Placeholder="Search..." @bind-Value="@search" Style="border-radius: 25px 0 0 25px; border: 1px solid rgb(33, 33, 33); width: 500px"/>
-                <RadzenButton Style="border-radius: 0 25px 25px 0;" ButtonStyle="ButtonStyle.Dark" Icon="search" Variant="Variant.Outlined" Click="SearchMovie"/>
+                <RadzenButton Style="border-radius: 0 25px 25px 0;" ButtonStyle="ButtonStyle.Dark" Icon="search" Variant="Variant.Outlined" Click="SearchTVShow"/>
             </RadzenStack>
         <RadzenRow>
-            @foreach (var movie in movies)
+            @foreach (var item in results)
             {
-                <RadzenStack Style="width: 250px" onclick="@(() => NavigateToMovie(movie.Id))">
-                    <RadzenCard Style="border-radius: 10px; padding: 0">
-                        <RadzenImage Path="@movie.Poster" Style="border-radius: 10px; width: 100%"/>
-                    </RadzenCard>
-                    <RadzenText Style="width: 100%">@movie.Title</RadzenText>
-                </RadzenStack>
+                @if (item.Type.Equals("movie"))
+                {
+                    <RadzenStack>
+                        <RadzenCard onclick="@(() => NavigateToMovie(item.Id))" Style="padding: 0; min-width: 150px; max-width: 150px; min-height: 225px; border-radius: 10px">
+                            <RadzenImage Path="@item.Poster" Style="max-width: 100%; min-height: 100%; border-radius: 10px"/>
+                        </RadzenCard>
+                        <RadzenText>@item.Title</RadzenText>
+                    </RadzenStack>
+                }
+                else if(item.Type.Equals("tv"))
+                {
+                    <RadzenStack>
+                        <RadzenCard onclick="@(() => NavigateToTVShow(item.Id))" Style="padding: 0; min-width: 150px; max-width: 150px; min-height: 225px; border-radius: 10px">
+                            <RadzenImage Path="@item.Poster" Style="max-width: 100%; min-height: 100%; border-radius: 10px"/>
+                        </RadzenCard>
+                        <RadzenText>@item.Name</RadzenText>
+                    </RadzenStack>
+                }
+                else
+                {
+                    <RadzenStack>
+                        <RadzenCard onclick="@(() => NavigateToPerson(item.Id))" Style="padding: 0; min-width: 150px; max-width: 150px; min-height: 225px; border-radius: 10px">
+                            <RadzenImage Path="@item.Picture" Style="max-width: 100%; min-height: 100%; border-radius: 10px"/>
+                        </RadzenCard>
+                        <RadzenText>@item.Name</RadzenText>
+                    </RadzenStack>
+                }
             }
         </RadzenRow>
             <RadzenStack Orientation="Orientation.Horizontal" Style="position: relative; left: 50%; bottom: 0">
@@ -55,24 +74,17 @@
     private int Page = 1;
 
     private MediaList media = new ();
-    private Media[] movies = {};
+    private Media[] results = {};
 
     protected override async Task OnInitializedAsync()
     {
-        media = await MovieService.GetMoviesAsync(search, Page);
-        movies = media.ListOfMedia;
+        media = await MediaService.GetSearchAsync(search, Page);
+        results = media.ListOfMedia;
     }
     
-    private void SearchMovie()
+    private void SearchTVShow()
     {
-        if (search.Equals(""))
-        {
-            NavigationManager.NavigateTo("/movie");
-        }
-        else
-        {
-            NavigationManager.NavigateTo($"/movie/search?query={search}", true);
-        }
+        NavigationManager.NavigateTo($"/search?query={search}");
     }
 
     private async Task Next()
@@ -90,5 +102,15 @@
     private void NavigateToMovie(int id)
     {
         NavigationManager.NavigateTo($"/movie/{id}");
+    }
+    
+    private void NavigateToTVShow(int id)
+    {
+        NavigationManager.NavigateTo($"/tv/{id}",true);
+    }
+    
+    private void NavigateToPerson(int id)
+    {
+        NavigationManager.NavigateTo($"/person/{id}");
     }
 }
