@@ -30,4 +30,20 @@ public class TVController : Controller
             return StatusCode(500, e.Message);
         }
     }
+    
+    [HttpGet]
+    [Route("/SearchTV")]
+    public async Task<ActionResult<MediaList>> GetTVAsync([FromQuery] string query, int page)
+    {
+        try
+        {
+            var movies = await tvMiddlePoint.GetTVAsync(query, page);
+            return Ok(movies);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
 }

@@ -22,4 +22,24 @@ public class TVService : ITVService
         });
         return tv;
     }
+    
+    public async Task<MediaList> GetTVShowsAsync(int page)
+    {
+        var mediaString = await client.GetStringAsync(uri+$"Search?page={page}");
+        var media = JsonSerializer.Deserialize<MediaList>(mediaString, new JsonSerializerOptions
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        });
+        return media;
+    }
+    
+    public async Task<MediaList> GetTVShowsAsync(string query, int page)
+    {
+        var mediaString = await client.GetStringAsync(uri+$"Search?query={query}&page={page}");
+        var media = JsonSerializer.Deserialize<MediaList>(mediaString, new JsonSerializerOptions
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        });
+        return media;
+    }
 }

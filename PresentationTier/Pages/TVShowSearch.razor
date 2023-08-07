@@ -1,29 +1,30 @@
-@page "/movie"
+@page "/tv/search"
 @using PresentationTier.Data.Media
 @using PresentationTier.Models
 @using Orientation = Radzen.Orientation
 @using Microsoft.AspNetCore.WebUtilities
+@using Microsoft.AspNetCore.Mvc
 
 @inject NavigationManager NavigationManager
 
-@inject IMovieService MovieService
+@inject ITVService TVService
 
-<PageTitle>Movies</PageTitle>
+<PageTitle>TV Shows</PageTitle>
 <RadzenRow Style="width: 1720px">
     <RadzenStack Style="margin: 45px 160px; width: 1600px">
-        <RadzenText Text="Movies" TextStyle="TextStyle.DisplayH4"/>
-        <RadzenStack Orientation="Orientation.Horizontal" Gap="0" Style="position: relative">
-            <RadzenTextBox Placeholder="Search..." @bind-Value="@search" Style="border-radius: 25px 0 0 25px; border: 1px solid rgb(33, 33, 33)"/>
-            <RadzenButton Style="border-radius: 0 25px 25px 0;" ButtonStyle="ButtonStyle.Dark" Icon="search" Variant="Variant.Outlined" Click="SearchMovie"/>
-        </RadzenStack>
+        <RadzenText Text="TV Shows" TextStyle="TextStyle.DisplayH4"/>
+        <RadzenStack Orientation="Orientation.Horizontal" Gap="0" Style="position: relative" JustifyContent="JustifyContent.Center">
+                <RadzenTextBox Placeholder="Search..." @bind-Value="@search" Style="border-radius: 25px 0 0 25px; border: 1px solid rgb(33, 33, 33); width: 500px"/>
+                <RadzenButton Style="border-radius: 0 25px 25px 0;" ButtonStyle="ButtonStyle.Dark" Icon="search" Variant="Variant.Outlined" Click="SearchTVShow"/>
+            </RadzenStack>
         <RadzenRow>
-            @foreach (var movie in movies)
+            @foreach (var tv in shows)
             {
-                <RadzenStack Style="width: 250px" onclick="@(() => NavigateToMovie(movie.Id))">
+                <RadzenStack Style="width: 250px" onclick="@(() => NavigateToTVShow(tv.Id))">
                     <RadzenCard Style="border-radius: 10px; padding: 0">
-                        <RadzenImage Path="@movie.Poster" Style="border-radius: 10px; width: 100%"/>
+                        <RadzenImage Path="@tv.Poster" Style="border-radius: 10px; width: 100%"/>
                     </RadzenCard>
-                    <RadzenText Style="width: 100%">@movie.Title</RadzenText>
+                    <RadzenText Style="width: 100%">@tv.Title</RadzenText>
                 </RadzenStack>
             }
         </RadzenRow>
@@ -48,21 +49,23 @@
 </RadzenRow>
 
 @code {
+    [Parameter]
+    [SupplyParameterFromQuery(Name = "query")]
+    public string search { get; set;}
     private int Page = 1;
-    private string search = "";
 
     private MediaList media = new ();
-    private Media[] movies = {};
+    private Media[] shows = {};
 
     protected override async Task OnInitializedAsync()
     {
-        media = await MovieService.GetMoviesAsync(Page);
-        movies = media.ListOfMedia;
+        media = await TVService.GetTVShowsAsync(Page);
+        shows = media.ListOfMedia;
     }
     
-    private void SearchMovie()
+    private void SearchTVShow()
     {
-        NavigationManager.NavigateTo(search.Equals("") ? "/movie" : $"/movie/search?query={search}");
+        NavigationManager.NavigateTo(search.Equals("") ? "/tv" : $"/tv/search?query={search}");
     }
 
     private async Task Next()
@@ -77,8 +80,8 @@
         await OnInitializedAsync();
     }
     
-    private void NavigateToMovie(int id)
+    private void NavigateToTVShow(int id)
     {
-        NavigationManager.NavigateTo($"/movie/{id}",true);
+        NavigationManager.NavigateTo($"/tv/{id}",true);
     }
 }

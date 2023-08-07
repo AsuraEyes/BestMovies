@@ -1,3 +1,3 @@
 ﻿<Project>
-  <Import Project="..\buildMultiTargeting\MovieServer.props" />
+  <Import Project="../buildMultiTargeting/MovieServer.props" />
 </Project>

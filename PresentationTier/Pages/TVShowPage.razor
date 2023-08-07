@@ -9,54 +9,140 @@
 
 <PageTitle>@tv.Name</PageTitle>
 <RadzenRow Style="width: 1720px">
-    <RadzenStack Orientation="Radzen.Orientation.Vertical" Style="width: 100%; max-height: 600px">
-        <RadzenImage Path="@tv.Backdrop" Style="height: 100%; opacity: 50%"/>
-        <RadzenStack Orientation="Radzen.Orientation.Horizontal" Style="position: relative; bottom: 600px; margin-left: 160px; margin-right: 160px">
+    <RadzenStack Orientation="Orientation.Vertical" Style="width: 100%; max-height: 600px; background-color: rgba(0, 0, 0, 0.8); height:100%">
+        <RadzenImage Path="@tv.Backdrop" Style="opacity: 40%; mask-image: linear-gradient(to top, transparent 150px, black); pointer-events: none"/>
+        <RadzenStack Orientation="Orientation.Horizontal" Style="position: absolute; margin: 45px 160px; width: 1400px" Gap="25">
             <RadzenImage Path="@tv.Poster" Style="width: 300px; height: 450px; border-radius: 10px"/>
             <RadzenStack Gap="15" Style="width: 100%; margin-right: 40px">
-                <RadzenText TextStyle="TextStyle.DisplayH3" Text="@tv.Name" Style="margin-bottom: 0"/>
-                @if (!String.IsNullOrEmpty(tv.Tagline))
+                <RadzenText TextStyle="TextStyle.DisplayH3" Style="margin-bottom: 0; color: #ffffff">@tv.Name (@tv.Premier.Year)</RadzenText>
+                @if (!string.IsNullOrEmpty(tv.Tagline))
                 {
-                    <RadzenText Text="@tv.Tagline" Style="font-style: italic"/>
+                    <RadzenText Text="@tv.Tagline" Style="font-style: italic; color: #ffffff" />
                 }
-                <RadzenRow Gap="10">
-                    <RadzenButton ButtonStyle="ButtonStyle.Dark" class="rz-border-radius-10" Icon="list"/>
-                    @if (string.IsNullOrEmpty(tv.Tagline))
-                    {
-                        <RadzenButton ButtonStyle="ButtonStyle.Dark" class="rz-border-radius-10" Icon="star" Style="color: #fefb00"/>
-                    }
-                    else
-                    {
-                        <RadzenButton ButtonStyle="ButtonStyle.Dark" class="rz-border-radius-10" Icon="star"/> 
-                    }
-                    @if (string.IsNullOrEmpty(tv.Tagline))
-                    {
-                        <RadzenButton ButtonStyle="ButtonStyle.Dark" class="rz-border-radius-10" Icon="bookmark" Style="color: #53d5fd"/>
-                    }
-                    else
-                    {
-                        <RadzenButton ButtonStyle="ButtonStyle.Dark" class="rz-border-radius-10" Icon="bookmark"/>
-                    }
-                    <RadzenButton Variant="Variant.Text" ButtonStyle="ButtonStyle.Light" Icon="play_arrow" Style="max-height: 36px" Text="Trailer"/>
-                </RadzenRow>
-                <RadzenStack Gap="0">
-                    <RadzenText Text="Overview" TextStyle="TextStyle.DisplayH6" Style="margin-bottom: 0; margin-top: 8px"/>
-                    <RadzenText Style="padding-top: 10px" Text="@tv.Overview"/>
+                <RadzenStack Orientation="Orientation.Horizontal" Gap="10" Style="position: relative; top: -20px">
+                    <RadzenStack Gap="0" Style="max-width: 120px; max-height: 120px">
+                        <RadzenArcGauge Style="width: 120px; height: 120px">
+                            <RadzenArcGaugeScale Min="0" Max="10" StartAngle="0" EndAngle="360" Fill="rgba(255, 223, 0, 0.5)">
+                                <RadzenArcGaugeScaleValue Value="@tv.AVGVote" Fill="rgb(255, 223, 0)">
+                                    <Template>
+                                        <RadzenText Text="@tv.AVGVote.ToString("F1")" Style="color: #ffffff; margin: 0"/>
+                                    </Template>
+                                </RadzenArcGaugeScaleValue>
+                            </RadzenArcGaugeScale>
+                        </RadzenArcGauge>
+                        <RadzenText Style="position: relative; top: -25px; color: #ffffff" TextAlign="TextAlign.Center">@tv.Count votes</RadzenText>
+                    </RadzenStack>
+                    <RadzenStack Style="max-height: 36px; position: relative; top: 40px" Orientation="Orientation.Horizontal">
+                        <RadzenButton ButtonStyle="ButtonStyle.Dark" class="rz-border-radius-10" Icon="list"/>
+                        @if (favorites.Contains(tv))
+                        {
+                            <RadzenButton ButtonStyle="ButtonStyle.Dark" class="rz-border-radius-10" Icon="star" Style="color: #fefb00" />
+                        }
+                        else
+                        {
+                            <RadzenButton ButtonStyle="ButtonStyle.Dark" class="rz-border-radius-10" Icon="star"/>
+                        }
+                        @if (watchList.Contains(tv))
+                        {
+                            <RadzenButton ButtonStyle="ButtonStyle.Dark" class="rz-border-radius-10" Icon="bookmark" Style="color: #53d5fd"/>
+                        }
+                        else
+                        {
+                            <RadzenButton ButtonStyle="ButtonStyle.Dark" class="rz-border-radius-10" Icon="bookmark"/>
+                        }
+                        <RadzenButton Variant="Variant.Text" ButtonStyle="ButtonStyle.Light" Icon="play_arrow" Style="max-height: 36px" Text="Trailer" Click="Open"/>
+                    </RadzenStack>
                 </RadzenStack>
-                <RadzenRow>
-                    <RadzenText Text="Director" TextStyle="TextStyle.DisplayH6"/>
-                    <RadzenText></RadzenText>
-                </RadzenRow>
-                <RadzenRow>
-                    <RadzenText Text="Writers" TextStyle="TextStyle.DisplayH6"/>
-                    <RadzenText></RadzenText>
-                </RadzenRow>
-                <RadzenRow>
-                    @foreach (var genre in genres)
+                <RadzenStack Style="position: relative; top: -20px">
+                    <RadzenStack Gap="0">
+                        <RadzenText Text="Overview" TextStyle="TextStyle.DisplayH6" Style="margin-bottom: 0; margin-top: 8px; color: #ffffff"/>
+                        <RadzenText Style="padding-top: 10px; color: #ffffff" Text="@tv.Overview"/>
+                    </RadzenStack>
+                    <RadzenRow>
+                        <RadzenText Text="Director" TextStyle="TextStyle.DisplayH6" Style="color: #ffffff"/>
+                        @foreach (var director in crew)
+                        {
+                            if (director.Job.Equals("Director"))
+                            {
+                                <RadzenText Text="@director.Name" Style="color: #ffffff"/>
+                            }
+                        }
+                    </RadzenRow>
+                    <RadzenRow>
+                        @foreach (var genre in genres)
+                        {
+                            <RadzenButton Text="@genre.Name" Variant="Variant.Outlined" ButtonStyle="ButtonStyle.Light" Size="ButtonSize.Small" class="rz-border-radius-6"/>
+                        }
+                    </RadzenRow>
+                </RadzenStack>
+            </RadzenStack>
+        </RadzenStack>
+    </RadzenStack>
+    <RadzenStack Orientation="Orientation.Horizontal" Style="max-width: 1400px">
+        @if (showVideo)
+            {
+                <RadzenContent @onclick="Close" Style="position: fixed; inset: 0; padding: 0; background-color: rgba(0, 0, 0, 0.6)">
+                    <RadzenStack Style="position: fixed; width: 80%; left: 50%; transform: translate(-50%,0); top: 10%; background-color: black" Gap="0">
+                        <iframe src="@tv.Trailer" allowfullscreen style="width: 100%; aspect-ratio: 16/9"></iframe>
+                    </RadzenStack>
+                </RadzenContent>
+            }
+        <RadzenRow Gap="0" Style="max-width: 1022px; margin: 30px 30px 30px 150px;">
+            <RadzenStack Style="max-width: 100%">
+                <RadzenText TextStyle="TextStyle.H5">Top Cast</RadzenText>
+                <RadzenStack Orientation="Orientation.Horizontal" Gap="15" Style="overflow-y: auto; margin-top: 5px">
+                    @foreach (var actor in cast)
                     {
-                        <RadzenBadge Text="@genre.Name" Variant="Variant.Outlined" BadgeStyle="BadgeStyle.Dark" IsPill="true"/>
+                        <RadzenStack onclick="@(() => NavigateToCastMember(actor.Id))">
+                            <RadzenCard class="rz-shadow-7" Style="padding: 0; min-width: 150px; max-width: 150px; min-height: 225px; border-radius: 10px">
+                                <RadzenImage Path="@actor.Picture" Style="max-width: 100%; min-height: 225px; border-radius: 10px"/>
+                            </RadzenCard>
+                            <RadzenStack Gap="0">
+                                <RadzenText Text="@actor.Name" Style="font-weight: bold"/>
+                                <RadzenText Text="@actor.Character"/>
+                            </RadzenStack>
+                        </RadzenStack>
                     }
-                </RadzenRow>
+                </RadzenStack>
+                <RadzenButton Variant="Variant.Text" ButtonStyle="ButtonStyle.Dark" Text="Full Cast & Crew" Style="text-align: left" Click="NavigateToCast"/>
+            </RadzenStack>
+            <RadzenStack Gap="5">
+                <hr/>
+                <RadzenText TextStyle="TextStyle.H5" Style="margin-bottom: 10px">Top Review</RadzenText>
+                <RadzenStack Style="width: 100%" Gap="10">
+                    <RadzenCard Style="border-radius: 10px; min-width: 100%" class="rz-shadow-7">
+                        <RadzenStack Orientation="Orientation.Horizontal">
+                            <RadzenImage Path="https://bootdey.com/img/Content/avatar/avatar6.png" Style="width: 50px; border-radius: 50%"/>
+                            <RadzenStack Gap="0" Style="width: 100%">
+                                <RadzenRow Gap="5">
+                                    <RadzenText TextStyle="TextStyle.DisplayH6">@review.Title</RadzenText>
+                                    <RadzenButton Size="ButtonSize.Small" Text="@review.Rating.ToString()" Style="display: inline-block; position: relative; top: -5px" ButtonStyle="ButtonStyle.Dark" Icon="grade"/>
+                                </RadzenRow>
+                                <RadzenRow Gap="5">
+                                    <RadzenText TextStyle="TextStyle.Caption">
+                                        <RadzenLink Click="">Daniel</RadzenLink>
+                                    </RadzenText>
+                                    <RadzenText TextStyle="TextStyle.Caption">
+                                        @review.Created.ToString("dd MMMM yyyy")
+                                    </RadzenText>
+                                </RadzenRow>
+                            </RadzenStack>
+                        </RadzenStack>
+                        <RadzenText Style="padding-top: 10px">@review.Description</RadzenText>
+                    </RadzenCard>
+                    <RadzenButton Variant="Variant.Text" ButtonStyle="ButtonStyle.Dark" Text="Read All Reviews" Click="NavigateToReviews" Style="text-align: left"/>
+                </RadzenStack>
+            </RadzenStack>
+            
+        </RadzenRow>
+        <RadzenStack Gap="15" Style="margin: 30px">
+            <RadzenStack Gap="0">
+                <RadzenText Text="Status" Style="margin-bottom: 0; margin-top: 8px; font-weight: bold"/>
+                <RadzenText Text="@tv.Status"/>
+            </RadzenStack>
+            <RadzenStack Gap="0">
+                <RadzenText Text="Original Language" Style="margin-bottom: 0; margin-top: 8px; width: 171px; font-weight: bold"/>
+                <RadzenText Text="@tv.Language"/>
             </RadzenStack>
         </RadzenStack>
     </RadzenStack>
@@ -66,12 +152,46 @@
     [Parameter]
     public int Id { get; set; }
 
+    private bool showVideo;
+
     private TV tv = new();
     private Genre[] genres = {};
+    private Person[] cast = {};
+    private Person[] crew = {};
+    private Media[] watchList = {};
+    private Media[] favorites = {};
+    private readonly Review review = new() { Title = "Best Show ever!!!", Rating = 3.5, Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." };
 
     protected override async Task OnInitializedAsync()
     {
         tv = await TVService.GetTVAsync(Id);
         genres = tv.Genres;
+        cast = tv.Credits.TopCast;
+        crew = tv.Credits.Crew;
+    }
+    
+    private void Open()
+    {
+        showVideo = true;
+    }
+    
+    private void Close()
+    {
+        showVideo = false;
+    }
+    
+    private void NavigateToReviews()
+    {
+        NavigationManager.NavigateTo($"/tv/{Id}/reviews");
+    }
+    
+    private void NavigateToCast()
+    {
+        NavigationManager.NavigateTo($"/tv/{Id}/cast");
+    }
+    
+    private void NavigateToCastMember(int id)
+    {
+        NavigationManager.NavigateTo($"/person/{id}");
     }
 }

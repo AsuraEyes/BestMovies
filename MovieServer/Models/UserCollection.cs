@@ -14,11 +14,11 @@ public class UserCollection
     [BsonElement("name")]
     public string Name { set; get; }
     [BsonElement("poster")]
-    public string Poster { get; set; }
+    public string? Poster { get; set; }
     [BsonElement("backdrop")]
-    public string Backdrop { get; set; }
+    public string? Backdrop { get; set; }
     [BsonElement("media")]
-    public Media[] Media { set; get; }
+    public Media[]? Media { set; get; }
     [BsonElement("is_public")]
     public bool IsPublic { set; get; }
 }

@@ -63,4 +63,20 @@ public class MediaController : Controller
             return  StatusCode(500, e.Message);
         }
     }
+    
+    [HttpGet]
+    [Route("/Search")]
+    public async Task<ActionResult<MediaList>> GetSearchAsync([FromQuery] string query, int page)
+    {
+        try
+        {
+            var media = await mediaMiddlePoint.GetSearchAsync(query, page);
+            return Ok(media);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return  StatusCode(500, e.Message);
+        }
+    }
 }

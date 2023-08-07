@@ -13,6 +13,8 @@ public class Media
     public double AvgRating { get; set; }
     [JsonPropertyName("poster_path")]
     public string Poster { get; set; }
+    [JsonPropertyName("profile_path")]
+    public string Picture { get; set; }
     [JsonPropertyName("backdrop_path")]
     public string Backdrop { get; set; }
     [JsonPropertyName("original_language")]
