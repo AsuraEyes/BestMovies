@@ -22,10 +22,25 @@ public class TVMiddlePoint : ITVMiddlePoint
     {
         tv = await tvService.GetTVAsync(id);
         tv.Trailer = SetTrailer();
-        tv.Poster = SetPoster();
-        tv.Backdrop = SetBackdrop();
+        tv.Poster = SetPoster(tv.Poster);
+        tv.Backdrop = SetPoster(tv.Backdrop);
         tv.Credits.Cast = SetCast();
 
+        return tv;
+    }
+    
+    public async Task<MediaList> GetTVAsync(string query, int page)
+    {
+        if (page == 0)
+        {
+            page = 1;
+        }
+        var tv = await tvService.GetTVAsync(query, page);
+
+        foreach (var m in tv.ListOfMedia)
+        {
+            m.Poster = SetPoster(m.Poster);
+        }
         return tv;
     }
 
@@ -64,14 +79,9 @@ public class TVMiddlePoint : ITVMiddlePoint
         return tv.Trailer;
     }
 
-    private string SetPoster()
+    private string SetPoster(string img)
     {
-        return tv.Poster.Insert(0, Image);
-    }
-    
-    private string SetBackdrop()
-    {
-        return tv.Backdrop.Insert(0, Image);
+        return img.Insert(0, Image);
     }
     
     private Person[] SetCast()

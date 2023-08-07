@@ -19,19 +19,12 @@ public class Review
     [BsonElement("is_spoiler")]
     public bool IsSpoiler { get; set; }
     [BsonElement("created")]
-    public DateTime Created { get; set; }
+    public DateTime Created { get; } = DateTime.Now;
     [BsonElement("edited")]
     public DateTime Edited { get; set; }
-    [BsonElement("count")]
-    public int Count { set; get; }
-    [BsonElement("number_of_likes")]
-    public int NumberOfLikes { set; get; }
     [BsonElement("user")]
     [BsonRepresentation(BsonType.ObjectId)]
     public string UserId { get; set; }
     [BsonElement("media")]
     public int MediaId { get; set; }
-    [BsonElement("users")]
-    [BsonRepresentation(BsonType.ObjectId)]
-    public string[] LikedUsers { set; get; }
 }

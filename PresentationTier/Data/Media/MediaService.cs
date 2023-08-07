@@ -1,4 +1,5 @@
 using System.Text.Json;
+using PresentationTier.Models;
 
 namespace PresentationTier.Data.Media;
 
@@ -36,6 +37,16 @@ public class MediaService : IMediaService
     {
         var mediaString = await client.GetStringAsync(uri+"AiringToday");
         var media = JsonSerializer.Deserialize<Models.Media[]>(mediaString, new JsonSerializerOptions
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        });
+        return media;
+    }
+    
+    public async Task<MediaList> GetSearchAsync(string query, int page)
+    {
+        var mediaString = await client.GetStringAsync(uri+$"Search?query={query}&page={page}");
+        var media = JsonSerializer.Deserialize<MediaList>(mediaString, new JsonSerializerOptions
         {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase
         });

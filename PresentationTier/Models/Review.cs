@@ -11,7 +11,7 @@ public class Review
     [Required]
     public string Description { get; set; }
     public bool IsSpoiler { get; set; }
-    public DateTime Created { get; set; } = DateTime.Now;
+    public DateTime Created { get;}
     public DateTime Edited { get; set; }
     public int Count { set; get; } = 0;
     public int NumberOfLikes { set; get; }
