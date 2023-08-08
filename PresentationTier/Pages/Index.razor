@@ -10,7 +10,7 @@
 <RadzenStack Gap="45" Style="width: 1720px; padding-left: 10%; padding-right: 10%">
     <RadzenStack Style="max-height: 750px; margin-bottom: 150px">
         <RadzenStack Style="background-color: rgba(0, 0, 0, 0.8)">
-            <RadzenImage Path="https://image.tmdb.org/t/p/original/51vreLbrGwzAg4WRCHgitWz6Naw.jpg" Style="border-radius: 10px; opacity: 40%; mask-image: linear-gradient(to top, transparent 150px, black); pointer-events: none"/>
+            <RadzenImage Path="@backdrop" Style="border-radius: 10px; opacity: 40%; mask-image: linear-gradient(to top, transparent 150px, black); pointer-events: none"/>
             <RadzenStack Gap="0" Style="color: #ffffff; position: relative; bottom: 50%">
                 <RadzenText Text="BestMovies Inc." TextStyle="TextStyle.DisplayH4" Style="color: #ffffff" TextAlign="TextAlign.Center"/>
                 <RadzenText Text="The Number One site for media and reviews" TextStyle="TextStyle.Subtitle2" Style="color: #edd4d4" TextAlign="TextAlign.Center"/>
@@ -87,12 +87,16 @@
     private Media[] movies = {};
     private Media[] shows = {};
     private string search = "";
+    private string backdrop = "";
 
     protected override async Task OnInitializedAsync()
     {
+        var rnd = new Random();
+        var img   = rnd.Next(10);
         media = await MediaService.GetTrendingAsync();
         movies = await MediaService.GetMoviesAsync();
         shows = await MediaService.GetTVShowsAsync();
+        backdrop = media[img].Backdrop;
     }
     private void SearchMedia()
     {

@@ -98,11 +98,11 @@ public class TVMiddlePoint : ITVMiddlePoint
     
     private Person[] SetCast()
     {
-        IList<Person> people = new List<Person>();
+        var people = tv.Credits.Cast;
 
-        for (var i = 0; i <= 8; i++)
+        for (var i = 0; i <= 8 && i < tv.Credits.Cast.Length; i++)
         {
-            people.Add(tv.Credits.Cast[i]);
+            tv.Credits.Cast[i] = people[i];
         }
 
         return people.ToArray();

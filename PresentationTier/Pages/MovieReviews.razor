@@ -34,7 +34,7 @@
                                 <RadzenTextBox @bind-Value="@newReview.Title"/>
                                 <RadzenText Text="Review"/>
                                 <RadzenTextArea Placeholder="Write review here" @bind-Value="@newReview.Description"/>
-                                <RadzenRating @bind-Value="@newReview.Score" Stars="10"/>
+                                <RadzenRating @bind-Value="@newReview.Score"/>
                                 <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.Center" Gap="1rem" Class="rz-mt-8 rz-mb-4">
                                     <RadzenButton ButtonType="ButtonType.Submit" Icon="create" Text="Post" Click="Submit" Style="border-radius: 25px"/>
                                     <RadzenButton ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat" Icon="cancel" Text="Cancel" Click="Close" Style="border-radius: 25px"/>
@@ -64,7 +64,7 @@
                             </RadzenStack>
                         </RadzenStack>
                         <RadzenText Style="padding-top: 10px">@review.Description</RadzenText>
-                        <SfRating Value="review.Rating" Precision="PrecisionType.Exact" ReadOnly=true></SfRating>
+                        <RadzenRating Value="review.Score" ReadOnly=true></RadzenRating>
                     </RadzenCard>
                 }
             </RadzenStack>
@@ -90,8 +90,8 @@
     {
         List<Review> reviews = new()
         {
-            new Review{Title = "Test Review", Rating = 4.5, Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."},
-            new Review{Title = "Test Review", Rating = 3.5, Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."}
+            new Review{Title = "Test Review", Score = 4, Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."},
+            new Review{Title = "Test Review", Score = 3, Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."}
         };
         return reviews;
     }
@@ -104,7 +104,6 @@
     private async Task Submit()
     {
         newReview.MediaId = Id;
-        newReview.Rating = (double)newReview.Score / 2;
         await ReviewService.WriteReviewAsync(newReview);
         Close();
     }
