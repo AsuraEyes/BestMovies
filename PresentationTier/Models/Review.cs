@@ -8,7 +8,6 @@ public class Review
 {
     public ObjectId Id { get; set; }
     public string Title { get; set; }
-    public double Rating { get; set; }
     public int Score { get; set; }
     public string Description { get; set; }
     public bool IsSpoiler { get; set; }

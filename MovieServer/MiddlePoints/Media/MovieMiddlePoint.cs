@@ -147,13 +147,11 @@ public class MovieMiddlePoint : IMovieMiddlePoint
 
     private Person[] SetCast()
     {
-        Person[] people = {};
+        var people = movie.Credits.Cast;
 
-        var cast = movie.Credits.Cast;
-
-        for (var i = 0; i <= 8 && i < cast.Length; i++)
+        for (var i = 0; i <= 8 && i < movie.Credits.Cast.Length; i++)
         {
-            people[i] = cast[i];
+            movie.Credits.Cast[i] = people[i];
         }
 
         return people.ToArray();

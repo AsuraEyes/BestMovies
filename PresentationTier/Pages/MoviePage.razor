@@ -116,7 +116,7 @@
                             <RadzenStack Gap="0" Style="width: 100%">
                                 <RadzenRow Gap="5">
                                     <RadzenText TextStyle="TextStyle.DisplayH6">@review.Title</RadzenText>
-                                    <RadzenButton Size="ButtonSize.Small" Text="@review.Rating.ToString()" Style="display: inline-block; position: relative; top: -5px" ButtonStyle="ButtonStyle.Dark" Icon="grade"/>
+                                    <RadzenButton Size="ButtonSize.Small" Text="@review.Score.ToString()" Style="display: inline-block; position: relative; top: -5px" ButtonStyle="ButtonStyle.Dark" Icon="grade"/>
                                 </RadzenRow>
                                 <RadzenRow Gap="5">
                                     <RadzenText TextStyle="TextStyle.Caption">
@@ -229,7 +229,7 @@
     private Person[] crew = {};
     private Media[] recommended = {};
     private Media[] similar = {};
-    private readonly Review review = new() { Title = "Best Movie", Rating = 3.5, Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." };
+    private readonly Review review = new() { Title = "Best Movie", Score = 3, Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." };
     private MovieCollection movieCollection;
     private Collection lists;
     private Media[] watchList = {};

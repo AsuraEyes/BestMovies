@@ -23,6 +23,7 @@ public class MediaMiddlePoint : IMediaMiddlePoint
         foreach (var m in media.ListOfMedia)
         {
             m.Poster = SetImage(m.Poster);
+            m.Backdrop = SetImage(m.Backdrop);
         }
         
         return media.ListOfMedia;
