@@ -24,7 +24,17 @@ public class TVService : ITVService
         return tv;
     }
     
-    public async Task<MediaList> GetTVAsync(string query, int page)
+    public async Task<MediaList> GetTVShowsAsync(int page)
+    {
+        var mediaString = await client.GetStringAsync(uri + "tv/popular" + api_key + $"&page={page}");
+        var media = JsonSerializer.Deserialize<MediaList>(mediaString, new JsonSerializerOptions
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        });
+        return media!;
+    }
+    
+    public async Task<MediaList> GetTVShowsAsync(string query, int page)
     {
         var tvString = await client.GetStringAsync(uri + "/search/tv" + api_key + $"&query={query}&page={page}");
         var tv = JsonSerializer.Deserialize<MediaList>(tvString, new JsonSerializerOptions
@@ -32,5 +42,25 @@ public class TVService : ITVService
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase
         });
         return tv;
+    }
+    
+    public async Task<MediaList> GetRecommendedAsync(int id)
+    {
+        var mediaString = await client.GetStringAsync(uri+$"tv/{id}/recommendations"+api_key);
+        var media = JsonSerializer.Deserialize<MediaList>(mediaString, new JsonSerializerOptions
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        });
+        return media!;
+    }
+
+    public async Task<MediaList> GetSimilarAsync(int id)
+    {
+        var mediaString = await client.GetStringAsync(uri+$"tv/{id}/similar"+api_key);
+        var media = JsonSerializer.Deserialize<MediaList>(mediaString, new JsonSerializerOptions
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        });
+        return media!;
     }
 }

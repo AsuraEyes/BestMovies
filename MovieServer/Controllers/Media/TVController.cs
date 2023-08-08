@@ -32,13 +32,61 @@ public class TVController : Controller
     }
     
     [HttpGet]
-    [Route("/SearchTV")]
-    public async Task<ActionResult<MediaList>> GetTVAsync([FromQuery] string query, int page)
+    [Route("/Shows")]
+    public async Task<ActionResult<MediaList>> GetTVShowsAsync([FromQuery] int page)
     {
         try
         {
-            var movies = await tvMiddlePoint.GetTVAsync(query, page);
+            var movies = await tvMiddlePoint.GetTVShowsAsync(page);
             return Ok(movies);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
+    
+    [HttpGet]
+    [Route("/SearchTV")]
+    public async Task<ActionResult<MediaList>> GetTVShowsAsync([FromQuery] string query, int page)
+    {
+        try
+        {
+            var movies = await tvMiddlePoint.GetTVShowsAsync(query, page);
+            return Ok(movies);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
+    
+    [HttpGet]
+    [Route("{id:int}/RecommendedShows")]
+    public async Task<ActionResult<Models.Media[]>> GetRecommendedAsync(int id)
+    {
+        try
+        {
+            var recommendations = await tvMiddlePoint.GetRecommendedAsync(id);
+            return Ok(recommendations);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
+    
+    [HttpGet]
+    [Route("{id:int}/SimilarShows")]
+    public async Task<ActionResult<Models.Media[]>> GetSimilarAsync(int id)
+    {
+        try
+        {
+            var recommendations = await tvMiddlePoint.GetSimilarAsync(id);
+            return Ok(recommendations);
         }
         catch (Exception e)
         {
