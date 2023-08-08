@@ -11,7 +11,7 @@ namespace MovieServer.Repository
         private IMongoCollection<User> users;
 
         // Connection string to the MongoDB database
-        private const string Connection = "mongodb://newbestmoviesv2:Jo7mRI46lGNRZN28rJxOAArrOGo8RySauO9udMUB9I32z8Zq9WQPNhKGLsiRMZc2EVAyVJZg8J4eACDbkgeadg==@newbestmoviesv2.mongo.cosmos.azure.com:10255/?ssl=true&retrywrites=false&replicaSet=globaldb&maxIdleTimeMS=120000&appName=@newbestmoviesv2@";
+         private const string Connection = "mongodb://newbestmoviesv2:Jo7mRI46lGNRZN28rJxOAArrOGo8RySauO9udMUB9I32z8Zq9WQPNhKGLsiRMZc2EVAyVJZg8J4eACDbkgeadg==@newbestmoviesv2.mongo.cosmos.azure.com:10255/?ssl=true&retrywrites=false&replicaSet=globaldb&maxIdleTimeMS=120000&appName=@newbestmoviesv2@";
         //private const string Connection = "mongodb://localhost:27017/";
         public UserRepository()
         {

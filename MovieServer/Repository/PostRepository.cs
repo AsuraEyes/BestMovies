@@ -11,7 +11,7 @@ namespace MovieServer.Repository
         private IMongoDatabase database;
         private IMongoCollection<Post> posts;
 
-        private const string Connection = "mongodb://newbestmovies:B48gCrdEoKZ6qoDtvsGCVZ1s4aG86BerK9IagWEXvFEyFj4qOGqT8PZeXMSWYNtOHGUNJKp1wtY6ACDbDYb9rg==@newbestmovies.mongo.cosmos.azure.com:10255/?ssl=true&retrywrites=false&replicaSet=globaldb&maxIdleTimeMS=120000&appName=@newbestmovies@";
+         private const string Connection = "mongodb://newbestmoviesv2:Jo7mRI46lGNRZN28rJxOAArrOGo8RySauO9udMUB9I32z8Zq9WQPNhKGLsiRMZc2EVAyVJZg8J4eACDbkgeadg==@newbestmoviesv2.mongo.cosmos.azure.com:10255/?ssl=true&retrywrites=false&replicaSet=globaldb&maxIdleTimeMS=120000&appName=@newbestmoviesv2@";
         //private const string Connection = "mongodb://localhost:27017/";
 
         public PostRepository()
