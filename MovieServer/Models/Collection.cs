@@ -6,9 +6,8 @@ namespace MovieServer.Models;
 
 public class Collection
 {
-    [BsonId]
-    public ObjectId _id { set; get; }
-    public int Id { set; get; }
+     [BsonId]
+    public ObjectId Id { get; set; }
     [BsonElement("user")]
     [BsonRepresentation(BsonType.ObjectId)]
     public string Email { set; get; }
@@ -21,8 +20,5 @@ public class Collection
     public Media[]? Media { set; get; }
     public bool IsPublic { set; get; }
 
-    public Collection()
-    {
-        _id = ObjectId.GenerateNewId();
-    }
+
 }
