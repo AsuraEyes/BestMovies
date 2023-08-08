@@ -7,6 +7,7 @@ public class TVMiddlePoint : ITVMiddlePoint
 {
     private readonly ITVService tvService;
     private TV tv;
+    private MediaList media;
     private const string Image = "https://image.tmdb.org/t/p/original";
     private const string Youtube = "https://www.youtube.com/embed/";
     private const string AutoPlay = "?autoplay=1";
@@ -16,6 +17,7 @@ public class TVMiddlePoint : ITVMiddlePoint
     {
         this.tvService = tvService;
         tv = new TV();
+        media = new MediaList();
     }
     
     public async Task<TV> GetTVAsync(int id)
@@ -32,19 +34,60 @@ public class TVMiddlePoint : ITVMiddlePoint
         return tv;
     }
     
-    public async Task<MediaList> GetTVAsync(string query, int page)
+    public async Task<MediaList> GetTVShowsAsync(int page)
     {
         if (page == 0)
         {
             page = 1;
         }
-        var tv = await tvService.GetTVAsync(query, page);
+        var tv = await tvService.GetTVShowsAsync(page);
 
         foreach (var m in tv.ListOfMedia)
         {
             m.Poster = SetImage(m.Poster);
         }
         return tv;
+    }
+    
+    public async Task<MediaList> GetTVShowsAsync(string query, int page)
+    {
+        if (page == 0)
+        {
+            page = 1;
+        }
+        var tv = await tvService.GetTVShowsAsync(query, page);
+
+        foreach (var m in tv.ListOfMedia)
+        {
+            m.Poster = SetImage(m.Poster);
+        }
+        return tv;
+    }
+    
+    public async Task<Models.Media[]> GetRecommendedAsync(int id)
+    {
+        media = await tvService.GetRecommendedAsync(id);
+
+        foreach (var m in media.ListOfMedia)
+        {
+            var img = SetImage(m.Poster);
+            m.Poster = img;
+        }
+        
+        return media.ListOfMedia;
+    }
+    
+    public async Task<Models.Media[]> GetSimilarAsync(int id)
+    {
+        media = await tvService.GetSimilarAsync(id);
+
+        foreach (var m in media.ListOfMedia)
+        {
+            var img = SetImage(m.Poster);
+            m.Poster = img;
+        }
+        
+        return media.ListOfMedia;
     }
 
     private string SetTrailer()

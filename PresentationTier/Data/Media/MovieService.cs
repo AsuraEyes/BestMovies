@@ -45,7 +45,7 @@ public class MovieService : IMovieService
     
     public async Task<Models.Media[]> GetRecommendedAsync(int id)
     {
-        var mediaString = await client.GetStringAsync(uri+$"Movie/{id}/Recommended");
+        var mediaString = await client.GetStringAsync(uri+$"Movie/{id}/RecommendedMovies");
         var media = JsonSerializer.Deserialize<Models.Media[]>(mediaString, new JsonSerializerOptions
         {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase
@@ -55,7 +55,7 @@ public class MovieService : IMovieService
     
     public async Task<Models.Media[]> GetSimilarAsync(int id)
     {
-        var mediaString = await client.GetStringAsync(uri+$"Movie/{id}/Similar");
+        var mediaString = await client.GetStringAsync(uri+$"Movie/{id}/SimilarMovies");
         var media = JsonSerializer.Deserialize<Models.Media[]>(mediaString, new JsonSerializerOptions
         {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase

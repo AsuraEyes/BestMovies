@@ -64,7 +64,7 @@ public class MovieController : Controller
     }
     
     [HttpGet]
-    [Route("{id:int}/Recommended")]
+    [Route("{id:int}/RecommendedMovies")]
     public async Task<ActionResult<Models.Media[]>> GetRecommendedAsync(int id)
     {
         try
@@ -80,7 +80,7 @@ public class MovieController : Controller
     }
     
     [HttpGet]
-    [Route("{id:int}/Similar")]
+    [Route("{id:int}/SimilarMovies")]
     public async Task<ActionResult<Models.Media[]>> GetSimilarAsync(int id)
     {
         try
