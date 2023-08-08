@@ -1,7 +1,6 @@
 @page "/movie/{Id:int}/cast"
-@using PresentationTier.Data.Media
 @using PresentationTier.Models
-@using Orientation = Radzen.Orientation
+@using PresentationTier.Data.Media
 
 @inject NavigationManager NavigationManager
 
@@ -57,8 +56,8 @@
     public int Id { get; set; }
 
     private Movie movie = new();
-    private Models.Person[] cast = {};
-    private Models.Person[] crew = {};
+    private Person[] cast = {};
+    private Person[] crew = {};
 
     protected override async Task OnInitializedAsync()
     {

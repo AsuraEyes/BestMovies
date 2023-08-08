@@ -19,7 +19,7 @@ public class ReviewsRepository : IReviewsRepository
         reviews = database.GetCollection<Review>("reviews");
     }
 
-    public async Task CreateReviewAsync(Review review)
+    public async Task WriteReviewAsync(Review review)
     {
         await reviews.InsertOneAsync(review);
     }

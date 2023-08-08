@@ -32,22 +32,21 @@ public class CollectionMiddlePoint : ICollectionMiddlePoint
         return collection;
     }
 
-    public async Task<string> CreateCollectionAsync(UserCollection collection)
+    public async Task CreateCollectionAsync(Collection collection)
     {
-        var collectionId = await collectionRepository.CreateCollectionAsync(collection);
-        return collectionId;
+        await collectionRepository.CreateCollectionAsync(collection);
     }
 
-    public async Task<IList<UserCollection>> GetUserCollectionsAsync(string email)
+    public async Task<IList<Collection>> GetUserCollectionsAsync(string email)
     {
         var collection = await collectionRepository.GetUserCollectionsAsync(email);
         return collection;
     }
 
-    public async Task<UserCollection> GetCollectionAsync(string collectionId)
+    public async Task<Collection> GetCollectionAsync(string email, int id)
     {
-        var id = ObjectId.Parse(collectionId);
-        var collection = await collectionRepository.GetCollectionAsync(id);
+        
+        var collection = await collectionRepository.GetCollectionAsync(email, id);
         return collection;
     }
     
@@ -79,27 +78,5 @@ public class CollectionMiddlePoint : ICollectionMiddlePoint
         }
 
         return revenue;
-    }
-
-    public async Task<string> CreateFavoritesAsync(string email)
-    {
-        var favorites = new UserCollection
-        {
-            Email = email,
-            Name = "Favorites"
-        };
-        var collectionId = await CreateCollectionAsync(favorites);
-        return collectionId;
-    }
-    
-    public async Task<string> CreateWatchListAsync(string email)
-    {
-        var watchList = new UserCollection
-        {
-            Email = email,
-            Name = "WatchList"
-        };
-        var collectionId = await CreateCollectionAsync(watchList);
-        return collectionId;
     }
 }

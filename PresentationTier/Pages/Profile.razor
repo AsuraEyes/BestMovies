@@ -1,8 +1,8 @@
 @page "/profile"
-@using PresentationTier.Authorization;
-@using PresentationTier.Data;
-@using PresentationTier.Models;
-@using System.Security.Claims;
+@using PresentationTier.Models
+@using PresentationTier.Data
+@using PresentationTier.Authorization
+@using System.Security.Claims
 
 @inject NavigationManager NavigationManager
 @inject IPostService postService
@@ -81,7 +81,7 @@
     <RadzenTabs Visible="true" Style="margin-top: 5px">
         <Tabs>
 
-            <RadzenTabsItem Text="Posts" Style="width: 25%">
+            <RadzenTabsItem Text="Posts" Style="width: 33.3%">
                 <RadzenStack Gap="25">
                     <RadzenCard Style="width: 75%; border-radius: 10px; max-width: 650px; min-width: 650px">
                         @foreach (var post in posts)
@@ -99,10 +99,10 @@
                     </RadzenCard>
                 </RadzenStack>
             </RadzenTabsItem>
-            <RadzenTabsItem Text="Reviews" Style="width: 25%">
+            <RadzenTabsItem Text="Reviews" Style="width: 33.3%">
                 <RadzenStack Gap="25">
                     <RadzenCard Style="width: 75%; border-radius: 10px; max-width: 650px; min-width: 650px">
-                        <RadzenStack Orientation="Radzen.Orientation.Horizontal">
+                        <RadzenStack Orientation="Orientation.Horizontal">
                             <RadzenImage Path="https://bootdey.com/img/Content/avatar/avatar6.png" Style="width: 50px; border-radius: 50%"/>
                             <RadzenStack Gap="0">
                                 <RadzenText TextStyle="TextStyle.DisplayH6">Test Review</RadzenText>
@@ -112,7 +112,7 @@
                         <RadzenText Style="padding-top: 10px">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</RadzenText>
                     </RadzenCard>
                     <RadzenCard Style="width: 75%; border-radius: 10px; max-width: 650px; min-width: 650px">
-                        <RadzenStack Orientation="Radzen.Orientation.Horizontal">
+                        <RadzenStack Orientation="Orientation.Horizontal">
                             <RadzenImage Path="https://bootdey.com/img/Content/avatar/avatar6.png" Style="width: 50px; border-radius: 50%"/>
                             <RadzenStack Gap="0">
                                 <RadzenText TextStyle="TextStyle.DisplayH6">Test Review</RadzenText>
@@ -123,7 +123,7 @@
                     </RadzenCard>
                 </RadzenStack>
             </RadzenTabsItem>
-            <RadzenTabsItem Text="Likes" Style="width: 25%">
+            <RadzenTabsItem Text="Likes" Style="width: 33.3%">
             </RadzenTabsItem>
         </Tabs>
     </RadzenTabs>

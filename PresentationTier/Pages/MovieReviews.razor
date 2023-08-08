@@ -1,14 +1,16 @@
 @page "/movie/{Id:int}/reviews"
 @using PresentationTier.Models
 @using PresentationTier.Data.Media
+@using PresentationTier.Data
 
 @inject IMovieService MovieService
+@inject IReviewService ReviewService
 
 <PageTitle>@movie.Title - Reviews</PageTitle>
 <RadzenStack Style="width: 1720px" Gap="45">
     <RadzenStack Style="width: 100%; max-height: 200px; background-color: rgba(0, 0, 0, 0.8)">
         <RadzenImage Path="@movie.Backdrop" Style="opacity: 40%; mask-image: linear-gradient(to top, transparent 750px, black); pointer-events: none"/>
-        <RadzenStack Orientation="Radzen.Orientation.Horizontal" Style="position: absolute; margin: 45px 160px; width: 1400px">
+        <RadzenStack Orientation="Orientation.Horizontal" Style="position: absolute; margin: 45px 160px; width: 1400px">
             <RadzenImage Path="@movie.Poster" Style="max-height: 125px; padding-left: 5px; padding-top: 5px; padding-bottom: 5px"/>
             <RadzenStack Gap="0" Style="width: 100%">
                 <RadzenText Style="margin-top: 15px; color: #ffffff; font-weight: 100" TextStyle="TextStyle.DisplayH4">
@@ -20,19 +22,37 @@
     </RadzenStack>
 
     <RadzenRow>
-        <RadzenStack Orientation="Radzen.Orientation.Horizontal" Style="width: 100%">
-            <RadzenButton Text="Write Review" Variant="Variant.Outlined" ButtonStyle="ButtonStyle.Dark" Icon="edit" Style="border-radius: 25px; max-height: 36px"/>
+        <RadzenStack Orientation="Orientation.Horizontal" Style="width: 100%">
+            <RadzenButton Text="Write Review" Variant="Variant.Outlined" ButtonStyle="ButtonStyle.Dark" Icon="edit" Style="border-radius: 25px; max-height: 36px" Click="Open"/>
+            @if (Display)
+            {
+                <RadzenContent Style="position: fixed; inset: 0; padding: 0; background-color: rgba(0, 0, 0, 0.6)">
+                    <RadzenStack Style="position: fixed; width: 50%; left: 50%; transform: translate(-50%,0); top: 10%; background-color: black" Gap="0">
+                        <RadzenCard>
+                            <RadzenStack Gap="15" JustifyContent="JustifyContent.Center">
+                                <RadzenText Text="Title"/>
+                                <RadzenTextBox @bind-Value="@newReview.Title"/>
+                                <RadzenText Text="Review"/>
+                                <RadzenTextArea Placeholder="Write review here" @bind-Value="@newReview.Description"/>
+                                <RadzenRating @bind-Value="@newReview.Score" Stars="10"/>
+                                <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.Center" Gap="1rem" Class="rz-mt-8 rz-mb-4">
+                                    <RadzenButton ButtonType="ButtonType.Submit" Icon="create" Text="Post" Click="Submit" Style="border-radius: 25px"/>
+                                    <RadzenButton ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat" Icon="cancel" Text="Cancel" Click="Close" Style="border-radius: 25px"/>
+                                </RadzenStack>
+                            </RadzenStack>
+                        </RadzenCard>
+                    </RadzenStack>
+                </RadzenContent>
+            }
             <RadzenStack Gap="25">
                 @foreach (var review in GetReviews())
                 {
                     <RadzenCard Style="border-radius: 10px; max-width: 650px; min-width: 650px">
-                        <RadzenStack Orientation="Radzen.Orientation.Horizontal">
+                        <RadzenStack Orientation="Orientation.Horizontal">
                             <RadzenImage Path="https://bootdey.com/img/Content/avatar/avatar6.png" Style="width: 50px; border-radius: 50%"/>
                             <RadzenStack Gap="0" Style="width: 100%">
-                                <RadzenRow Gap="5">
-                                    <RadzenText TextStyle="TextStyle.DisplayH6">@review.Title</RadzenText>
-                                    <RadzenButton Size="ButtonSize.Small" Text="@review.Rating.ToString()" Style="display: inline-block; position: relative; top: -5px" ButtonStyle="ButtonStyle.Dark" Icon="grade" />
-                                </RadzenRow>
+                                <RadzenText TextStyle="TextStyle.DisplayH6">@review.Title</RadzenText>
+
                                 <RadzenRow Gap="5">
                                     <RadzenText TextStyle="TextStyle.Caption">
                                         <RadzenLink Click="">@User.Username</RadzenLink>
@@ -44,6 +64,7 @@
                             </RadzenStack>
                         </RadzenStack>
                         <RadzenText Style="padding-top: 10px">@review.Description</RadzenText>
+                        <SfRating Value="review.Rating" Precision="PrecisionType.Exact" ReadOnly=true></SfRating>
                     </RadzenCard>
                 }
             </RadzenStack>
@@ -57,6 +78,8 @@
 
     private User User = new(){Username = "John Doe", Joined = new DateTime(2022, 4, 12)};
     private Movie movie = new();
+    private Review newReview = new();
+    private bool Display;
 
     protected override async Task OnInitializedAsync()
     {
@@ -78,4 +101,21 @@
         return $"movie/{id}";
     }
     
+    private async Task Submit()
+    {
+        newReview.MediaId = Id;
+        newReview.Rating = (double)newReview.Score / 2;
+        await ReviewService.WriteReviewAsync(newReview);
+        Close();
+    }
+    
+    private void Open()
+    {
+        Display = true;
+    }
+    
+    private void Close()
+    {
+        Display = false;
+    }
 }

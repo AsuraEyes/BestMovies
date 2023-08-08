@@ -1,6 +1,6 @@
 ﻿using System.Text;
-using PresentationTier.Models;
 using Newtonsoft.Json;
+using PresentationTier.Models;
 
 namespace PresentationTier.Data
 {
@@ -66,10 +66,8 @@ namespace PresentationTier.Data
                     var posts = JsonConvert.DeserializeObject<List<Post>>(content);
                     return posts;
                 }
-                else
-                {
-                    throw new Exception($"Failed to retrieve posts. StatusCode: {response.StatusCode}");
-                }
+
+                throw new Exception($"Failed to retrieve posts. StatusCode: {response.StatusCode}");
             }
             catch (Exception ex)
             {

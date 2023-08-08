@@ -1,7 +1,6 @@
 @page "/collection/{Id:int}"
 @using PresentationTier.Models
 @using PresentationTier.Data
-@using Orientation = Radzen.Orientation
 @using System.Globalization
 
 @inject NavigationManager NavigationManager
@@ -61,7 +60,7 @@
     [Parameter]
     public int Id { get; set; }
 
-    private Models.MovieCollection movieCollection = new();
+    private MovieCollection movieCollection = new();
     private Movie[] movies = {};
 
     protected override async Task OnInitializedAsync()
