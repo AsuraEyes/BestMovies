@@ -12,3 +12,13 @@ obj
 .vs
 .dtbcache.v2
 FolderProfile.pubxml.user
+## NuGet Packages
+*.nuget.props
+*.nuget.targets
+
+# NuGet Packages Folder
+/packages/
+
+# .NET Core
+project.lock.json
+project.fragment.lock.json
