@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
 using MovieServer.Data;
 using MovieServer.MiddlePoints;
 using MovieServer.Models;
@@ -34,7 +35,7 @@ public class CollectionController : Controller
     }
 
     [HttpPost]
-    public async Task<ActionResult> CreateCollectionAsync([FromBody] Collection collection)
+    public async Task<ActionResult> CreateCollectionAsync(Collection collection)
     {
         try
         {
@@ -66,11 +67,11 @@ public class CollectionController : Controller
     
     [HttpGet]
     [Route("/UserCollection")]
-    public async Task<ActionResult<Collection>> GetCollectionAsync([FromQuery] string email, int id)
+    public async Task<ActionResult<Collection>> GetCollectionAsync([FromQuery] ObjectId id)
     {
         try
         {
-            var result = await collectionMiddlePoint.GetCollectionAsync(email, id);
+            var result = await collectionMiddlePoint.GetCollectionAsync(id);
             return Ok(result);
         }
         catch (Exception e)

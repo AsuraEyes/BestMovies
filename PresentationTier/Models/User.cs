@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace PresentationTier.Models;
 
@@ -24,4 +26,10 @@ public class User
     public byte[] Backdrop { get; set; }  // Backdrop picture URL
     public DateTime Joined { get; set; } = DateTime.Now;
     public DateTime DateOfBirth { get; set; }
+    public ObjectId Id { get; set; }
+    
+    public User()
+    {
+        Id = ObjectId.GenerateNewId();
+    }
 }

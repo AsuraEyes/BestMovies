@@ -30,9 +30,9 @@ public class MovieMiddlePoint : IMovieMiddlePoint
         {
             movie.MovieCollection.Backdrop = SetImage(movie.MovieCollection.Backdrop);
         }
-        movie.Credits.TopCast = SetCast();
         movie.Credits.Cast = SetPeople(movie.Credits.Cast);
         movie.Credits.Crew = SetPeople(movie.Credits.Crew);
+        movie.Credits.TopCast = SetCast();
         movie.Language = SetLanguage();
 
         return movie;
@@ -147,12 +147,13 @@ public class MovieMiddlePoint : IMovieMiddlePoint
 
     private Person[] SetCast()
     {
-        IList<Person> people = new List<Person>();
-        
-        for (var i = 0; i < 9; i++)
+        Person[] people = {};
+
+        var cast = movie.Credits.Cast;
+
+        for (var i = 0; i <= 8 && i < cast.Length; i++)
         {
-            people.Add(movie.Credits.Cast[i]);
-            people[i].Picture = SetImage(movie.Credits.Cast[i].Picture);
+            people[i] = cast[i];
         }
 
         return people.ToArray();

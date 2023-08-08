@@ -1,6 +1,6 @@
 using MovieServer.Models;
 
-namespace MovieServer.DAO;
+namespace MovieServer.Repository;
 
 public interface IReviewsRepository
 {

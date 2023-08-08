@@ -43,10 +43,9 @@ public class CollectionMiddlePoint : ICollectionMiddlePoint
         return collection;
     }
 
-    public async Task<Collection> GetCollectionAsync(string email, int id)
+    public async Task<Collection> GetCollectionAsync(ObjectId id)
     {
-        
-        var collection = await collectionRepository.GetCollectionAsync(email, id);
+        var collection = await collectionRepository.GetCollectionAsync(id);
         return collection;
     }
     

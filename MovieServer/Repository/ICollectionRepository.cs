@@ -7,5 +7,5 @@ public interface ICollectionRepository
 { 
     Task CreateCollectionAsync(Collection collection);
     Task<IList<Collection>> GetUserCollectionsAsync(string email);
-    Task<Collection> GetCollectionAsync(string email, int id);
+    Task<Collection> GetCollectionAsync(ObjectId id);
 }

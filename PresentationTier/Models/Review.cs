@@ -6,7 +6,7 @@ namespace PresentationTier.Models;
 
 public class Review
 {
-    public string Id { get; set; }
+    public ObjectId Id { get; set; }
     public string Title { get; set; }
     public double Rating { get; set; }
     public int Score { get; set; }
@@ -16,4 +16,9 @@ public class Review
     public DateTime? Edited { get; set; }
     public string Email { get; set; }
     public int MediaId { get; set; }
+    
+    public Review()
+    {
+        Id = ObjectId.GenerateNewId();
+    }
 }
