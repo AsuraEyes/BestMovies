@@ -11,8 +11,8 @@ namespace PresentationTier.Data
 
 
         // API endpoints
-        //  private const string uri = "https://newbestmoviesapi.azurewebsites.net";
-        private const string uri = "https://localhost:7254";
+          private const string uri = "https://newbestmoviesapi.azurewebsites.net";
+       // private const string uri = "https://localhost:7254";
 
         public UserService()
         {
@@ -22,7 +22,7 @@ namespace PresentationTier.Data
         // Validate user credentials
         public async Task<User> ValidateUser(string email, string password)
         {
-            var userString = await client.GetStringAsync(uri + $"/Login?email={email}&password={password}");
+            var userString = await client.GetStringAsync(uri + $"/login?email={email}&password={password}");
             var user = JsonConvert.DeserializeObject<User>(userString);
             return user;
         }

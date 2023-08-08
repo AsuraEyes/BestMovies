@@ -26,10 +26,5 @@ public class User
     public byte[] Backdrop { get; set; }  // Backdrop picture URL
     public DateTime Joined { get; set; } = DateTime.Now;
     public DateTime DateOfBirth { get; set; }
-    public ObjectId Id { get; set; }
-    
-    public User()
-    {
-        Id = ObjectId.GenerateNewId();
-    }
+
 }
