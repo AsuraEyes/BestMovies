@@ -14,8 +14,8 @@ namespace PresentationTier.Data
         }
 
         // API endpoints
-        //  private const string uri = "https://newbestmoviesapi.azurewebsites.net";
-        private const string uri = "https://localhost:7254";
+          private const string uri = "https://newbestmoviesapi.azurewebsites.net";
+        //private const string uri = "https://localhost:7254";
 
         // Save a new post
         public async Task SavePost(Post post)
