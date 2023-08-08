@@ -8,8 +8,7 @@ public class Collection
 {
      [BsonId]
     public ObjectId Id { get; set; }
-    [BsonElement("user")]
-    [BsonRepresentation(BsonType.ObjectId)]
+   
     public string Email { set; get; }
     public string Name { set; get; }
     [JsonPropertyName("poster_path")]
