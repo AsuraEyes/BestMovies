@@ -16,11 +16,19 @@ public class ReviewController : Controller
     }
 
     [HttpPost]
-    public async Task<ActionResult<Review>> CreateReviewAsync([FromBody] Review review)
+    [Route("/WriteReview")]
+    public async Task<ActionResult<Review>> WriteReviewAsync([FromBody] Review review)
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        
         try
         {
-            await reviewMiddlePoint.CreateReviewAsync(review);
+            Console.WriteLine("Test");
+            Console.WriteLine("Review: " + review.Title);
+            await reviewMiddlePoint.WriteReviewAsync(review);
             return Ok(review);
         }
         catch (Exception e)

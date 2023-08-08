@@ -1,21 +1,19 @@
-using System.ComponentModel.DataAnnotations;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson.Serialization.IdGenerators;
 
 namespace PresentationTier.Models;
 
 public class Review
 {
     public string Id { get; set; }
-    [Required]
     public string Title { get; set; }
     public double Rating { get; set; }
-    [Required]
+    public int Score { get; set; }
     public string Description { get; set; }
     public bool IsSpoiler { get; set; }
-    public DateTime Created { get;}
-    public DateTime Edited { get; set; }
-    public int Count { set; get; } = 0;
-    public int NumberOfLikes { set; get; }
-    public User User { get; set; }
+    public DateTime Created { get; } = DateTime.Now;
+    public DateTime? Edited { get; set; }
+    public string Email { get; set; }
     public int MediaId { get; set; }
-    public string[] LikedUsers { set; get; }
 }

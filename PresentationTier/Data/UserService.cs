@@ -1,9 +1,7 @@
 using System.Text;
-using System.Net.Http;
-using PresentationTier.Models;
 using Microsoft.AspNetCore.Components.Forms;
 using Newtonsoft.Json;
-using PresentationTier.Authorization;
+using PresentationTier.Models;
 
 namespace PresentationTier.Data
 {
@@ -82,10 +80,8 @@ namespace PresentationTier.Data
 
                     return user;
                 }
-                else
-                {
-                    throw new Exception($"Failed to retrieve the user. StatusCode: {response.StatusCode}");
-                }
+
+                throw new Exception($"Failed to retrieve the user. StatusCode: {response.StatusCode}");
             }
             catch (Exception ex)
             {

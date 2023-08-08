@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "lee0YXWJCee8KVhSxfL+Mwb6X7TPJBWPnhM+1hftx7hKK/0Ef+mIf+iuLN/aWDADTz7Hs7asohzeTMJX9lakaQ==",
+  "dgSpecHash": "vNxAFgowWe08Re2IYYqbk4IRosTyDQhwjhOy4Eopoz9WKYysZxzlnQezblbsZxRG2wIj8chus7kwrRaUQXh+pg==",
   "success": true,
   "projectFilePath": "/Users/sura/Documents/Documents - Timothy’s MacBook Pro/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/PresentationTier.csproj",
   "expectedPackageFiles": [
@@ -24,13 +24,21 @@
     "/Users/sura/.nuget/packages/microsoft.extensions.primitives/7.0.0/microsoft.extensions.primitives.7.0.0.nupkg.sha512",
     "/Users/sura/.nuget/packages/microsoft.jsinterop/7.0.5/microsoft.jsinterop.7.0.5.nupkg.sha512",
     "/Users/sura/.nuget/packages/microsoft.netcore.platforms/1.1.0/microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "/Users/sura/.nuget/packages/mongodb.bson/2.19.1/mongodb.bson.2.19.1.nupkg.sha512",
     "/Users/sura/.nuget/packages/netstandard.library/2.0.0/netstandard.library.2.0.0.nupkg.sha512",
-    "/Users/sura/.nuget/packages/newtonsoft.json/12.0.2/newtonsoft.json.12.0.2.nupkg.sha512",
+    "/Users/sura/.nuget/packages/newtonsoft.json/13.0.2/newtonsoft.json.13.0.2.nupkg.sha512",
     "/Users/sura/.nuget/packages/nunit/3.13.3/nunit.3.13.3.nupkg.sha512",
     "/Users/sura/.nuget/packages/radzen.blazor/4.10.1/radzen.blazor.4.10.1.nupkg.sha512",
     "/Users/sura/.nuget/packages/sixlabors.imagesharp/3.0.1/sixlabors.imagesharp.3.0.1.nupkg.sha512",
+    "/Users/sura/.nuget/packages/syncfusion.blazor/22.2.8/syncfusion.blazor.22.2.8.nupkg.sha512",
+    "/Users/sura/.nuget/packages/syncfusion.excelexport.net.core/22.2.8/syncfusion.excelexport.net.core.22.2.8.nupkg.sha512",
+    "/Users/sura/.nuget/packages/syncfusion.licensing/22.2.8/syncfusion.licensing.22.2.8.nupkg.sha512",
+    "/Users/sura/.nuget/packages/syncfusion.pdfexport.net.core/22.2.8/syncfusion.pdfexport.net.core.22.2.8.nupkg.sha512",
     "/Users/sura/.nuget/packages/system.io.pipelines/7.0.0/system.io.pipelines.7.0.0.nupkg.sha512",
-    "/Users/sura/.nuget/packages/system.linq.dynamic.core/1.2.22/system.linq.dynamic.core.1.2.22.nupkg.sha512"
+    "/Users/sura/.nuget/packages/system.linq.dynamic.core/1.2.22/system.linq.dynamic.core.1.2.22.nupkg.sha512",
+    "/Users/sura/.nuget/packages/system.runtime.compilerservices.unsafe/6.0.0/system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
+    "/Users/sura/.nuget/packages/system.text.encodings.web/6.0.0/system.text.encodings.web.6.0.0.nupkg.sha512",
+    "/Users/sura/.nuget/packages/system.text.json/6.0.0/system.text.json.6.0.0.nupkg.sha512"
   ],
   "logs": []
 }

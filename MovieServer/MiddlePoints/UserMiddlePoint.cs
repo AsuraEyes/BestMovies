@@ -47,7 +47,7 @@ namespace MovieServer.MiddlePoints
 
         private async Task CreateUserCollections(string email)
         {
-            var favorites = new UserCollection
+            var favorites = new Collection
             {
                 Email = email,
                 Name = "Favorites",
@@ -56,7 +56,7 @@ namespace MovieServer.MiddlePoints
             
             await collectionMiddlePoint.CreateCollectionAsync(favorites);
             
-            var watchList = new UserCollection
+            var watchList = new Collection
             {
                 Email = email,
                 Name = "WatchList",

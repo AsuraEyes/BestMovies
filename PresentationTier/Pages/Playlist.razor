@@ -1,0 +1,11 @@
+@using PresentationTier.Models
+<div class="rz-p-12 rz-text-align-center">
+    <RadzenCheckBoxList Data="@data" @bind-Value=@values TValue="int" TextProperty="Name" ValueProperty="Id" Orientation=Orientation.Vertical class="mb-5"/>
+</div>
+
+@code {
+    [Parameter]
+    public IEnumerable<int> values { get; set; }
+    [Parameter]
+    public IEnumerable<Collection> data { get; set; }
+}

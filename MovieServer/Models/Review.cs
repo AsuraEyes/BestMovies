@@ -7,7 +7,7 @@ namespace MovieServer.Models;
 
 public class Review
 {
-    [BsonId(IdGenerator = typeof(StringObjectIdGenerator))]
+    [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]
     public string Id { get; set; }
     [BsonElement("title")]
@@ -21,10 +21,9 @@ public class Review
     [BsonElement("created")]
     public DateTime Created { get; } = DateTime.Now;
     [BsonElement("edited")]
-    public DateTime Edited { get; set; }
+    public DateTime? Edited { get; set; }
     [BsonElement("user")]
-    [BsonRepresentation(BsonType.ObjectId)]
-    public string UserId { get; set; }
+    public string Email { get; set; }
     [BsonElement("media")]
     public int MediaId { get; set; }
 }

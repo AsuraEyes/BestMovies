@@ -14,9 +14,9 @@ public class ReviewMiddlePoint : IReviewMiddlePoint
         reviews = new List<Review>();
     }
 
-    public async Task CreateReviewAsync(Review review)
+    public async Task WriteReviewAsync(Review review)
     {
-        await reviewsRepository.CreateReviewAsync(review);
+        await reviewsRepository.WriteReviewAsync(review);
     }
 
     public async Task<IList<Review>> GetAllMovieReviewsAsync(int mediaId)

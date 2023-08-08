@@ -59,11 +59,6 @@ public class MediaMiddlePoint : IMediaMiddlePoint
             page = 1;
         }
         media = await mediaService.GetSearchAsync(query, page);
-        
-        foreach (var m in media.ListOfMedia)
-        {
-            Console.WriteLine("Name: " + m.Name);
-        }
 
         foreach (var m in media.ListOfMedia)
         {

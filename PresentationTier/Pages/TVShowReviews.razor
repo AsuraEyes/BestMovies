@@ -1,7 +1,7 @@
 @page "/tv/{Id:int}/reviews"
 @using PresentationTier.Models
-@using System.Globalization
 @using PresentationTier.Data.Media
+@using System.Globalization
 
 @inject NavigationManager NavigationManager
 
@@ -10,7 +10,7 @@
 <PageTitle>@tv.Name - Reviews</PageTitle>
 <RadzenStack Gap="30">
     <RadzenRow Style="height: 117px">
-        <RadzenStack Orientation="Radzen.Orientation.Horizontal" Style="width: 100%">
+        <RadzenStack Orientation="Orientation.Horizontal" Style="width: 100%">
             <RadzenImage Path="@tv.Poster" Style="max-height: 125px; padding-left: 5px; padding-top: 5px; padding-bottom: 5px"/>
             <RadzenStack Gap="0" Style="width: 100%">
                 <RadzenText Style="margin-top: 15px" TextStyle="TextStyle.DisplayH4">
@@ -22,13 +22,13 @@
     </RadzenRow>
 
     <RadzenRow>
-        <RadzenStack Orientation="Radzen.Orientation.Horizontal" Style="width: 100%">
+        <RadzenStack Orientation="Orientation.Horizontal" Style="width: 100%">
             <RadzenButton Text="Write Review" Variant="Variant.Outlined" ButtonStyle="ButtonStyle.Dark" Icon="edit" Style="border-radius: 25px; max-height: 36px"/>
             <RadzenStack Gap="25">
                 @foreach (var review in GetReviews())
                 {
                     <RadzenCard Style="border-radius: 10px; max-width: 650px; min-width: 650px">
-                        <RadzenStack Orientation="Radzen.Orientation.Horizontal">
+                        <RadzenStack Orientation="Orientation.Horizontal">
                             <RadzenImage Path="https://bootdey.com/img/Content/avatar/avatar6.png" Style="width: 50px; border-radius: 50%"/>
                             <RadzenStack Gap="0" Style="width: 100%">
                                 <RadzenRow Gap="5">

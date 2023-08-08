@@ -52,6 +52,10 @@
               "target": "Package",
               "version": "[13.1.2, )"
             },
+            "MongoDB.Bson": {
+              "target": "Package",
+              "version": "[2.19.1, )"
+            },
             "NUnit": {
               "target": "Package",
               "version": "[3.13.3, )"
@@ -63,6 +67,10 @@
             "SixLabors.ImageSharp": {
               "target": "Package",
               "version": "[3.0.1, )"
+            },
+            "Syncfusion.Blazor": {
+              "target": "Package",
+              "version": "[22.2.8, )"
             }
           },
           "imports": [

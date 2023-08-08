@@ -5,7 +5,7 @@ namespace MovieServer.Repository;
 
 public interface ICollectionRepository
 { 
-    Task<string> CreateCollectionAsync(UserCollection collection);
-    Task<IList<UserCollection>> GetUserCollectionsAsync(string email);
-    Task<UserCollection> GetCollectionAsync(ObjectId id);
+    Task CreateCollectionAsync(Collection collection);
+    Task<IList<Collection>> GetUserCollectionsAsync(string email);
+    Task<Collection> GetCollectionAsync(string email, int id);
 }
