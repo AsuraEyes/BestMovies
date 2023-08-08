@@ -290,7 +290,7 @@
         newPost = new Post();
         await base.OnInitializedAsync();
 
-        navigationManager.NavigateTo(navigationManager.Uri, forceLoad: true);
+        navigationManager.NavigateTo("/");
     }
 
     private async Task LikePost(Post post)
