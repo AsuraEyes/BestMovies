@@ -82,29 +82,36 @@
 </div>
 
 @code {
+    // Initialize a user instance with default DateOfBirth set to today's date
     private User user = new()
         {
             DateOfBirth = DateTime.Now.Date
         };
 
+    // Define variables for backdrop and profile images
     private IBrowserFile? backdropImage;
     private IBrowserFile? profileImage;
 
-    private string selectedCountry;
+    // Store the selected country and dictionary of calling codes
+
     private Dictionary<string, string> callingCodes = CountryCallingCodes.CallingCodes;
 
+    // Handle backdrop image selection event
     private async Task HandleBackdropPictureSelection(InputFileChangeEventArgs e)
     {
         backdropImage = e.File;
     }
 
+    // Handle profile image selection event
     private async Task HandleProfilePictureSelection(InputFileChangeEventArgs e)
     {
         profileImage = e.File;
     }
 
+    // Save the user's account details
     private async Task SaveAccount()
     {
+        // Validate user input before proceeding
         if (!ValidateUserInput())
         {
             return;
@@ -112,19 +119,21 @@
 
         try
         {
+            // Check profile image size
             if (profileImage != null && profileImage.Size > 512000)
             {
                 notificationService.Notify(NotificationSeverity.Error, "Error creating user, profile image cannot be larger than 500 KB");
                 return;
             }
 
+            // Check backdrop image size
             if (backdropImage != null && backdropImage.Size > 512000)
             {
                 notificationService.Notify(NotificationSeverity.Error, "Error creating user, backdrop image cannot be larger than 500 KB");
                 return;
             }
 
-            // Call the user service with the appropriate images
+            // Call the user service to save account with images
             await userService.SaveAccount(user, profileImage, backdropImage);
         }
         catch (Exception ex)
@@ -132,9 +141,11 @@
             notificationService.Notify(NotificationSeverity.Error, "Error creating user", ex.Message);
         }
 
+        // Navigate to the login page after successful account creation
         navigationManager.NavigateTo("/Login");
     }
 
+    // Validate user input before saving
     private bool ValidateUserInput()
     {
         if (string.IsNullOrWhiteSpace(user.Email) ||
@@ -151,10 +162,10 @@
         return true;
     }
 
-
+    // Cancel account creation and navigate back to the main page
     private void Cancel()
     {
-        // Redirect to the cancel page or navigate to another route
         navigationManager.NavigateTo("/");
     }
 }
+

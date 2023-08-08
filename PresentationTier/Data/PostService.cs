@@ -15,7 +15,6 @@ namespace PresentationTier.Data
 
         // API endpoints
           private const string uri = "https://newbestmoviesapi.azurewebsites.net";
-        //private const string uri = "https://localhost:7254";
 
         // Save a new post
         public async Task SavePost(Post post)
@@ -196,14 +195,5 @@ namespace PresentationTier.Data
                 throw new Exception("An error occurred while updating the post.", ex);
             }
         }
-
-
-
-        //Get post by id
-
-        //public async Task getPostByIdAsync(string email)
-        //{
-
-        //}
     }
 }
