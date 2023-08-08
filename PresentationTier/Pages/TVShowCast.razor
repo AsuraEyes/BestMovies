@@ -1,22 +1,22 @@
-@page "/movie/{Id:int}/cast"
+@page "/tv/{Id:int}/cast"
 @using PresentationTier.Models
 @using PresentationTier.Data.Media
 
 @inject NavigationManager NavigationManager
 
-@inject IMovieService MovieService
+@inject ITVService TVService
 
-<PageTitle>@movie.Title - Cast</PageTitle>
+<PageTitle>@tv.Name - Cast</PageTitle>
 <RadzenStack Style="width: 1720px" Gap="45">
     <RadzenStack Style="width: 100%; max-height: 200px; background-color: rgba(0, 0, 0, 0.8)">
-        <RadzenImage Path="@movie.Backdrop" Style="opacity: 40%; mask-image: linear-gradient(to top, transparent 750px, black); pointer-events: none"/>
+        <RadzenImage Path="@tv.Backdrop" Style="opacity: 40%; mask-image: linear-gradient(to top, transparent 750px, black); pointer-events: none"/>
         <RadzenStack Orientation="Orientation.Horizontal" Style="position: absolute; margin: 45px 160px; width: 1400px">
-            <RadzenImage Path="@movie.Poster" Style="max-height: 125px; padding-left: 5px; padding-top: 5px; padding-bottom: 5px"/>
+            <RadzenImage Path="@tv.Poster" Style="max-height: 125px; padding-left: 5px; padding-top: 5px; padding-bottom: 5px"/>
             <RadzenStack Gap="0" Style="width: 100%">
                 <RadzenText Style="margin-top: 15px; color: #ffffff; font-weight: 100" TextStyle="TextStyle.DisplayH4">
-                    <RadzenLink Path="@NavigateToMovie(Id)" Style="color: #ffffff; font-weight: 600">@movie.Title</RadzenLink> (@movie.ReleaseDate.Year)
+                    <RadzenLink Path="@NavigateToTV(Id)" Style="color: #ffffff; font-weight: 600">@tv.Name</RadzenLink> (@tv.Premier.Year)
                 </RadzenText>
-                <RadzenLink Text="← Back to main" Path="@NavigateToMovie(Id)"/>
+                <RadzenLink Text="← Back to main" Path="@NavigateToTV(Id)"/>
             </RadzenStack>
         </RadzenStack>
     </RadzenStack>
@@ -55,20 +55,20 @@
     [Parameter]
     public int Id { get; set; }
 
-    private Movie movie = new();
+    private TV tv = new();
     private Person[] cast = {};
     private Person[] crew = {};
 
     protected override async Task OnInitializedAsync()
     {
-        movie = await MovieService.GetMovieAsync(Id);
-        cast = movie.Credits.Cast;
-        crew = movie.Credits.Crew;
+        tv = await TVService.GetTVAsync(Id);
+        cast = tv.Credits.Cast;
+        crew = tv.Credits.Crew;
     }
     
-    private static string NavigateToMovie(int id)
+    private static string NavigateToTV(int id)
     {
-        return $"movie/{id}";
+        return $"tv/{id}";
     }
     
     private void NavigateToCastMember(int id)

@@ -51,9 +51,26 @@ public class MediaMiddlePoint : IMediaMiddlePoint
         
         return media.ListOfMedia;
     }
+
+    public async Task<MediaList> GetSearchAsync(string query, int page)
+    {
+        if (page == 0)
+        {
+            page = 1;
+        }
+        media = await mediaService.GetSearchAsync(query, page);
+
+        foreach (var m in media.ListOfMedia)
+        {
+            m.Poster = SetImage(m.Poster);
+            m.Picture = SetImage(m.Picture);
+        }
+        
+        return media;
+    }
     
     private static string SetImage(string img)
     {
-        return img.Insert(0, Image);
+        return Image + img;
     }
 }

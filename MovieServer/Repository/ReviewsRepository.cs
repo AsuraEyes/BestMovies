@@ -1,8 +1,7 @@
-using MongoDB.Bson;
 using MongoDB.Driver;
 using MovieServer.Models;
 
-namespace MovieServer.DAO;
+namespace MovieServer.Repository;
 
 public class ReviewsRepository : IReviewsRepository
 {
@@ -10,8 +9,7 @@ public class ReviewsRepository : IReviewsRepository
     private IMongoDatabase database;
     private IMongoCollection<Review> reviews;
 
-    private const string Connection = "mongodb://newbestmovies:B48gCrdEoKZ6qoDtvsGCVZ1s4aG86BerK9IagWEXvFEyFj4qOGqT8PZeXMSWYNtOHGUNJKp1wtY6ACDbDYb9rg==@newbestmovies.mongo.cosmos.azure.com:10255/?ssl=true&retrywrites=false&replicaSet=globaldb&maxIdleTimeMS=120000&appName=@newbestmovies@";
-
+    private const string Connection = "mongodb://newbestmoviesv2:Jo7mRI46lGNRZN28rJxOAArrOGo8RySauO9udMUB9I32z8Zq9WQPNhKGLsiRMZc2EVAyVJZg8J4eACDbkgeadg==@newbestmoviesv2.mongo.cosmos.azure.com:10255/?ssl=true&retrywrites=false&replicaSet=globaldb&maxIdleTimeMS=120000&appName=@newbestmoviesv2@";
     public ReviewsRepository()
     {
         client = new MongoClient(Connection);
@@ -19,7 +17,7 @@ public class ReviewsRepository : IReviewsRepository
         reviews = database.GetCollection<Review>("reviews");
     }
 
-    public async Task CreateReviewAsync(Review review)
+    public async Task WriteReviewAsync(Review review)
     {
         await reviews.InsertOneAsync(review);
     }

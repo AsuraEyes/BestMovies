@@ -1,7 +1,8 @@
+using Microsoft.AspNetCore.Components.Forms;
+using PresentationTier.Models;
+
 namespace PresentationTier.Data
 {
-    using Microsoft.AspNetCore.Components.Forms;
-    using PresentationTier.Models;
     public interface IUserService
     {
         Task<User> ValidateUser(string email, string password);

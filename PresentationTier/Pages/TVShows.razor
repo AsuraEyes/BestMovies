@@ -1,23 +1,23 @@
-@page "/movie/search"
+@page "/tv"
 @using PresentationTier.Models
 @using PresentationTier.Data.Media
 
 @inject NavigationManager NavigationManager
 
-@inject IMovieService MovieService
+@inject ITVService TVService
 
-<PageTitle>Movies</PageTitle>
+<PageTitle>TV Shows</PageTitle>
 <RadzenRow Style="width: 1720px">
     <RadzenStack Style="margin: 45px 160px; width: 1600px">
-        <RadzenText Text="Movies" TextStyle="TextStyle.DisplayH4"/>
+        <RadzenText Text="TV Shows" TextStyle="TextStyle.DisplayH4"/>
         <RadzenStack Orientation="Orientation.Horizontal" Gap="0" Style="position: relative" JustifyContent="JustifyContent.Center">
-                <RadzenTextBox Placeholder="Search..." @bind-Value="@search" Style="border-radius: 25px 0 0 25px; border: 1px solid rgb(33, 33, 33); width: 500px"/>
-                <RadzenButton Style="border-radius: 0 25px 25px 0;" ButtonStyle="ButtonStyle.Dark" Icon="search" Variant="Variant.Outlined" Click="SearchMovie"/>
-            </RadzenStack>
+            <RadzenTextBox Placeholder="Search..." @bind-Value="@search" Style="border-radius: 25px 0 0 25px; border: 1px solid rgb(33, 33, 33); width: 500px"/>
+            <RadzenButton Style="border-radius: 0 25px 25px 0;" ButtonStyle="ButtonStyle.Dark" Icon="search" Variant="Variant.Outlined" Click="SearchTVShow"/>
+        </RadzenStack>
         <RadzenRow>
-            @foreach (var movie in movies)
+            @foreach (var movie in shows)
             {
-                <RadzenStack Style="width: 250px" onclick="@(() => NavigateToMovie(movie.Id))">
+                <RadzenStack Style="width: 250px" onclick="@(() => NavigateToTVShow(movie.Id))">
                     <RadzenCard Style="border-radius: 10px; padding: 0">
                         <RadzenImage Path="@movie.Poster" Style="border-radius: 10px; width: 100%"/>
                     </RadzenCard>
@@ -46,30 +46,21 @@
 </RadzenRow>
 
 @code {
-    [Parameter]
-    [SupplyParameterFromQuery(Name = "query")]
-    public string search { get; set;}
     private int Page = 1;
+    private string search = "";
 
     private MediaList media = new ();
-    private Media[] movies = {};
+    private Media[] shows = {};
 
     protected override async Task OnInitializedAsync()
     {
-        media = await MovieService.GetMoviesAsync(search, Page);
-        movies = media.ListOfMedia;
+        media = await TVService.GetTVShowsAsync(Page);
+        shows = media.ListOfMedia;
     }
     
-    private void SearchMovie()
+    private void SearchTVShow()
     {
-        if (search.Equals(""))
-        {
-            NavigationManager.NavigateTo("/movie");
-        }
-        else
-        {
-            NavigationManager.NavigateTo($"/movie/search?query={search}", true);
-        }
+        NavigationManager.NavigateTo(search.Equals("") ? "/tv" : $"/tv/search?query={search}");
     }
 
     private async Task Next()
@@ -84,8 +75,8 @@
         await OnInitializedAsync();
     }
     
-    private void NavigateToMovie(int id)
+    private void NavigateToTVShow(int id)
     {
-        NavigationManager.NavigateTo($"/movie/{id}");
+        NavigationManager.NavigateTo($"/tv/{id}",true);
     }
 }

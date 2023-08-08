@@ -7,9 +7,8 @@ namespace MovieServer.Models;
 
 public class Review
 {
-    [BsonId(IdGenerator = typeof(StringObjectIdGenerator))]
-    [BsonRepresentation(BsonType.ObjectId)]
-    public string Id { get; set; }
+    [BsonId]
+    public ObjectId Id { get; set; }
     [BsonElement("title")]
     public string Title { get; set; }
     [BsonElement("rating")]
@@ -19,19 +18,11 @@ public class Review
     [BsonElement("is_spoiler")]
     public bool IsSpoiler { get; set; }
     [BsonElement("created")]
-    public DateTime Created { get; set; }
+    public DateTime Created { get; } = DateTime.Now;
     [BsonElement("edited")]
-    public DateTime Edited { get; set; }
-    [BsonElement("count")]
-    public int Count { set; get; }
-    [BsonElement("number_of_likes")]
-    public int NumberOfLikes { set; get; }
+    public DateTime? Edited { get; set; }
     [BsonElement("user")]
-    [BsonRepresentation(BsonType.ObjectId)]
-    public string UserId { get; set; }
+    public string Email { get; set; }
     [BsonElement("media")]
     public int MediaId { get; set; }
-    [BsonElement("users")]
-    [BsonRepresentation(BsonType.ObjectId)]
-    public string[] LikedUsers { set; get; }
 }

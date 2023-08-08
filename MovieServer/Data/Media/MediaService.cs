@@ -43,4 +43,14 @@ public class MediaService : IMediaService
         });
         return media!;
     }
+
+    public async Task<MediaList> GetSearchAsync(string query, int page)
+    {
+        var mediaString = await client.GetStringAsync(uri + "/search/multi" + api_key + $"&query={query}&page={page}");
+        var media = JsonSerializer.Deserialize<MediaList>(mediaString, new JsonSerializerOptions
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        });
+        return media!;
+    }
 }

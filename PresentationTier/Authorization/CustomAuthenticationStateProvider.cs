@@ -29,7 +29,7 @@ public class CustomAuthenticationStateProvider : AuthenticationStateProvider
             var userAsJson = await jsRuntime.InvokeAsync<string>("sessionStorage.getItem", "currentUser");
             if (!string.IsNullOrEmpty(userAsJson))
             {
-                var tmp = JsonSerializer.Deserialize<Models.User>(userAsJson);
+                var tmp = JsonSerializer.Deserialize<User>(userAsJson);
                 await ValidateLogin(tmp.Email, tmp.Password);
             }
         }

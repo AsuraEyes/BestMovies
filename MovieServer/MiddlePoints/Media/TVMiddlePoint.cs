@@ -22,10 +22,28 @@ public class TVMiddlePoint : ITVMiddlePoint
     {
         tv = await tvService.GetTVAsync(id);
         tv.Trailer = SetTrailer();
-        tv.Poster = SetPoster();
-        tv.Backdrop = SetBackdrop();
-        tv.Credits.Cast = SetCast();
+        tv.Poster = SetImage(tv.Poster);
+        tv.Backdrop = SetImage(tv.Backdrop);
+        tv.Credits.Cast = SetPeople(tv.Credits.Cast);
+        tv.Credits.Crew = SetPeople(tv.Credits.Crew);
+        tv.Credits.TopCast = SetCast();
+        tv.Language = SetLanguage();
 
+        return tv;
+    }
+    
+    public async Task<MediaList> GetTVAsync(string query, int page)
+    {
+        if (page == 0)
+        {
+            page = 1;
+        }
+        var tv = await tvService.GetTVAsync(query, page);
+
+        foreach (var m in tv.ListOfMedia)
+        {
+            m.Poster = SetImage(m.Poster);
+        }
         return tv;
     }
 
@@ -64,24 +82,42 @@ public class TVMiddlePoint : ITVMiddlePoint
         return tv.Trailer;
     }
 
-    private string SetPoster()
+    private string SetImage(string img)
     {
-        return tv.Poster.Insert(0, Image);
+        return Image + img;
     }
     
-    private string SetBackdrop()
+    private Person[] SetPeople(Person[] people)
     {
-        return tv.Backdrop.Insert(0, Image);
+        foreach (var person in people)
+        {
+            person.Picture = SetImage(person.Picture);
+        }
+        return people;
     }
     
     private Person[] SetCast()
     {
-        foreach (var person in tv.Credits.Cast)
+        IList<Person> people = new List<Person>();
+
+        for (var i = 0; i <= 8; i++)
         {
-            var img = Image + person.Picture;
-            person.Picture = img;
+            people.Add(tv.Credits.Cast[i]);
         }
-    
-        return tv.Credits.Cast;
+
+        return people.ToArray();
+    }
+
+    private string SetLanguage()
+    {
+        foreach (var sl in tv.SpokenLanguages)
+        {
+            if (sl.iso_639_1.Equals(tv.Language))
+            {
+                tv.Language = sl.Name;
+            }
+        }
+
+        return tv.Language;
     }
 }
