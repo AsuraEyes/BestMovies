@@ -24,9 +24,9 @@ public class TVMiddlePoint : ITVMiddlePoint
         tv.Trailer = SetTrailer();
         tv.Poster = SetImage(tv.Poster);
         tv.Backdrop = SetImage(tv.Backdrop);
-        tv.Credits.TopCast = SetCast();
         tv.Credits.Cast = SetPeople(tv.Credits.Cast);
         tv.Credits.Crew = SetPeople(tv.Credits.Crew);
+        tv.Credits.TopCast = SetCast();
         tv.Language = SetLanguage();
 
         return tv;
@@ -84,7 +84,7 @@ public class TVMiddlePoint : ITVMiddlePoint
 
     private string SetImage(string img)
     {
-        return img.Insert(0, Image);
+        return Image + img;
     }
     
     private Person[] SetPeople(Person[] people)
@@ -99,11 +99,10 @@ public class TVMiddlePoint : ITVMiddlePoint
     private Person[] SetCast()
     {
         IList<Person> people = new List<Person>();
-        
-        for (var i = 0; i < 9; i++)
+
+        for (var i = 0; i <= 8; i++)
         {
             people.Add(tv.Credits.Cast[i]);
-            people[i].Picture = SetImage(tv.Credits.Cast[i].Picture);
         }
 
         return people.ToArray();

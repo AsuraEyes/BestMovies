@@ -9,7 +9,7 @@ namespace PresentationTier.Data;
 public class ReviewService : IReviewService
 {
     private readonly HttpClient client;
-    private const string uri = "https://newbestmoviesapi.azurewebsites.net/";
+    private const string uri = "https://localhost:7254/";
 
     public ReviewService()
     {
@@ -18,9 +18,8 @@ public class ReviewService : IReviewService
     
     public async Task WriteReviewAsync(Review review)
     {
-        Console.WriteLine("test: " + review.Title);
         var newReview = JsonSerializer.Serialize(review);
         HttpContent content = new StringContent(newReview, Encoding.UTF8, "application/json");
-        await client.PostAsync("WriteReview", content);
+        await client.PostAsync(uri+"WriteReview", content);
     }
 }

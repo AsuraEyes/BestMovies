@@ -10,7 +10,7 @@ public class CollectionRepository : ICollectionRepository
     private readonly IMongoDatabase database;
     private readonly IMongoCollection<Collection> collections;
 
-    private const string Connection = "mongodb://newbestmovies:8EKEyY9fkFENBYGXvlwj58ln5AxDnLDqB1y9z5T6WGkCyNQpmRF2aiSPe3mT0GTjOAbCtpQrHCB2ACDbUwDkMg==@newbestmovies.mongo.cosmos.azure.com:10255/?ssl=true&retrywrites=false&replicaSet=globaldb&maxIdleTimeMS=120000&appName=@newbestmovies@";
+    private const string Connection = "mongodb://newbestmoviesv2:Jo7mRI46lGNRZN28rJxOAArrOGo8RySauO9udMUB9I32z8Zq9WQPNhKGLsiRMZc2EVAyVJZg8J4eACDbkgeadg==@newbestmoviesv2.mongo.cosmos.azure.com:10255/?ssl=true&retrywrites=false&replicaSet=globaldb&maxIdleTimeMS=120000&appName=@newbestmoviesv2@";
 
     public CollectionRepository()
     {
@@ -32,10 +32,9 @@ public class CollectionRepository : ICollectionRepository
         return results;
     }
 
-    public async Task<Collection> GetCollectionAsync(string email, int id)
+    public async Task<Collection> GetCollectionAsync(ObjectId id)
     {
-        var filter = Builders<Collection>.Filter.Eq("email", email) 
-                     & Builders<Collection>.Filter.Eq("id", id);
+        var filter = Builders<Collection>.Filter.Eq("_id", id);
         var results = await collections.Find(filter).FirstOrDefaultAsync();
 
         return results;

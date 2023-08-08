@@ -40,6 +40,7 @@ public class UserController : Controller
     {
         try
         {
+            Console.WriteLine("Email: " + user.Email);
             await userRepository.CreateUserAsync(user);
             return Ok(user);
         }

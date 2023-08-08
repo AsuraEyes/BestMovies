@@ -1,5 +1,5 @@
-using MovieServer.DAO;
 using MovieServer.Models;
+using MovieServer.Repository;
 
 namespace MovieServer.MiddlePoints;
 

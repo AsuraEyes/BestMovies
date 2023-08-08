@@ -1,17 +1,13 @@
 using System.Text.Json.Serialization;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Bson.Serialization.IdGenerators;
-using ThirdParty.Json.LitJson;
 
 namespace MovieServer.Models;
 
 public class Collection
 {
-    [BsonElement("_id")]
-    [BsonId(IdGenerator = typeof(StringObjectIdGenerator))]
-    [BsonRepresentation(BsonType.ObjectId)]
-    public string _id { set; get; }
+    [BsonId]
+    public ObjectId _id { set; get; }
     public int Id { set; get; }
     [BsonElement("user")]
     [BsonRepresentation(BsonType.ObjectId)]
@@ -24,4 +20,9 @@ public class Collection
     [JsonPropertyName("media")]
     public Media[]? Media { set; get; }
     public bool IsPublic { set; get; }
+
+    public Collection()
+    {
+        _id = ObjectId.GenerateNewId();
+    }
 }
