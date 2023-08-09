@@ -26,8 +26,6 @@ public class ReviewController : Controller
         
         try
         {
-            Console.WriteLine("Test");
-            Console.WriteLine("Review: " + review.Title);
             await reviewMiddlePoint.WriteReviewAsync(review);
             return Ok(review);
         }
@@ -39,12 +37,12 @@ public class ReviewController : Controller
     }
 
     [HttpGet]
-    [Route("/Movie/{mediaId:int}/Reviews")]
-    public async Task<ActionResult<IList<Review>>> GetAllMovieReviewsAsync(int mediaId)
+    [Route("{mediaId:int}/Reviews")]
+    public async Task<ActionResult<IList<Review>>> GetAllReviewsAsync(int mediaId)
     {
         try
         {
-            var reviews = await reviewMiddlePoint.GetAllMovieReviewsAsync(mediaId);
+            var reviews = await reviewMiddlePoint.GetAllReviewsAsync(mediaId);
             return Ok(reviews);
         }
         catch (Exception e)

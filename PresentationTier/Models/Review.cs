@@ -15,7 +15,8 @@ public class Review
     public DateTime? Edited { get; set; }
     public string Email { get; set; }
     public int MediaId { get; set; }
-    
+    public string Username { get; set; }
+
     public Review()
     {
         Id = ObjectId.GenerateNewId();

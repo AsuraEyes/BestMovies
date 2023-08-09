@@ -6,7 +6,7 @@ namespace PresentationTier.Data.Media;
 public class TVService : ITVService
 {
     private readonly HttpClient client;
-    private const string uri = "https://localhost:7254/";
+    private const string uri = "https://newbestmoviesapi.azurewebsites.net/";
     
     public TVService()
     {

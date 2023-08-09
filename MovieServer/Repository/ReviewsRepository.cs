@@ -22,7 +22,7 @@ public class ReviewsRepository : IReviewsRepository
         await reviews.InsertOneAsync(review);
     }
 
-    public async Task<IList<Review>> GetAllMovieReviewsAsync(int mediaId)
+    public async Task<IList<Review>> GetAllReviewsAsync(int mediaId)
     {
         var filter = Builders<Review>.Filter.Eq("media", mediaId);
         var results = await reviews.Find(filter).ToListAsync();

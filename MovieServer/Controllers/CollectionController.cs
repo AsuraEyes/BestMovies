@@ -20,7 +20,7 @@ public class CollectionController : Controller
     
     [HttpGet]
     [Route("{id:int}")]
-    public async Task<ActionResult<UserCollection>> GetMovieCollectionAsync(int id)
+    public async Task<ActionResult<Collection>> GetMovieCollectionAsync(int id)
     {
         try
         {

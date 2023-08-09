@@ -12,7 +12,7 @@ public class Review
     [BsonElement("title")]
     public string Title { get; set; }
     [BsonElement("rating")]
-    public double Rating { get; set; }
+    public int Score { get; set; }
     [BsonElement("description")]
     public string Description { get; set; }
     [BsonElement("is_spoiler")]
@@ -25,4 +25,5 @@ public class Review
     public string Email { get; set; }
     [BsonElement("media")]
     public int MediaId { get; set; }
+    public string Username { get; set; }
 }

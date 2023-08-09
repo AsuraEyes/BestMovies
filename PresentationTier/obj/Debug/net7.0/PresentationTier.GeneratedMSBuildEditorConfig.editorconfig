@@ -60,16 +60,8 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUGVyc29uUGFnZS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/sura/Documents/Documents - Timothy’s MacBook Pro/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/Pages/Playlist.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUGxheWxpc3QucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
 [/Users/sura/Documents/Documents - Timothy’s MacBook Pro/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/Pages/Posts.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUG9zdHMucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/sura/Documents/Documents - Timothy’s MacBook Pro/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/Pages/Profile.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUHJvZmlsZS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/sura/Documents/Documents - Timothy’s MacBook Pro/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/Pages/Search.razor]
@@ -94,10 +86,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/Users/sura/Documents/Documents - Timothy’s MacBook Pro/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/Pages/TVShowSearch.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvVFZTaG93U2VhcmNoLnJhem9y
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/sura/Documents/Documents - Timothy’s MacBook Pro/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/Shared/SurveyPrompt.razor]
-build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL1N1cnZleVByb21wdC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/sura/Documents/Documents - Timothy’s MacBook Pro/VIA/6TH SEMESTER/SEP/BestMovies/PresentationTier/_Imports.razor]

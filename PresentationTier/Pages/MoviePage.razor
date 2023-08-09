@@ -2,10 +2,13 @@
 @using PresentationTier.Models
 @using PresentationTier.Data.Media
 @using System.Globalization
+@using Microsoft.AspNetCore.Mvc.RazorPages
+@using PresentationTier.Data
 
 @inject NavigationManager NavigationManager
 
 @inject IMovieService MovieService
+@inject IReviewService ReviewService
 
 <PageTitle>@movie.Title (@movie.ReleaseDate.Year)</PageTitle>
 <RadzenRow Style="width: 1720px">
@@ -34,22 +37,6 @@
                     </RadzenStack>
                     <RadzenStack Style="max-height: 36px; position: relative; top: 40px" Orientation="Orientation.Horizontal">
                         <RadzenButton ButtonStyle="ButtonStyle.Dark" class="rz-border-radius-10" Icon="list"/>
-                        @if (favorites.Contains(movie))
-                        {
-                            <RadzenButton ButtonStyle="ButtonStyle.Dark" class="rz-border-radius-10" Icon="star" Style="color: #fefb00" />
-                        }
-                        else
-                        {
-                            <RadzenButton ButtonStyle="ButtonStyle.Dark" class="rz-border-radius-10" Icon="star"/>
-                        }
-                        @if (watchList.Contains(movie))
-                        {
-                            <RadzenButton ButtonStyle="ButtonStyle.Dark" class="rz-border-radius-10" Icon="bookmark" Style="color: #53d5fd"/>
-                        }
-                        else
-                        {
-                            <RadzenButton ButtonStyle="ButtonStyle.Dark" class="rz-border-radius-10" Icon="bookmark"/>
-                        }
                         <RadzenButton Variant="Variant.Text" ButtonStyle="ButtonStyle.Light" Icon="play_arrow" Style="max-height: 36px" Text="Trailer" Click="Open"/>
                     </RadzenStack>
                 </RadzenStack>
@@ -110,26 +97,30 @@
                 <hr/>
                 <RadzenText TextStyle="TextStyle.H5" Style="margin-bottom: 10px">Top Review</RadzenText>
                 <RadzenStack Style="width: 100%" Gap="10">
-                    <RadzenCard Style="border-radius: 10px; min-width: 100%" class="rz-shadow-7">
-                        <RadzenStack Orientation="Orientation.Horizontal">
-                            <RadzenImage Path="https://bootdey.com/img/Content/avatar/avatar6.png" Style="width: 50px; border-radius: 50%"/>
-                            <RadzenStack Gap="0" Style="width: 100%">
-                                <RadzenRow Gap="5">
+                    @if (reviews.Length != 0)
+                    {
+                        <RadzenCard Style="border-radius: 10px; max-width: 650px; min-width: 650px">
+                            <RadzenStack Orientation="Orientation.Horizontal">
+                                <RadzenImage Path="https://bootdey.com/img/Content/avatar/avatar6.png" Style="width: 50px; border-radius: 50%"/>
+                                <RadzenStack Gap="0" Style="width: 100%">
                                     <RadzenText TextStyle="TextStyle.DisplayH6">@review.Title</RadzenText>
-                                    <RadzenButton Size="ButtonSize.Small" Text="@review.Score.ToString()" Style="display: inline-block; position: relative; top: -5px" ButtonStyle="ButtonStyle.Dark" Icon="grade"/>
-                                </RadzenRow>
-                                <RadzenRow Gap="5">
-                                    <RadzenText TextStyle="TextStyle.Caption">
-                                        <RadzenLink Click="">Daniel</RadzenLink>
-                                    </RadzenText>
-                                    <RadzenText TextStyle="TextStyle.Caption">
-                                        @review.Created.ToString("dd MMMM yyyy")
-                                    </RadzenText>
-                                </RadzenRow>
+                                    <RadzenRow Gap="5">
+                                        <RadzenText TextStyle="TextStyle.Caption" Text="@review.Username"/>
+                                        <RadzenText TextStyle="TextStyle.Caption">
+                                            @review.Created.ToString("dd MMMM yyyy")
+                                        </RadzenText>
+                                    </RadzenRow>
+                                </RadzenStack>
                             </RadzenStack>
-                        </RadzenStack>
-                        <RadzenText Style="padding-top: 10px">@review.Description</RadzenText>
-                    </RadzenCard>
+                            <RadzenText Style="padding-top: 10px">@review.Description</RadzenText>
+                            <RadzenRating Value="review.Score" ReadOnly=true></RadzenRating>
+                        </RadzenCard>
+                    }
+                    else
+                    {
+                        <RadzenText Text="There are currently no reviews for this movie"/>
+                        <RadzenLink Path="@NavigateToReviewsPath()" Style="font-weight: 600">Be the first!!!</RadzenLink>
+                    }
                     <RadzenButton Variant="Variant.Text" ButtonStyle="ButtonStyle.Dark" Text="Read All Reviews" Click="NavigateToReviews" Style="text-align: left"/>
                 </RadzenStack>
             </RadzenStack>
@@ -229,22 +220,24 @@
     private Person[] crew = {};
     private Media[] recommended = {};
     private Media[] similar = {};
-    private readonly Review review = new() { Title = "Best Movie", Score = 3, Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." };
+    private Review review = new();
+    private Review[] reviews = { };
     private MovieCollection movieCollection;
-    private Collection lists;
-    private Media[] watchList = {};
-    private Media[] favorites = {};
 
     protected override async Task OnInitializedAsync()
     {
         movie = await MovieService.GetMovieAsync(Id);
         recommended = await MovieService.GetRecommendedAsync(Id);
         similar = await MovieService.GetSimilarAsync(Id);
+        reviews = await ReviewService.GetAllReviewsAsync(Id);
+        if (reviews.Length != 0)
+        {
+            review = reviews[0];
+        }
         genres = movie.Genres;
         cast = movie.Credits.TopCast;
         crew = movie.Credits.Crew;
         movieCollection = movie.MovieCollection;
-        await base.OnInitializedAsync();
     }
     
     private void Open()
@@ -262,6 +255,11 @@
         NavigationManager.NavigateTo($"/movie/{Id}/reviews");
     }
     
+    private string NavigateToReviewsPath()
+    {
+        return $"/movie/{Id}/reviews";
+    }
+    
     private void NavigateToCollection(int id)
     {
         NavigationManager.NavigateTo($"/collection/{id}");
@@ -277,7 +275,7 @@
         NavigationManager.NavigateTo($"/person/{id}");
     }
 
-    private void NavigateToMovie(int id)
+    private async Task NavigateToMovie(int id)
     {
         NavigationManager.NavigateTo($"/movie/{id}", true);
     }

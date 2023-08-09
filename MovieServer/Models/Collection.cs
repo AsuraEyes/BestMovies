@@ -18,6 +18,5 @@ public class Collection
     [JsonPropertyName("media")]
     public Media[]? Media { set; get; }
     public bool IsPublic { set; get; }
-
-
+    
 }

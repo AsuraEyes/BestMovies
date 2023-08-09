@@ -2,12 +2,17 @@
 @using PresentationTier.Models
 @using PresentationTier.Data.Media
 @using PresentationTier.Data
+@using PresentationTier.Authorization
+@using System.Security.Claims
+
+@inject NavigationManager NavigationManager
 
 @inject IMovieService MovieService
 @inject IReviewService ReviewService
+@inject AuthenticationStateProvider authenticationStateProvider
 
 <PageTitle>@movie.Title - Reviews</PageTitle>
-<RadzenStack Style="width: 1720px" Gap="45">
+<RadzenStack Gap="45">
     <RadzenStack Style="width: 100%; max-height: 200px; background-color: rgba(0, 0, 0, 0.8)">
         <RadzenImage Path="@movie.Backdrop" Style="opacity: 40%; mask-image: linear-gradient(to top, transparent 750px, black); pointer-events: none"/>
         <RadzenStack Orientation="Orientation.Horizontal" Style="position: absolute; margin: 45px 160px; width: 1400px">
@@ -22,8 +27,15 @@
     </RadzenStack>
 
     <RadzenRow>
-        <RadzenStack Orientation="Orientation.Horizontal" Style="width: 100%">
-            <RadzenButton Text="Write Review" Variant="Variant.Outlined" ButtonStyle="ButtonStyle.Dark" Icon="edit" Style="border-radius: 25px; max-height: 36px" Click="Open"/>
+        <RadzenStack Orientation="Orientation.Horizontal" Style="width: 100%; margin-left: 10%; margin-right: 10%">
+            <AuthorizeView Policy="Reviewer">
+                <Authorized>
+                    <RadzenButton Text="Write Review" Variant="Variant.Outlined" ButtonStyle="ButtonStyle.Dark" Icon="edit" Style="border-radius: 25px; max-height: 36px" Click="Open"/>
+                </Authorized>
+                <NotAuthorized>
+                    <RadzenButton Text="Write Review" Variant="Variant.Outlined" ButtonStyle="ButtonStyle.Dark" Icon="edit" Style="border-radius: 25px; max-height: 36px" Click="LogIn"/>
+                </NotAuthorized>
+            </AuthorizeView>
             @if (Display)
             {
                 <RadzenContent Style="position: fixed; inset: 0; padding: 0; background-color: rgba(0, 0, 0, 0.6)">
@@ -45,27 +57,31 @@
                 </RadzenContent>
             }
             <RadzenStack Gap="25">
-                @foreach (var review in GetReviews())
+                @if (reviews.Length != 0)
                 {
-                    <RadzenCard Style="border-radius: 10px; max-width: 650px; min-width: 650px">
-                        <RadzenStack Orientation="Orientation.Horizontal">
-                            <RadzenImage Path="https://bootdey.com/img/Content/avatar/avatar6.png" Style="width: 50px; border-radius: 50%"/>
-                            <RadzenStack Gap="0" Style="width: 100%">
-                                <RadzenText TextStyle="TextStyle.DisplayH6">@review.Title</RadzenText>
-
-                                <RadzenRow Gap="5">
-                                    <RadzenText TextStyle="TextStyle.Caption">
-                                        <RadzenLink Click="">@User.Username</RadzenLink>
-                                    </RadzenText>
-                                    <RadzenText TextStyle="TextStyle.Caption">
-                                        @review.Created.ToString("dd MMMM yyyy")
-                                    </RadzenText>
-                                </RadzenRow>
+                    @foreach (var review in reviews)
+                    {
+                        <RadzenCard Style="border-radius: 10px; max-width: 650px; min-width: 650px">
+                            <RadzenStack Orientation="Orientation.Horizontal">
+                                <RadzenImage Path="https://bootdey.com/img/Content/avatar/avatar6.png" Style="width: 50px; border-radius: 50%"/>
+                                <RadzenStack Gap="0" Style="width: 100%">
+                                    <RadzenText TextStyle="TextStyle.DisplayH6">@review.Title</RadzenText>
+                                    <RadzenRow Gap="5">
+                                        <RadzenText TextStyle="TextStyle.Caption" Text="@review.Username"/>
+                                        <RadzenText TextStyle="TextStyle.Caption">
+                                            @review.Created.ToString("dd MMMM yyyy")
+                                        </RadzenText>
+                                    </RadzenRow>
+                                </RadzenStack>
                             </RadzenStack>
-                        </RadzenStack>
-                        <RadzenText Style="padding-top: 10px">@review.Description</RadzenText>
-                        <RadzenRating Value="review.Score" ReadOnly=true></RadzenRating>
-                    </RadzenCard>
+                            <RadzenText Style="padding-top: 10px">@review.Description</RadzenText>
+                            <RadzenRating Value="review.Score" ReadOnly=true></RadzenRating>
+                        </RadzenCard>
+                    }
+                }
+                else
+                {
+                    <RadzenText Text="There are currently no reviews for this movie"/>
                 }
             </RadzenStack>
         </RadzenStack>
@@ -76,26 +92,17 @@
     [Parameter]
     public int Id { get; set; }
 
-    private User User = new(){Username = "John Doe", Joined = new DateTime(2022, 4, 12)};
     private Movie movie = new();
     private Review newReview = new();
+    private Review[] reviews = { };
     private bool Display;
 
     protected override async Task OnInitializedAsync()
     {
         movie = await MovieService.GetMovieAsync(Id);
+        reviews = await ReviewService.GetAllReviewsAsync(Id);
     }
 
-    private List<Review> GetReviews()
-    {
-        List<Review> reviews = new()
-        {
-            new Review{Title = "Test Review", Score = 4, Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."},
-            new Review{Title = "Test Review", Score = 3, Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."}
-        };
-        return reviews;
-    }
-    
     private static string NavigateToMovie(int id)
     {
         return $"movie/{id}";
@@ -104,13 +111,21 @@
     private async Task Submit()
     {
         newReview.MediaId = Id;
+        newReview.Email = ((CustomAuthenticationStateProvider)authenticationStateProvider)
+            .GetAuthenticationStateAsync().Result.User.FindFirst(claim => claim.Type.Equals(ClaimTypes.Email))?.Value;
         await ReviewService.WriteReviewAsync(newReview);
+        reviews = await ReviewService.GetAllReviewsAsync(Id);
         Close();
     }
     
     private void Open()
     {
         Display = true;
+    }
+    
+    private void LogIn()
+    {
+        NavigationManager.NavigateTo("/login");
     }
     
     private void Close()
