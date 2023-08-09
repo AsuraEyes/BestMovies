@@ -26,6 +26,7 @@ public class ReviewController : Controller
         
         try
         {
+            Console.WriteLine("Called!!!");
             await reviewMiddlePoint.WriteReviewAsync(review);
             return Ok(review);
         }

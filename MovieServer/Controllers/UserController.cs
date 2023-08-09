@@ -10,7 +10,6 @@ namespace MovieServer.Controllers;
 public class UserController : Controller
 {
     private readonly IUserRepository userRepository;
-    //private readonly IUserService userService;
     private readonly IUserMiddlePoint userMiddlePoint;
     public UserController(IUserRepository userRepository, IUserMiddlePoint userMiddlePoint)
     {

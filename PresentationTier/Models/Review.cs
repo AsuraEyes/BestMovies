@@ -16,9 +16,4 @@ public class Review
     public string Email { get; set; }
     public int MediaId { get; set; }
     public string Username { get; set; }
-
-    public Review()
-    {
-        Id = ObjectId.GenerateNewId();
-    }
 }

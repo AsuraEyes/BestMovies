@@ -113,6 +113,7 @@
         newReview.MediaId = Id;
         newReview.Email = ((CustomAuthenticationStateProvider)authenticationStateProvider)
             .GetAuthenticationStateAsync().Result.User.FindFirst(claim => claim.Type.Equals(ClaimTypes.Email))?.Value;
+        Console.WriteLine("Id: " + newReview.Id + "\nEmail: " + newReview.Email);
         await ReviewService.WriteReviewAsync(newReview);
         reviews = await ReviewService.GetAllReviewsAsync(Id);
         Close();

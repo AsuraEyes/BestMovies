@@ -1,3 +1,4 @@
+using MongoDB.Bson;
 using MovieServer.Models;
 using MovieServer.Repository;
 
@@ -20,6 +21,7 @@ public class ReviewMiddlePoint : IReviewMiddlePoint
     {
         var user = await userRepository.GetUserAsync(review.Email);
         review.Username = user.Username;
+        review.Id = ObjectId.GenerateNewId();
         await reviewsRepository.WriteReviewAsync(review);
     }
 

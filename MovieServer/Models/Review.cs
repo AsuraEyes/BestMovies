@@ -26,4 +26,6 @@ public class Review
     [BsonElement("media")]
     public int MediaId { get; set; }
     public string Username { get; set; }
+    
+    
 }
