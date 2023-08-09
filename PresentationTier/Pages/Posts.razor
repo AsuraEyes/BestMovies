@@ -80,7 +80,7 @@
     .title {
         font-size: 24px;
         margin-bottom: 10px;
-        color: #1A3AA4;
+        color: steelblue;
     }
 
     .post-card .profile-info {
@@ -100,7 +100,7 @@
     .post-card .content {
         margin-bottom: 10px;
         font-size: 18px;
-        color: #A4841A;
+        color: black;
     }
 
     .post-card .icons {
@@ -127,11 +127,6 @@
         padding: 20px;
         border-radius: 5px;
         box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.1);
-        .trending-section h1;
-
-    {
-        font-size: 24px;
-        margin-bottom: 20px;
     }
 
     .trending-card {
@@ -206,7 +201,7 @@
                     <div class="content">@post.Content</div>
                     <div class="icons">
                         <div class="like-dislike-container">
-                            <img id="likeIcon" src="/images/icons/thumbs-up-solid.svg" alt="Like" @onclick="() => LikePost(post)" />
+                            <img id="likeIcon" src="/images/Icons/like.png" alt="Like" @onclick="() => LikePost(post)" />
                             <div class="icon-label">Likes: @post.NumberOfLikes</div>
                         </div>
                         <div class="like-dislike-container">
